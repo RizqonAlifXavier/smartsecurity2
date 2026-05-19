@@ -1,4 +1,4 @@
-const WA_NUMBER = '6281234567890' // Ganti dengan nomor WhatsApp Anda
+const WA_NUMBER = '6285899041795'
 
 export function useWhatsApp() {
   const getWhatsAppLink = (message?: string): string => {

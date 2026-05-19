@@ -1,12 +1,6 @@
 <template>
   <section id="hero" class="hero">
-    <div class="hero-bg">
-      <div class="hero-grid"></div>
-      <div class="hero-orb hero-orb-1" data-parallax="up" data-parallax-speed="0.08"></div>
-      <div class="hero-orb hero-orb-2" data-parallax="down" data-parallax-speed="0.12"></div>
-      <div class="hero-orb hero-orb-3" data-parallax="left" data-parallax-speed="0.06"></div>
-      <div v-for="n in 20" :key="n" class="hero-particle" :style="particleStyle(n)"></div>
-    </div>
+    <div class="hero-bg"></div>
     <div class="container hero-content">
       <div class="hero-badge animate-on-scroll slide-reveal">
         <span class="badge-dot"></span>
@@ -83,9 +77,7 @@ const particleStyle = (n) => {
 .hero-bg {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 30% 40%, rgba(220,38,38,0.12) 0%, transparent 60%),
-              radial-gradient(ellipse at 70% 80%, rgba(220,38,38,0.08) 0%, transparent 50%),
-              var(--bg-primary);
+  background: transparent;
 }
 .hero-grid {
   position: absolute;

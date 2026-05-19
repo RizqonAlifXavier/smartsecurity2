@@ -47,11 +47,11 @@ const isScrolled = ref(false)
 const isMenuOpen = ref(false)
 
 const menuItems = [
-  { label: 'Beranda', href: '#hero' },
-  { label: 'Produk', href: '#produk' },
-  { label: 'Tentang', href: '#tentang' },
-  { label: 'Keunggulan', href: '#keunggulan' },
-  { label: 'Kontak', href: '#kontak' },
+  { label: 'Beranda', href: '/#hero' },
+  { label: 'Produk', href: '/#produk' },
+  { label: 'Tentang', href: '/#tentang' },
+  { label: 'Keunggulan', href: '/#keunggulan' },
+  { label: 'Kontak', href: '/#kontak' },
 ]
 
 const toggleMenu = () => { isMenuOpen.value = !isMenuOpen.value }

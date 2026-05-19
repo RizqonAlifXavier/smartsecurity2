@@ -4,7 +4,6 @@
     <ProductsSection />
     <AboutSection />
     <FeaturesSection />
-    <TestimonialsSection />
     <ContactSection />
   </div>
 </template>
@@ -28,7 +27,7 @@ useHead({
         description: 'Penyedia solusi keamanan terlengkap di Indonesia',
         contactPoint: {
           '@type': 'ContactPoint',
-          telephone: '+62-812-3456-7890',
+          telephone: '+62-858-9904-1795',
           contactType: 'sales',
         },
       }),

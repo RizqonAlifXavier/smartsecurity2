@@ -24,11 +24,12 @@
         <div class="footer-col">
           <h4 class="footer-heading">Produk</h4>
           <ul>
-            <li><a href="#produk">CCTV Camera</a></li>
-            <li><a href="#produk">Access Control</a></li>
-            <li><a href="#produk">Alarm System</a></li>
-            <li><a href="#produk">Intercom</a></li>
             <li><a href="#produk">Fire Alarm</a></li>
+            <li><a href="#produk">Access Control</a></li>
+            <li><a href="#produk">CCTV</a></li>
+            <li><a href="#produk">Security System</a></li>
+            <li><a href="#produk">IT Solution</a></li>
+            <li><a href="#produk">Perimeter Fencing</a></li>
           </ul>
         </div>
 
@@ -48,15 +49,15 @@
           <ul class="contact-list">
             <li>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              Jakarta, Indonesia
+              <span>PT Sinergi Sempurna Solusindo<br>Jl. Ngagel No.213-I, Ngagel<br>Kec. Wonokromo, Surabaya<br>Jawa Timur 60246</span>
             </li>
             <li>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-              +62 812-3456-7890
+              <span>(031) 99022709</span>
             </li>
             <li>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4l-10 8L2 4"/></svg>
-              info@smartsecurity.co.id
+              <span>info@smartsecurity.co.id</span>
             </li>
           </ul>
         </div>
@@ -86,7 +87,7 @@ const currentYear = new Date().getFullYear()
 
 <style scoped>
 .footer {
-  background: var(--bg-secondary);
+  background: transparent;
   border-top: 1px solid var(--border);
   padding: 80px 0 0;
   position: relative;
@@ -156,10 +157,15 @@ const currentYear = new Date().getFullYear()
 
 .contact-list li {
   display: flex;
-  align-items: center;
-  gap: 8px;
+  align-items: flex-start;
+  gap: 10px;
   color: var(--text-secondary);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+.contact-list li svg {
+  margin-top: 3px;
 }
 
 .contact-list svg {
