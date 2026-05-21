@@ -6,46 +6,39 @@
         <!-- Brand -->
         <div class="footer-brand">
           <div class="footer-logo">
-            <div class="logo-icon">
-              <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
-                <rect width="32" height="32" rx="8" fill="url(#flogo)" />
-                <path d="M16 6C12.13 6 9 9.13 9 13v3.17c0 .74-.27 1.45-.76 2L7 19.5V21h18v-1.5l-1.24-1.33c-.49-.55-.76-1.26-.76-2V13c0-3.87-3.13-7-7-7zm0 20c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2z" fill="white" />
-                <defs><linearGradient id="flogo" x1="0" y1="0" x2="32" y2="32"><stop stop-color="#DC2626" /><stop offset="1" stop-color="#991B1B" /></linearGradient></defs>
-              </svg>
-            </div>
-            <span class="logo-text">Smart<span class="accent">Security</span></span>
+            <img src="/logo.jpg" alt="Sinergi Sempurna Solusindo" class="brand-logo-img" />
           </div>
           <p class="footer-desc">
-            Solusi keamanan terlengkap dan terpercaya untuk rumah, kantor, dan bisnis Anda. Melayani konsultasi, penjualan, dan pemasangan profesional.
+            PT Sinergi Sempurna Solusindo (Smart Security) — The most comprehensive and trusted authorized distributor for security solutions (CCTV, Access Control, Fire Alarm, IT Solutions) for your home, office, and business. Providing consultation, sales, and professional installation.
           </p>
         </div>
 
         <!-- Products -->
         <div class="footer-col">
-          <h4 class="footer-heading">Produk</h4>
+          <h4 class="footer-heading">Products</h4>
           <ul>
-            <li><a href="#produk">Fire Alarm</a></li>
-            <li><a href="#produk">Access Control</a></li>
-            <li><a href="#produk">CCTV</a></li>
-            <li><a href="#produk">Security System</a></li>
-            <li><a href="#produk">IT Solution</a></li>
-            <li><a href="#produk">Perimeter Fencing</a></li>
+            <li><a href="#products">Fire Alarm</a></li>
+            <li><a href="#products">Access Control</a></li>
+            <li><a href="#products">CCTV</a></li>
+            <li><a href="#products">Security System</a></li>
+            <li><a href="#products">IT Solution</a></li>
+            <li><a href="#products">Perimeter Fencing</a></li>
           </ul>
         </div>
 
         <!-- Company -->
         <div class="footer-col">
-          <h4 class="footer-heading">Perusahaan</h4>
+          <h4 class="footer-heading">Company</h4>
           <ul>
-            <li><a href="#tentang">Tentang Kami</a></li>
-            <li><a href="#keunggulan">Keunggulan</a></li>
-            <li><a href="#kontak">Hubungi Kami</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#features">Why Us</a></li>
+            <li><a href="#contact">Contact Us</a></li>
           </ul>
         </div>
 
         <!-- Contact -->
         <div class="footer-col">
-          <h4 class="footer-heading">Kontak</h4>
+          <h4 class="footer-heading">Contact</h4>
           <ul class="contact-list">
             <li>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -123,7 +116,14 @@ const currentYear = new Date().getFullYear()
   margin-bottom: 16px;
 }
 
-.accent { color: var(--red); }
+.brand-logo-img {
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+  background: white;
+  padding: 8px;
+  border-radius: 8px;
+}
 
 .footer-desc {
   color: var(--text-secondary);

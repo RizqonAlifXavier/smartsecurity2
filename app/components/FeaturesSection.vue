@@ -1,11 +1,11 @@
 <template>
-  <section id="keunggulan" class="section section-alt">
+  <section id="features" class="section section-alt">
     <div class="container">
       <div class="section-header">
-        <span class="section-badge animate-on-scroll bounce-in">Keunggulan</span>
-        <h2 class="section-title animate-on-scroll blur-in delay-1">Mengapa Memilih Kami?</h2>
+        <span class="section-badge animate-on-scroll bounce-in">Our Advantages</span>
+        <h2 class="section-title animate-on-scroll blur-in delay-1">Why Choose Us?</h2>
         <p class="section-subtitle animate-on-scroll fade-up delay-2">
-          Komitmen kami untuk memberikan solusi keamanan terbaik dengan layanan profesional
+          Our commitment to providing the best security solutions with professional service
         </p>
       </div>
       <div class="features-grid">
@@ -34,33 +34,33 @@
 const features = [
   {
     icon: '🛡️',
-    title: 'Produk Bergaransi',
-    description: 'Semua produk dilengkapi garansi resmi. Kami hanya menyediakan produk dari brand terpercaya dengan kualitas terjamin.'
+    title: 'Guaranteed Products',
+    description: 'All products come with official warranty. We only provide products from trusted brands with guaranteed quality.'
   },
   {
     icon: '⚡',
-    title: 'Pemasangan Cepat',
-    description: 'Tim teknisi profesional kami siap melakukan pemasangan dengan cepat dan rapi, minimal downtime untuk bisnis Anda.'
+    title: 'Fast Installation',
+    description: 'Our professional technician team is ready to perform quick and clean installations, with minimal downtime for your business.'
   },
   {
     icon: '🎯',
-    title: 'Konsultasi Gratis',
-    description: 'Dapatkan konsultasi gratis dari tim ahli kami untuk menentukan solusi keamanan yang tepat sesuai kebutuhan Anda.'
+    title: 'Free Consultation',
+    description: 'Get free consultation from our expert team to determine the right security solution for your needs.'
   },
   {
     icon: '🔧',
-    title: 'Support 24/7',
-    description: 'Layanan support teknis tersedia 24 jam 7 hari. Kami siap membantu kapanpun Anda membutuhkan.'
+    title: '24/7 Support',
+    description: 'Technical support service available 24 hours a day, 7 days a week. We are ready to help whenever you need us.'
   },
   {
     icon: '💰',
-    title: 'Harga Kompetitif',
-    description: 'Harga bersaing dengan kualitas premium. Tersedia berbagai paket sesuai budget Anda.'
+    title: 'Competitive Pricing',
+    description: 'Competitive prices with premium quality. Various packages available to suit your budget.'
   },
   {
     icon: '🏆',
-    title: 'Berpengalaman 10+ Tahun',
-    description: 'Lebih dari satu dekade pengalaman melayani ribuan klien di berbagai sektor industri.'
+    title: '10+ Years of Experience',
+    description: 'Over a decade of experience serving thousands of clients across various industry sectors.'
   },
 ]
 

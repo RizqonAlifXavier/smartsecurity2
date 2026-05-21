@@ -8,7 +8,7 @@
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="15 18 9 12 15 6"/>
           </svg>
-          Kembali ke Brand
+          Back to Brands
         </NuxtLink>
 
         <div class="hero-content">
@@ -17,9 +17,9 @@
               <span>{{ currentBrand?.logo || '?' }}</span>
             </div>
           </div>
-          <h1 class="page-title animate-on-scroll fade-up delay-1">{{ currentBrand?.name || 'Semua Produk' }}</h1>
+          <h1 class="page-title animate-on-scroll fade-up delay-1">{{ currentBrand?.name || 'All Products' }}</h1>
           <p class="page-subtitle animate-on-scroll fade-up delay-2">
-            {{ currentBrand?.description || 'Lihat semua produk keamanan yang tersedia' }}
+            {{ currentBrand?.description || 'View all available security products' }}
           </p>
           <div class="hero-meta animate-on-scroll fade-up delay-3">
             <span class="meta-item">
@@ -27,74 +27,127 @@
                 <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
                 <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
               </svg>
-              {{ brandProducts.length }} Produk
+              {{ allBrandProducts.length }} Products
             </span>
             <span class="meta-divider">•</span>
             <span class="meta-item">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                <polyline points="22 4 12 14.01 9 11.01"/>
+                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
               </svg>
-              {{ currentBrand?.categoryLabel || 'Semua Kategori' }}
+              {{ brandCategories.length }} Categories
             </span>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Products Grid -->
+    <!-- Main Content -->
     <div class="products-content">
       <div class="container">
-        <!-- Category Tabs for same-brand navigation -->
-        <div v-if="relatedBrands.length > 1" class="related-brands animate-on-scroll fade-up">
-          <h3 class="related-title">Brand lain di kategori {{ currentBrand?.categoryLabel }}:</h3>
-          <div class="related-list">
-            <NuxtLink
-              v-for="rb in relatedBrands"
-              :key="rb.id"
-              :to="`/products?brand=${rb.id}&category=${rb.category}`"
-              :class="['related-chip', { active: rb.id === brandId }]"
+
+        <!-- ==================== -->
+        <!-- CATEGORY CARDS GRID  -->
+        <!-- ==================== -->
+        <div v-if="brandCategories.length > 0" class="categories-section">
+          <div class="section-label animate-on-scroll fade-up">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7"/>
+              <rect x="14" y="3" width="7" height="7"/>
+              <rect x="14" y="14" width="7" height="7"/>
+              <rect x="3" y="14" width="7" height="7"/>
+            </svg>
+            <span>{{ currentBrand?.name }} Product Categories</span>
+          </div>
+
+          <div class="category-grid">
+            <button
+              v-for="(cat, index) in brandCategories"
+              :key="cat.id"
+              :class="['category-card', 'animate-on-scroll', 'fade-up', { active: activeCategory === cat.id }]"
+              :style="{ transitionDelay: `${index * 0.08}s` }"
+              @click="setCategory(cat.id)"
             >
-              {{ rb.name }}
-            </NuxtLink>
+              <div class="cat-card-glow"></div>
+              <div class="cat-card-icon">
+                <span>{{ cat.icon }}</span>
+              </div>
+              <div class="cat-card-info">
+                <h3 class="cat-card-name">{{ cat.label }}</h3>
+                <p class="cat-card-count">{{ getCategoryProductCount(cat.id) }} Products available</p>
+              </div>
+              <div class="cat-card-arrow">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 18 15 12 9 6"/>
+                </svg>
+              </div>
+              <div class="cat-card-active-indicator" v-if="activeCategory === cat.id">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </div>
+            </button>
           </div>
         </div>
 
-        <div class="product-grid">
-          <div
-            v-for="(product, index) in brandProducts"
-            :key="product.id"
-            class="product-card animate-on-scroll fade-up"
-            :style="{ transitionDelay: `${index * 0.08}s` }"
-          >
-            <div class="product-image">
-              <div class="product-icon">{{ product.icon }}</div>
-              <span v-if="product.badge" class="product-badge">{{ product.badge }}</span>
+        <!-- ==================== -->
+        <!-- PRODUCTS SECTION     -->
+        <!-- ==================== -->
+        <div v-if="activeCategory" class="products-section">
+          <div class="products-header animate-on-scroll fade-up">
+            <div class="products-header-left">
+              <h2 class="products-section-title">
+                <span class="products-section-icon">{{ activeCategoryIcon }}</span>
+                {{ activeCategoryLabel }} Products
+              </h2>
+              <p class="products-section-count">{{ filteredProducts.length }} products found</p>
             </div>
-            <div class="product-info">
-              <span class="product-category">{{ product.categoryLabel }}</span>
-              <h3 class="product-name">{{ product.name }}</h3>
-              <p class="product-desc">{{ product.description }}</p>
-              <div class="product-features">
-                <span v-for="f in product.features" :key="f" class="feature-tag">{{ f }}</span>
+            <button v-if="activeCategory !== 'all'" class="btn-show-all" @click="setCategory('all')">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="7" height="7"/>
+                <rect x="14" y="3" width="7" height="7"/>
+                <rect x="14" y="14" width="7" height="7"/>
+                <rect x="3" y="14" width="7" height="7"/>
+              </svg>
+              Show All
+            </button>
+          </div>
+
+          <div class="product-grid">
+            <div
+              v-for="(product, index) in filteredProducts"
+              :key="product.id"
+              class="product-card animate-on-scroll fade-up"
+              :style="{ transitionDelay: `${index * 0.08}s` }"
+            >
+              <div class="product-image">
+                <div class="product-icon">{{ product.icon }}</div>
+                <span v-if="product.badge" class="product-badge">{{ product.badge }}</span>
               </div>
-              <div class="product-footer">
-                <span class="product-price">{{ product.price }}</span>
-                <button class="btn btn-wa btn-sm" @click.prevent="askProduct(product)">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
-                  Tanya via WA
-                </button>
+              <div class="product-info">
+                <span class="product-category">{{ product.categoryLabel }}</span>
+                <h3 class="product-name">{{ product.name }}</h3>
+                <p class="product-desc">{{ product.description }}</p>
+                <div class="product-features">
+                  <span v-for="f in product.features" :key="f" class="feature-tag">{{ f }}</span>
+                </div>
+                <div class="product-footer">
+                  <span class="product-price">{{ product.price }}</span>
+                  <button class="btn btn-wa btn-sm" @click.prevent="askProduct(product)">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+                    Ask via WA
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
         <!-- Empty State -->
-        <div v-if="brandProducts.length === 0" class="empty-state animate-on-scroll fade-up">
+        <div v-if="allBrandProducts.length === 0" class="empty-state animate-on-scroll fade-up">
           <div class="empty-icon">📦</div>
-          <h3>Belum ada produk</h3>
-          <p>Produk untuk brand ini akan segera ditambahkan.</p>
-          <NuxtLink to="/#produk" class="btn btn-primary">Kembali ke Brand</NuxtLink>
+          <h3>No products yet</h3>
+          <p>Products for this brand will be added soon.</p>
+          <NuxtLink to="/#products" class="btn btn-primary">Back to Brands</NuxtLink>
         </div>
       </div>
     </div>
@@ -102,31 +155,83 @@
 </template>
 
 <script setup>
-import { products, brands } from '~/data/products'
+import { products, brands, categories } from '~/data/products'
 
 const route = useRoute()
+const router = useRouter()
 const { openProductWhatsApp } = useWhatsApp()
-
 const { initScrollAnimations } = useScrollAnimation()
 
 const brandId = computed(() => route.query.brand || '')
-const categoryId = computed(() => route.query.category || '')
+const categoryFromQuery = computed(() => route.query.category || '')
 
 const currentBrand = computed(() => {
   return brands.find((b) => b.id === brandId.value) || null
 })
 
-const brandProducts = computed(() => {
+// All products for the current brand (no category filter)
+const allBrandProducts = computed(() => {
   if (!brandId.value) return products
   return products.filter((p) => p.brand === brandId.value)
 })
 
-const relatedBrands = computed(() => {
-  if (!categoryId.value) return []
-  return brands.filter((b) => b.category === categoryId.value)
+// Default to 'all' — show all products
+const activeCategory = ref('all')
+
+// Sync activeCategory from URL on load and on query change
+watch(categoryFromQuery, (val) => {
+  if (val && allBrandProducts.value.some((p) => p.category === val)) {
+    activeCategory.value = val
+  } else {
+    activeCategory.value = 'all'
+  }
+}, { immediate: true })
+
+// Products filtered by both brand and active category
+const filteredProducts = computed(() => {
+  if (activeCategory.value === 'all') return allBrandProducts.value
+  return allBrandProducts.value.filter((p) => p.category === activeCategory.value)
 })
 
-// Re-initialize scroll animations when brand changes so new product cards become visible
+// Unique categories that the current brand's products belong to
+const brandCategories = computed(() => {
+  const catIds = [...new Set(allBrandProducts.value.map((p) => p.category))]
+  return catIds
+    .map((id) => categories.find((c) => c.id === id))
+    .filter(Boolean)
+})
+
+const activeCategoryLabel = computed(() => {
+  if (activeCategory.value === 'all') return 'All Categories'
+  const cat = categories.find((c) => c.id === activeCategory.value)
+  return cat ? cat.label : 'All Categories'
+})
+
+const activeCategoryIcon = computed(() => {
+  if (activeCategory.value === 'all') return '🏷️'
+  const cat = categories.find((c) => c.id === activeCategory.value)
+  return cat ? cat.icon : '🏷️'
+})
+
+const getCategoryProductCount = (catId) => {
+  return allBrandProducts.value.filter((p) => p.category === catId).length
+}
+
+const setCategory = (catId) => {
+  activeCategory.value = catId
+  const query = { ...route.query }
+  if (catId === 'all') {
+    delete query.category
+  } else {
+    query.category = catId
+  }
+  router.replace({ query })
+  nextTick(() => {
+    initScrollAnimations()
+  })
+}
+
+// Re-initialize scroll animations when brand changes
 watch(brandId, () => {
   nextTick(() => {
     initScrollAnimations()
@@ -139,14 +244,14 @@ const askProduct = (product) => {
 
 useHead({
   title: currentBrand.value
-    ? `${currentBrand.value.name} - Produk ${currentBrand.value.categoryLabel} | Smart Security`
-    : 'Semua Produk | Smart Security',
+    ? `${currentBrand.value.name} - ${currentBrand.value.categoryLabel} Products | Smart Security`
+    : 'All Products | Smart Security',
   meta: [
     {
       name: 'description',
       content: currentBrand.value
-        ? `Lihat produk ${currentBrand.value.name} untuk ${currentBrand.value.categoryLabel} di Smart Security. ${currentBrand.value.description}`
-        : 'Lihat semua produk keamanan dari Smart Security.',
+        ? `View ${currentBrand.value.name} products for ${currentBrand.value.categoryLabel} at Smart Security. ${currentBrand.value.description}`
+        : 'View all security products from Smart Security.',
     },
   ],
 })
@@ -267,51 +372,235 @@ useHead({
   padding: 60px 0 100px;
 }
 
-/* Related Brands */
-.related-brands {
-  margin-bottom: 40px;
-  padding: 24px;
-  background: rgba(255,255,255,0.02);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
+/* ======================== */
+/* Category Cards Section   */
+/* ======================== */
+.categories-section {
+  margin-bottom: 48px;
 }
 
-.related-title {
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.section-label svg {
+  color: var(--red-light);
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.category-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  text-align: left;
+  font-family: inherit;
+  color: inherit;
+  overflow: hidden;
+}
+
+.category-card:hover {
+  border-color: rgba(220,38,38,0.3);
+  background: var(--bg-card-hover);
+  box-shadow: 0 8px 32px rgba(220,38,38,0.12);
+  transform: translateY(-4px);
+}
+
+.category-card.active {
+  border-color: rgba(220,38,38,0.5);
+  background: linear-gradient(135deg, rgba(220,38,38,0.12), rgba(220,38,38,0.04));
+  box-shadow: 0 8px 32px rgba(220,38,38,0.18), 0 0 0 1px rgba(220,38,38,0.15);
+}
+
+.cat-card-glow {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, rgba(220,38,38,0.06) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.category-card:hover .cat-card-glow,
+.category-card.active .cat-card-glow {
+  opacity: 1;
+}
+
+.cat-card-icon {
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(220,38,38,0.12), rgba(220,38,38,0.04));
+  border: 1px solid rgba(220,38,38,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  transition: all 0.4s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.category-card:hover .cat-card-icon,
+.category-card.active .cat-card-icon {
+  background: linear-gradient(135deg, rgba(220,38,38,0.2), rgba(220,38,38,0.08));
+  border-color: rgba(220,38,38,0.3);
+  transform: scale(1.05);
+}
+
+.cat-card-info {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.cat-card-name {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 4px;
+  transition: color 0.3s ease;
+}
+
+.category-card:hover .cat-card-name {
+  color: var(--red-light);
+}
+
+.category-card.active .cat-card-name {
+  color: var(--red-light);
+}
+
+.cat-card-count {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.cat-card-arrow {
+  flex-shrink: 0;
+  color: var(--text-muted);
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.category-card:hover .cat-card-arrow {
+  color: var(--red-light);
+  transform: translateX(4px);
+}
+
+.category-card.active .cat-card-arrow {
+  display: none;
+}
+
+.cat-card-active-indicator {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--red), var(--red-dark));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: 0 4px 12px rgba(220,38,38,0.3);
+  animation: pop-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes pop-in {
+  from { transform: scale(0); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* ======================== */
+/* Products Section         */
+/* ======================== */
+.products-section {
+  padding-top: 8px;
+}
+
+.products-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.products-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.products-section-title {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.products-section-icon {
+  font-size: 1.3rem;
+}
+
+.products-section-count {
   font-size: 0.85rem;
   color: var(--text-muted);
   font-weight: 500;
-  margin-bottom: 12px;
 }
 
-.related-list {
-  display: flex;
-  flex-wrap: wrap;
+.btn-show-all {
+  display: inline-flex;
+  align-items: center;
   gap: 8px;
-}
-
-.related-chip {
-  padding: 8px 18px;
+  padding: 10px 20px;
   border-radius: var(--radius-full);
   background: rgba(255,255,255,0.04);
   border: 1px solid var(--border);
   color: var(--text-secondary);
   font-size: 0.85rem;
-  font-weight: 500;
+  font-weight: 600;
+  cursor: pointer;
   transition: all 0.3s ease;
-  text-decoration: none;
+  font-family: inherit;
 }
 
-.related-chip:hover {
+.btn-show-all:hover {
   border-color: var(--border-hover);
   color: var(--white);
   background: rgba(255,255,255,0.08);
-}
-
-.related-chip.active {
-  background: linear-gradient(135deg, var(--red), var(--red-dark));
-  border-color: var(--red);
-  color: var(--white);
-  box-shadow: 0 4px 16px rgba(220,38,38,0.25);
 }
 
 /* Product Grid */
@@ -454,9 +743,12 @@ useHead({
 @media (max-width: 768px) {
   .page-hero { padding: 100px 0 40px; }
   .product-grid { grid-template-columns: 1fr; }
+  .category-grid { grid-template-columns: 1fr; }
   .brand-hero-logo { width: 80px; height: 80px; }
   .brand-hero-logo span { font-size: 1.4rem; }
   .hero-meta { flex-direction: column; gap: 6px; }
   .meta-divider { display: none; }
+  .products-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .products-section-title { font-size: 1.2rem; }
 }
 </style>

@@ -1,11 +1,11 @@
 <template>
-  <section id="kontak" class="section section-alt">
+  <section id="contact" class="section section-alt">
     <div class="container">
       <div class="section-header">
-        <span class="section-badge animate-on-scroll bounce-in">Kontak</span>
-        <h2 class="section-title animate-on-scroll blur-in delay-1">Hubungi Kami</h2>
+        <span class="section-badge animate-on-scroll bounce-in">Contact</span>
+        <h2 class="section-title animate-on-scroll blur-in delay-1">Get in Touch</h2>
         <p class="section-subtitle animate-on-scroll fade-up delay-2">
-          Konsultasikan kebutuhan keamanan Anda. Kami siap membantu!
+          Consult your security needs with us. We are ready to help!
         </p>
       </div>
       <div class="contact-grid">
@@ -27,23 +27,23 @@
         <div class="contact-form-wrap animate-on-scroll flip-up delay-2">
           <form class="contact-form" @submit.prevent="submitForm">
             <div class="form-group">
-              <label for="name">Nama Lengkap</label>
-              <input type="text" id="name" v-model="form.name" placeholder="Masukkan nama Anda" required />
+              <label for="name">Full Name</label>
+              <input type="text" id="name" v-model="form.name" placeholder="Enter your name" required />
             </div>
             <div class="form-group">
               <label for="email">Email</label>
               <input type="email" id="email" v-model="form.email" placeholder="email@contoh.com" required />
             </div>
             <div class="form-group">
-              <label for="phone">No. Telepon</label>
+              <label for="phone">Phone Number</label>
               <input type="tel" id="phone" v-model="form.phone" placeholder="08xxxxxxxxxx" />
             </div>
             <div class="form-group">
-              <label for="message">Pesan</label>
-              <textarea id="message" v-model="form.message" rows="4" placeholder="Ceritakan kebutuhan keamanan Anda..." required></textarea>
+              <label for="message">Message</label>
+              <textarea id="message" v-model="form.message" rows="4" placeholder="Tell us about your security needs..." required></textarea>
             </div>
             <button type="submit" class="btn btn-primary" style="width:100%">
-              Kirim Pesan
+              Send Message
             </button>
           </form>
         </div>
@@ -54,18 +54,18 @@
 
 <script setup>
 const { getWhatsAppLink } = useWhatsApp()
-const waLink = getWhatsAppLink('Halo Smart Security! Saya ingin konsultasi tentang kebutuhan keamanan.')
+const waLink = getWhatsAppLink('Hello Smart Security! I would like to consult about security needs.')
 
 const form = reactive({ name: '', email: '', phone: '', message: '' })
 
 const contactInfo = [
   {
-    title: 'Alamat',
+    title: 'Address',
     value: 'PT SINERGI SEMPURNA SOLUSINDO, Jl. Ngagel No.213-I, Surabaya',
     svg: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>'
   },
   {
-    title: 'Telepon',
+    title: 'Phone',
     value: '(031) 99022709',
     svg: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>'
   },
@@ -77,7 +77,7 @@ const contactInfo = [
 ]
 
 const submitForm = () => {
-  const msg = `Halo Smart Security!\n\nNama: ${form.name}\nEmail: ${form.email}\nTelepon: ${form.phone}\n\nPesan:\n${form.message}`
+  const msg = `Hello Smart Security!\n\nName: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\n\nMessage:\n${form.message}`
   const { openWhatsApp } = useWhatsApp()
   openWhatsApp(msg)
 }

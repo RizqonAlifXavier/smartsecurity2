@@ -1,8 +1,8 @@
 <template>
   <div>
     <HeroSection />
-    <ProductsSection />
     <AboutSection />
+    <ProductsSection />
     <FeaturesSection />
     <ContactSection />
   </div>
@@ -12,9 +12,9 @@
 useScrollAnimation()
 
 useHead({
-  title: 'Smart Security - Solusi Keamanan Terpercaya | CCTV, Access Control, Alarm System',
+  title: 'Smart Security - Trusted Security Solutions | CCTV, Access Control, Alarm System',
   meta: [
-    { name: 'description', content: 'Smart Security menyediakan solusi keamanan terlengkap: CCTV, Access Control, Alarm System, Intercom, Fire Alarm. Konsultasi gratis & pemasangan profesional.' },
+    { name: 'description', content: 'Smart Security provides the most comprehensive security solutions: CCTV, Access Control, Alarm System, Intercom, Fire Alarm. Free consultation & professional installation.' },
   ],
   script: [
     {
@@ -24,7 +24,7 @@ useHead({
         '@type': 'Organization',
         name: 'Smart Security',
         url: 'https://smartsecurity.co.id',
-        description: 'Penyedia solusi keamanan terlengkap di Indonesia',
+        description: 'The most comprehensive security solution provider in Indonesia',
         contactPoint: {
           '@type': 'ContactPoint',
           telephone: '+62-858-9904-1795',

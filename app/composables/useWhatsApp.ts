@@ -13,7 +13,7 @@ export function useWhatsApp() {
   }
 
   const getProductMessage = (productName: string, productPrice: string): string => {
-    return `Halo Smart Security! 👋\n\nSaya tertarik dengan produk:\n📦 *${productName}*\n💰 ${productPrice}\n\nMohon info lebih lanjut. Terima kasih!`
+    return `Hello Smart Security! 👋\n\nI am interested in the product:\n📦 *${productName}*\n💰 ${productPrice}\n\nPlease provide more information. Thank you!`
   }
 
   const openProductWhatsApp = (productName: string, productPrice: string): void => {

@@ -8,14 +8,14 @@
         <path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.553 4.12 1.52 5.855L.053 23.52a.5.5 0 00.607.607l5.665-1.467A11.946 11.946 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.94 0-3.76-.562-5.295-1.53l-.38-.226-3.348.868.883-3.232-.248-.395A9.953 9.953 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
       </svg>
     </div>
-    <div class="wa-tooltip">Chat dengan kami</div>
+    <div class="wa-tooltip">Chat with us</div>
   </div>
 </template>
 
 <script setup>
 const { openWhatsApp } = useWhatsApp()
 const openChat = () => {
-  openWhatsApp('Halo Smart Security! Saya tertarik dengan produk keamanan Anda.')
+  openWhatsApp('Hello Smart Security! I am interested in your security products.')
 }
 </script>
 

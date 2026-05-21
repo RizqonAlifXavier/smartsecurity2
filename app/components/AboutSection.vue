@@ -1,17 +1,17 @@
 <template>
-  <section id="tentang" class="section">
+  <section id="about" class="section">
     <div class="container">
       <div class="about-grid">
         <div class="about-content">
-          <span class="section-badge animate-on-scroll slide-reveal">Tentang Kami</span>
+          <span class="section-badge animate-on-scroll slide-reveal">About Us</span>
           <h2 class="about-title animate-on-scroll swing-left delay-1">
-            Mitra Keamanan<br /><span class="highlight">Terpercaya Anda</span>
+            Your Trusted<br /><span class="highlight">Security Partner</span>
           </h2>
           <p class="about-text animate-on-scroll fade-up delay-2">
-            Smart Security adalah perusahaan penyedia solusi keamanan terlengkap di Indonesia. Dengan pengalaman lebih dari 10 tahun, kami telah melayani ribuan klien dari berbagai sektor — mulai dari perumahan, perkantoran, hingga industri.
+            Smart Security (PT Sinergi Sempurna Solusindo) is an authorized distributor and comprehensive security solutions provider in Indonesia. With over 10 years of experience, we have served thousands of clients across various sectors — from residential, offices, to industrial.
           </p>
           <p class="about-text animate-on-scroll fade-up delay-3">
-            Kami menyediakan produk berkualitas tinggi dari brand-brand ternama dunia, didukung oleh tim teknisi berpengalaman dan layanan purna jual yang responsif.
+            As a trusted sales company, we provide high-quality products from world-renowned brands (CCTV, Access Control, Fire Alarm, X-Ray, Metal Detectors, IT Solutions, and more), supported by an experienced team of technicians and responsive after-sales service.
           </p>
           <div class="about-features">
             <div v-for="(feat, i) in features" :key="i" class="about-feature animate-on-scroll bounce-in" :class="`delay-${i + 3}`">
@@ -24,22 +24,22 @@
           <div class="about-card-stack">
             <div class="about-stat-card card-1 animate-on-scroll flip-up delay-3" data-parallax="up" data-parallax-speed="0.05">
               <div class="asc-number" ref="counter1">0</div>
-              <div class="asc-label">Proyek Selesai</div>
+              <div class="asc-label">Projects Completed</div>
               <div class="asc-bar" data-scroll-progress="85"></div>
             </div>
             <div class="about-stat-card card-2 animate-on-scroll flip-up delay-4" data-parallax="down" data-parallax-speed="0.08">
               <div class="asc-number" ref="counter2">0</div>
-              <div class="asc-label">Klien Puas</div>
+              <div class="asc-label">Satisfied Clients</div>
               <div class="asc-bar" data-scroll-progress="95"></div>
             </div>
             <div class="about-stat-card card-3 animate-on-scroll flip-up delay-5" data-parallax="up" data-parallax-speed="0.06">
               <div class="asc-number" ref="counter3">0</div>
-              <div class="asc-label">Tahun Pengalaman</div>
+              <div class="asc-label">Years of Experience</div>
               <div class="asc-bar" data-scroll-progress="70"></div>
             </div>
             <div class="about-stat-card card-4 animate-on-scroll flip-up delay-6" data-parallax="down" data-parallax-speed="0.04">
               <div class="asc-number" ref="counter4">0</div>
-              <div class="asc-label">Kota Terjangkau</div>
+              <div class="asc-label">Cities Covered</div>
               <div class="asc-bar" data-scroll-progress="60"></div>
             </div>
           </div>
@@ -52,10 +52,10 @@
 
 <script setup>
 const features = [
-  'Garansi Resmi Semua Produk',
-  'Tim Teknisi Bersertifikat',
-  'Layanan 24/7 Support',
-  'Konsultasi Gratis',
+  'Official Warranty on All Products',
+  'Certified Technician Team',
+  '24/7 Support Service',
+  'Free Consultation',
 ]
 
 const counter1 = ref(null)

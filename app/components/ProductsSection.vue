@@ -1,11 +1,11 @@
 <template>
-  <section id="produk" class="section section-alt">
+  <section id="products" class="section section-alt">
     <div class="container">
       <div class="section-header">
-        <span class="section-badge animate-on-scroll bounce-in">Produk Kami</span>
-        <h2 class="section-title animate-on-scroll fade-up delay-1">Brand Pilihan Terbaik</h2>
+        <span class="section-badge animate-on-scroll bounce-in">Our Products</span>
+        <h2 class="section-title animate-on-scroll fade-up delay-1">Top Brand Selection</h2>
         <p class="section-subtitle animate-on-scroll fade-up delay-2">
-          Kami bekerja sama dengan brand keamanan terkemuka dunia untuk memberikan solusi terbaik
+          We partner with world-leading security brands to deliver the best solutions
         </p>
       </div>
 
@@ -28,7 +28,7 @@
           <NuxtLink
             v-for="(brand, index) in filteredBrands"
             :key="brand.id"
-            :to="`/products?brand=${brand.id}&category=${brand.category}`"
+            :to="getBrandLink(brand)"
             class="brand-card"
             :style="{ animationDelay: `${index * 0.08}s` }"
           >
@@ -45,7 +45,7 @@
 
             <!-- Info -->
             <div class="brand-info">
-              <span class="brand-category-tag">{{ brand.categoryLabel }}</span>
+              <span class="brand-category-tag">{{ getBrandCategoryLabel(brand) }}</span>
               <h3 class="brand-name">{{ brand.name }}</h3>
               <p class="brand-desc">{{ brand.description }}</p>
             </div>
@@ -57,10 +57,10 @@
                   <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
                   <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
                 </svg>
-                {{ getProductCount(brand.id) }} Produk
+                {{ getProductCount(brand.id) }} Products
               </span>
               <span class="brand-cta">
-                Lihat Produk
+                View Products
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                   <polyline points="9 18 15 12 9 6"/>
                 </svg>
@@ -78,13 +78,33 @@ import { brands, categories, products } from '~/data/products'
 
 const activeCategory = ref('all')
 
+// Get unique brand IDs that have at least one product in a given category
+const brandIdsInCategory = (catId) => {
+  return [...new Set(products.filter((p) => p.category === catId).map((p) => p.brand))]
+}
+
 const filteredBrands = computed(() => {
   if (activeCategory.value === 'all') return brands
-  return brands.filter((b) => b.category === activeCategory.value)
+  const ids = brandIdsInCategory(activeCategory.value)
+  return brands.filter((b) => b.category === activeCategory.value || ids.includes(b.id))
 })
 
 const getProductCount = (brandId) => {
-  return products.filter((p) => p.brand === brandId).length
+  if (activeCategory.value === 'all') {
+    return products.filter((p) => p.brand === brandId).length
+  }
+  return products.filter((p) => p.brand === brandId && p.category === activeCategory.value).length
+}
+
+const getBrandCategoryLabel = (brand) => {
+  if (activeCategory.value === 'all') return brand.categoryLabel
+  const cat = categories.find((c) => c.id === activeCategory.value)
+  return cat ? cat.label : brand.categoryLabel
+}
+
+const getBrandLink = (brand) => {
+  const cat = activeCategory.value === 'all' ? brand.category : activeCategory.value
+  return { path: '/products', query: { brand: brand.id, category: cat } }
 }
 </script>
 
