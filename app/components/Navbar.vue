@@ -137,6 +137,15 @@ onUnmounted(() => {
 .navbar-cta {
   padding: 10px 20px;
   font-size: 0.85rem;
+  color: var(--bg-primary) !important;
+  background: var(--white) !important;
+  box-shadow: 0 2px 12px rgba(255, 255, 255, 0.15) !important;
+}
+
+.navbar-cta:hover {
+  background: var(--text-secondary) !important;
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.25) !important;
+  transform: translateY(-2px);
 }
 
 .hamburger {

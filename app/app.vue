@@ -35,6 +35,7 @@ const particleStyle = (n) => {
 .app-root {
   position: relative;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 .global-bg {
@@ -42,6 +43,7 @@ const particleStyle = (n) => {
   inset: 0;
   z-index: 0;
   pointer-events: none;
+  overflow: hidden;
   background:
     radial-gradient(ellipse at 20% 30%, rgba(220,38,38,0.10) 0%, transparent 55%),
     radial-gradient(ellipse at 75% 70%, rgba(220,38,38,0.07) 0%, transparent 50%),

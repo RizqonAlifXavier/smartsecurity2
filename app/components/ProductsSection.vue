@@ -76,7 +76,26 @@
 <script setup>
 import { brands, categories, products } from '~/data/products'
 
+const route = useRoute()
+const router = useRouter()
+
 const activeCategory = ref('all')
+
+// Restore category filter from URL query when navigating back from a brand page
+onMounted(() => {
+  const savedCategory = route.query.productCategory
+  if (savedCategory) {
+    // Check if the category exists
+    const exists = categories.some((c) => c.id === savedCategory) || savedCategory === 'all'
+    if (exists) {
+      activeCategory.value = savedCategory
+    }
+    // Clean up the URL query param
+    const query = { ...route.query }
+    delete query.productCategory
+    router.replace({ query, hash: route.hash })
+  }
+})
 
 // Get unique brand IDs that have at least one product in a given category
 const brandIdsInCategory = (catId) => {

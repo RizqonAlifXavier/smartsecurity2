@@ -4,12 +4,12 @@
     <div class="page-hero">
       <div class="hero-bg-pattern"></div>
       <div class="container">
-        <NuxtLink to="/#produk" class="back-link animate-on-scroll fade-left">
+        <a href="#" class="back-link animate-on-scroll fade-left" @click.prevent="goBackToProducts">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="15 18 9 12 15 6"/>
           </svg>
-          Back to Brands
-        </NuxtLink>
+          Back to Products
+        </a>
 
         <div class="hero-content">
           <div class="brand-hero-badge animate-on-scroll bounce-in">
@@ -147,7 +147,7 @@
           <div class="empty-icon">📦</div>
           <h3>No products yet</h3>
           <p>Products for this brand will be added soon.</p>
-          <NuxtLink to="/#products" class="btn btn-primary">Back to Brands</NuxtLink>
+          <a href="#" class="btn btn-primary" @click.prevent="goBackToProducts">Back to Products</a>
         </div>
       </div>
     </div>
@@ -240,6 +240,14 @@ watch(brandId, () => {
 
 const askProduct = (product) => {
   openProductWhatsApp(product.name, product.price)
+}
+
+// Navigate back to the Products section on the homepage,
+// preserving the category the user was browsing
+const goBackToProducts = () => {
+  const category = route.query.category || ''
+  const query = category ? { productCategory: category } : {}
+  router.push({ path: '/', query, hash: '#products' })
 }
 
 useHead({
