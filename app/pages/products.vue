@@ -13,8 +13,9 @@
 
         <div class="hero-content">
           <div class="brand-hero-badge animate-on-scroll bounce-in">
-            <div class="brand-hero-logo">
-              <span>{{ currentBrand?.logo || '?' }}</span>
+            <div class="brand-hero-logo" :class="{ 'has-image': !!currentBrand?.logoImage }">
+              <img v-if="currentBrand?.logoImage" :src="currentBrand.logoImage" :alt="currentBrand.name" class="brand-hero-image" />
+              <span v-else>{{ currentBrand?.logo || '?' }}</span>
             </div>
           </div>
           <h1 class="page-title animate-on-scroll fade-up delay-1">{{ currentBrand?.name || 'All Products' }}</h1>
@@ -325,6 +326,24 @@ useHead({
   justify-content: center;
   box-shadow: 0 8px 40px rgba(220,38,38,0.15), 0 0 0 8px rgba(220,38,38,0.05);
   animation: float 4s ease-in-out infinite;
+  overflow: hidden;
+}
+
+.brand-hero-logo.has-image {
+  background: var(--white);
+  border-radius: 12px;
+  width: auto;
+  min-width: 160px;
+  max-width: 200px;
+  border-color: transparent;
+  box-shadow: 0 8px 40px rgba(220,38,38,0.15);
+}
+
+.brand-hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 16px;
 }
 
 .brand-hero-logo span {

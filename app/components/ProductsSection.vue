@@ -12,7 +12,7 @@
       <!-- Category Filter -->
       <div class="category-filter animate-on-scroll fade-up delay-2">
         <button
-          v-for="cat in categories"
+          v-for="cat in mainCategories"
           :key="cat.id"
           :class="['filter-btn', { active: activeCategory === cat.id }]"
           @click="activeCategory = cat.id"
@@ -36,10 +36,11 @@
             <div class="brand-glow"></div>
 
             <!-- Logo area -->
-            <div class="brand-logo-area">
-              <div class="brand-logo-circle">
+            <div class="brand-logo-area" :class="{ 'has-image-bg': !!brand.logoImage }">
+              <div v-if="!brand.logoImage" class="brand-logo-circle">
                 <span class="brand-logo-text">{{ brand.logo }}</span>
               </div>
+              <img v-else :src="brand.logoImage" :alt="brand.name" class="brand-full-image" />
               <div class="brand-shine"></div>
             </div>
 
@@ -79,6 +80,8 @@ import { brands, categories, products } from '~/data/products'
 const route = useRoute()
 const router = useRouter()
 
+const mainCategories = computed(() => categories.filter(c => !c.id.startsWith('gst-')))
+
 const activeCategory = ref('all')
 
 // Restore category filter from URL query when navigating back from a brand page
@@ -86,7 +89,7 @@ onMounted(() => {
   const savedCategory = route.query.productCategory
   if (savedCategory) {
     // Check if the category exists
-    const exists = categories.some((c) => c.id === savedCategory) || savedCategory === 'all'
+    const exists = mainCategories.value.some((c) => c.id === savedCategory) || savedCategory === 'all'
     if (exists) {
       activeCategory.value = savedCategory
     }
@@ -122,7 +125,7 @@ const getProductCount = (brandId) => {
 
 const getBrandCategoryLabel = (brand) => {
   if (activeCategory.value === 'all') return brand.categoryLabel
-  const cat = categories.find((c) => c.id === activeCategory.value)
+  const cat = mainCategories.value.find((c) => c.id === activeCategory.value)
   return cat ? cat.label : brand.categoryLabel
 }
 
@@ -221,6 +224,13 @@ const getBrandLink = (brand) => {
   justify-content: center;
   background: linear-gradient(180deg, rgba(220,38,38,0.06) 0%, transparent 100%);
   border-bottom: 1px solid var(--border);
+  height: 152px;
+}
+
+.brand-logo-area.has-image-bg {
+  padding: 0;
+  background: var(--white);
+  overflow: hidden;
 }
 
 .brand-logo-circle {
@@ -236,6 +246,20 @@ const getBrandLink = (brand) => {
   z-index: 1;
   transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
   box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+}
+
+.brand-full-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 24px;
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  z-index: 1;
+}
+
+.brand-card:hover .brand-full-image {
+  transform: scale(1.08);
 }
 
 .brand-card:hover .brand-logo-circle {

@@ -23,6 +23,7 @@ export interface Brand {
   category: string
   categoryLabel: string
   logo: string
+  logoImage?: string
   description: string
   productCount?: number
 }
@@ -56,69 +57,69 @@ export const categories: Category[] = [
 
 export const brands: Brand[] = [
   // Fire Alarm (highlighted first)
-  { id: 'gst', name: 'GST', category: 'fire-alarm', categoryLabel: 'Fire Alarm', logo: 'GST', description: 'Reliable conventional and addressable fire alarm systems' },
-  { id: 'notifier', name: 'Notifier', category: 'fire-alarm', categoryLabel: 'Fire Alarm', logo: 'NTF', description: 'Enterprise-class fire alarm system from Honeywell' },
-  { id: 'edwards', name: 'Edwards', category: 'fire-alarm', categoryLabel: 'Fire Alarm', logo: 'EDW', description: 'High-quality fire alarm and life safety systems' },
-  { id: 'simplex', name: 'Simplex', category: 'fire-alarm', categoryLabel: 'Fire Alarm', logo: 'SPX', description: 'Leading fire detection and notification system solutions' },
-  { id: 'kidde', name: 'Kidde Fire System', category: 'fire-alarm', categoryLabel: 'Fire Alarm', logo: 'KDE', description: 'Automatic fire detection and suppression systems' },
-  { id: 'honeywell', name: 'Honeywell', category: 'fire-alarm', categoryLabel: 'Fire Alarm', logo: 'HWL', description: 'Integrated fire alarm and building safety solutions' },
+  { id: 'gst', name: 'GST', category: 'fire-alarm', categoryLabel: 'Fire Alarm', logo: 'GST', logoImage: '/GST.jpg', description: 'Reliable conventional and addressable fire alarm systems' },
+  { id: 'notifier', name: 'Notifier', category: 'fire-alarm', categoryLabel: 'Fire Alarm', logo: 'NTF', logoImage: '/notifier.png', description: 'Enterprise-class fire alarm system from Honeywell' },
+  { id: 'edwards', name: 'Edwards', category: 'fire-alarm', categoryLabel: 'Fire Alarm', logo: 'EDW', logoImage: '/edwards.png', description: 'High-quality fire alarm and life safety systems' },
+  { id: 'simplex', name: 'Simplex', category: 'fire-alarm', categoryLabel: 'Fire Alarm', logo: 'SPX', logoImage: '/simplex.png', description: 'Leading fire detection and notification system solutions' },
+  { id: 'kidde', name: 'Kidde Fire System', category: 'fire-alarm', categoryLabel: 'Fire Alarm', logo: 'KDE', logoImage: '/kidde_fire_systems.png', description: 'Automatic fire detection and suppression systems' },
+  { id: 'honeywell', name: 'Honeywell', category: 'fire-alarm', categoryLabel: 'Fire Alarm', logo: 'HWL', logoImage: '/Honeywell.png', description: 'Integrated fire alarm and building safety solutions' },
 
   // Access Control (highlighted second)
-  { id: 'lenel', name: 'Lenel', category: 'access-control', categoryLabel: 'Access Control', logo: 'LNL', description: 'Lenel S2 enterprise access control solutions with full integration' },
-  { id: 'genetec', name: 'Genetec', category: 'access-control', categoryLabel: 'Access Control', logo: 'GEN', description: 'Unified security platform for access control, video surveillance, and ANPR' },
+  { id: 'lenel', name: 'Lenel', category: 'access-control', categoryLabel: 'Access Control', logo: 'LNL', logoImage: '/Lenel.png', description: 'Lenel S2 enterprise access control solutions with full integration' },
+  { id: 'genetec', name: 'Genetec', category: 'access-control', categoryLabel: 'Access Control', logo: 'GEN', logoImage: '/genetec.png', description: 'Unified security platform for access control, video surveillance, and ANPR' },
   { id: 'solution', name: 'Solution', category: 'access-control', categoryLabel: 'Access Control', logo: 'SOL', description: 'Integrated access control and door security systems' },
-  { id: 'zkteco', name: 'ZKTeco', category: 'access-control', categoryLabel: 'Access Control', logo: 'ZKT', description: 'Leading biometric access control and time attendance' },
+  { id: 'zkteco', name: 'ZKTeco', category: 'access-control', categoryLabel: 'Access Control', logo: 'ZKT', logoImage: '/ZKTeco.png', description: 'Leading biometric access control and time attendance' },
 
   // CCTV (highlighted third)
-  { id: 'siqura', name: 'Siqura', category: 'cctv', categoryLabel: 'CCTV', logo: 'SQR', description: 'Video networking and surveillance for critical infrastructure' },
-  { id: 'reconyx', name: 'Reconyx', category: 'cctv', categoryLabel: 'CCTV', logo: 'RCX', description: 'High-performance security cameras for critical areas' },
-  { id: 'bushnell', name: 'Bushnell', category: 'cctv', categoryLabel: 'CCTV', logo: 'BSH', description: 'High-performance trail cameras and outdoor surveillance' },
-  { id: 'hikvision', name: 'Hikvision', category: 'cctv', categoryLabel: 'CCTV', logo: 'HIK', description: 'World\'s leading CCTV and video surveillance solutions' },
-  { id: 'dahua', name: 'Dahua', category: 'cctv', categoryLabel: 'CCTV', logo: 'DHU', description: 'High-quality professional CCTV and video IoT systems' },
+  { id: 'siqura', name: 'Siqura', category: 'cctv', categoryLabel: 'CCTV', logo: 'SQR', logoImage: '/siqura.png', description: 'Video networking and surveillance for critical infrastructure' },
+  { id: 'reconyx', name: 'Reconyx', category: 'cctv', categoryLabel: 'CCTV', logo: 'RCX', logoImage: '/reconyx.png', description: 'High-performance security cameras for critical areas' },
+  { id: 'bushnell', name: 'Bushnell', category: 'cctv', categoryLabel: 'CCTV', logo: 'BSH', logoImage: '/bushnell.png', description: 'High-performance trail cameras and outdoor surveillance' },
+  { id: 'hikvision', name: 'Hikvision', category: 'cctv', categoryLabel: 'CCTV', logo: 'HIK', logoImage: '/hikvision.png', description: 'World\'s leading CCTV and video surveillance solutions' },
+  { id: 'dahua', name: 'Dahua', category: 'cctv', categoryLabel: 'CCTV', logo: 'DHU', logoImage: '/dahua.png', description: 'High-quality professional CCTV and video IoT systems' },
 
   // Security System
-  { id: 'geovision', name: 'GeoVision', category: 'security-system', categoryLabel: 'Security System', logo: 'GEO', description: 'Professional IP surveillance and video analytics solutions' },
-  { id: 'centrix', name: 'Centrix', category: 'security-system', categoryLabel: 'Security System', logo: 'CTX', description: 'Integrated security systems with the latest technology' },
-  { id: 'safr', name: 'SAFR', category: 'security-system', categoryLabel: 'Security System', logo: 'SFR', description: 'Real-time face recognition platform with advanced AI' },
-  { id: 'arecont-vision', name: 'Arecont Vision', category: 'security-system', categoryLabel: 'Security System', logo: 'ARC', description: 'Megapixel camera technology for large-scale security' },
-  { id: 'asis-technologies', name: 'ASIS Technologies', category: 'security-system', categoryLabel: 'Security System', logo: 'ASI', description: 'Advanced security technology for various industry needs' },
+  { id: 'geovision', name: 'GeoVision', category: 'security-system', categoryLabel: 'Security System', logo: 'GEO', logoImage: '/geovision.png', description: 'Professional IP surveillance and video analytics solutions' },
+  { id: 'centrix', name: 'Centrix', category: 'security-system', categoryLabel: 'Security System', logo: 'CTX', logoImage: '/centrix.jpg', description: 'Integrated security systems with the latest technology' },
+  { id: 'safr', name: 'SAFR', category: 'security-system', categoryLabel: 'Security System', logo: 'SFR', logoImage: '/safr.png', description: 'Real-time face recognition platform with advanced AI' },
+  { id: 'arecont-vision', name: 'Arecont Vision', category: 'security-system', categoryLabel: 'Security System', logo: 'ARC', logoImage: '/arecont_vision.png', description: 'Megapixel camera technology for large-scale security' },
+  { id: 'asis-technologies', name: 'ASIS Technologies', category: 'security-system', categoryLabel: 'Security System', logo: 'ASI', logoImage: '/asis tech.png', description: 'Advanced security technology for various industry needs' },
 
   // Intruder Alarm
-  { id: 'bentel-security', name: 'Bentel Security', category: 'intruder-alarm', categoryLabel: 'Intruder Alarm', logo: 'BNT', description: 'Professional intruder alarm systems with advanced detection technology' },
+  { id: 'bentel-security', name: 'Bentel Security', category: 'intruder-alarm', categoryLabel: 'Intruder Alarm', logo: 'BNT', logoImage: '/bentel.png', description: 'Professional intruder alarm systems with advanced detection technology' },
 
   // XVR Simulation
-  { id: 'xvr-simulation', name: 'XVR Simulation', category: 'xvr-simulation', categoryLabel: 'XVR Simulation', logo: 'XVR', description: 'Virtual reality simulation platform for security and emergency training' },
+  { id: 'xvr-simulation', name: 'XVR Simulation', category: 'xvr-simulation', categoryLabel: 'XVR Simulation', logo: 'XVR', logoImage: '/xvr.png', description: 'Virtual reality simulation platform for security and emergency training' },
 
   // Perimeter Fencing
-  { id: 'southwest-microwave', name: 'Southwest Microwave', category: 'perimeter-fencing', categoryLabel: 'Perimeter Fencing', logo: 'SWM', description: 'Microwave perimeter detection systems for wide-area security' },
+  { id: 'southwest-microwave', name: 'Southwest Microwave', category: 'perimeter-fencing', categoryLabel: 'Perimeter Fencing', logo: 'SWM', logoImage: '/southwest_microwave.png', description: 'Microwave perimeter detection systems for wide-area security' },
 
   // IT Solution
-  { id: 'lg', name: 'LG', category: 'it-solution', categoryLabel: 'IT Solution', logo: 'LG', description: 'High-quality professional monitors and display devices' },
-  { id: 'acer', name: 'ACER', category: 'it-solution', categoryLabel: 'IT Solution', logo: 'ACR', description: 'Laptops and computers for business and enterprise needs' },
-  { id: 'toshiba', name: 'Toshiba', category: 'it-solution', categoryLabel: 'IT Solution', logo: 'TSB', description: 'Trusted enterprise storage and computing solutions' },
-  { id: 'dell', name: 'Dell', category: 'it-solution', categoryLabel: 'IT Solution', logo: 'DLL', description: 'Enterprise servers, workstations, and IT infrastructure' },
-  { id: 'hitachi', name: 'Hitachi', category: 'it-solution', categoryLabel: 'IT Solution', logo: 'HIT', description: 'Large-scale enterprise IT and storage solutions' },
-  { id: 'samsung', name: 'Samsung', category: 'it-solution', categoryLabel: 'IT Solution', logo: 'SSG', description: 'Professional displays and innovative IT devices' },
-  { id: 'asus', name: 'Asus', category: 'it-solution', categoryLabel: 'IT Solution', logo: 'ASS', description: 'High-performance computers and IT devices' },
-  { id: 'hp', name: 'HP', category: 'it-solution', categoryLabel: 'IT Solution', logo: 'HP', description: 'Comprehensive printers, laptops, and business IT solutions' },
-  { id: 'fujitsu', name: 'Fujitsu', category: 'it-solution', categoryLabel: 'IT Solution', logo: 'FJT', description: 'Japanese enterprise IT infrastructure and computing' },
-  { id: 'lenovo', name: 'Lenovo', category: 'it-solution', categoryLabel: 'IT Solution', logo: 'LNV', description: 'Enterprise PCs, laptops, and data center solutions' },
+  { id: 'lg', name: 'LG', category: 'it-solution', categoryLabel: 'IT Solution', logo: 'LG', logoImage: '/LG.png', description: 'High-quality professional monitors and display devices' },
+  { id: 'acer', name: 'ACER', category: 'it-solution', categoryLabel: 'IT Solution', logo: 'ACR', logoImage: '/acer.png', description: 'Laptops and computers for business and enterprise needs' },
+  { id: 'toshiba', name: 'Toshiba', category: 'it-solution', categoryLabel: 'IT Solution', logo: 'TSB', logoImage: '/toshiba.png', description: 'Trusted enterprise storage and computing solutions' },
+  { id: 'dell', name: 'Dell', category: 'it-solution', categoryLabel: 'IT Solution', logo: 'DLL', logoImage: '/dell.png', description: 'Enterprise servers, workstations, and IT infrastructure' },
+  { id: 'hitachi', name: 'Hitachi', category: 'it-solution', categoryLabel: 'IT Solution', logo: 'HIT', logoImage: '/hitachi.png', description: 'Large-scale enterprise IT and storage solutions' },
+  { id: 'samsung', name: 'Samsung', category: 'it-solution', categoryLabel: 'IT Solution', logo: 'SSG', logoImage: '/samsung.png', description: 'Professional displays and innovative IT devices' },
+  { id: 'asus', name: 'Asus', category: 'it-solution', categoryLabel: 'IT Solution', logo: 'ASS', logoImage: '/asus.png', description: 'High-performance computers and IT devices' },
+  { id: 'hp', name: 'HP', category: 'it-solution', categoryLabel: 'IT Solution', logo: 'HP', logoImage: '/HP.png', description: 'Comprehensive printers, laptops, and business IT solutions' },
+  { id: 'fujitsu', name: 'Fujitsu', category: 'it-solution', categoryLabel: 'IT Solution', logo: 'FJT', logoImage: '/fujitsu.png', description: 'Japanese enterprise IT infrastructure and computing' },
+  { id: 'lenovo', name: 'Lenovo', category: 'it-solution', categoryLabel: 'IT Solution', logo: 'LNV', logoImage: '/lenovo.png', description: 'Enterprise PCs, laptops, and data center solutions' },
 
   // IPTV/MATV
-  { id: 'ikusi', name: 'IKUSI', category: 'iptv-matv', categoryLabel: 'IPTV/MATV', logo: 'IKS', description: 'Professional IPTV solutions and TV signal distribution' },
+  { id: 'ikusi', name: 'IKUSI', category: 'iptv-matv', categoryLabel: 'IPTV/MATV', logo: 'IKS', logoImage: '/ikusi.png', description: 'Professional IPTV solutions and TV signal distribution' },
 
   // X-Ray
-  { id: 'smiths-detection', name: 'Smiths Detection', category: 'x-ray', categoryLabel: 'X-Ray', logo: 'SMD', description: 'X-Ray screening systems for airport and building security' },
+  { id: 'smiths-detection', name: 'Smiths Detection', category: 'x-ray', categoryLabel: 'X-Ray', logo: 'SMD', logoImage: '/smiths_detection.png', description: 'X-Ray screening systems for airport and building security' },
 
   // Metal Detector
-  { id: 'garrett', name: 'Garrett Metal Detector', category: 'metal-detector', categoryLabel: 'Metal Detector', logo: 'GRT', description: 'World-leading walk-through and handheld metal detectors' },
-  { id: 'ceia', name: 'CEIA', category: 'metal-detector', categoryLabel: 'Metal Detector', logo: 'CEA', description: 'High-precision metal detectors for professional security' },
+  { id: 'garrett', name: 'Garrett Metal Detector', category: 'metal-detector', categoryLabel: 'Metal Detector', logo: 'GRT', logoImage: '/garret metal.png', description: 'World-leading walk-through and handheld metal detectors' },
+  { id: 'ceia', name: 'CEIA', category: 'metal-detector', categoryLabel: 'Metal Detector', logo: 'CEA', logoImage: '/ceia.png', description: 'High-precision metal detectors for professional security' },
 
   // Others
-  { id: 'cisco', name: 'Cisco', category: 'others', categoryLabel: 'Others', logo: 'CSC', description: 'Enterprise networking and network infrastructure' },
-  { id: 'boon-edam', name: 'Boon Edam', category: 'others', categoryLabel: 'Others', logo: 'BNE', description: 'Premium revolving doors and security entrances' },
-  { id: 'windows', name: 'Windows', category: 'others', categoryLabel: 'Others', logo: 'WIN', description: 'Enterprise operating systems and software platforms' },
-  { id: 'intel', name: 'Intel', category: 'others', categoryLabel: 'Others', logo: 'INT', description: 'Processors and computing technology for security systems' },
+  { id: 'cisco', name: 'Cisco', category: 'others', categoryLabel: 'Others', logo: 'CSC', logoImage: '/cisco.png', description: 'Enterprise networking and network infrastructure' },
+  { id: 'boon-edam', name: 'Boon Edam', category: 'others', categoryLabel: 'Others', logo: 'BNE', logoImage: '/boon_edam.png', description: 'Premium revolving doors and security entrances' },
+  { id: 'windows', name: 'Windows', category: 'others', categoryLabel: 'Others', logo: 'WIN', logoImage: '/microsoft.png', description: 'Enterprise operating systems and software platforms' },
+  { id: 'intel', name: 'Intel', category: 'others', categoryLabel: 'Others', logo: 'INT', logoImage: '/intel.png', description: 'Processors and computing technology for security systems' },
 ]
 
 export const products: Product[] = [
