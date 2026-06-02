@@ -457,15 +457,17 @@ useHead({
 
 @media (max-width: 768px) {
   .brand-grid { 
-    grid-template-columns: 1fr; 
-    gap: 16px; 
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 12px; 
   }
   
   .brand-card {
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
-    padding: 16px;
-    border-radius: 16px;
+    padding: 16px 12px;
+    border-radius: 12px;
+    text-align: center;
+    gap: 0;
   }
   
   .brand-logo-area {
@@ -473,34 +475,57 @@ useHead({
     padding: 0;
     border-bottom: none;
     background: transparent;
-    padding-right: 16px;
-    margin-right: 16px;
-    border-right: 1px solid var(--border);
+    margin-bottom: 12px;
   }
   
-  .brand-logo-circle { width: 64px; height: 64px; }
+  .brand-logo-circle { 
+    width: 52px; 
+    height: 52px; 
+  }
+
+  .brand-logo-circle.has-image {
+    padding: 6px;
+  }
+  
   .brand-logo-text { font-size: 1.1rem; }
-  .brand-logo-image { padding: 8px; }
   
   .brand-info {
     padding: 0;
-    flex: 1;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    align-items: center;
   }
   
   .brand-name {
-    font-size: 1.1rem;
-    margin-bottom: 4px;
+    font-size: 0.95rem;
+    margin: 0;
+    text-align: center;
+    line-height: 1.3;
   }
   
-  .brand-desc {
-    font-size: 0.8rem;
+  .brand-desc, .brand-category-tag {
+    display: none;
   }
 
-  .brand-category-tag, .brand-footer {
-    display: none;
+  .brand-footer {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    border-top: none;
+    background: transparent;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  .brand-product-count {
+    font-size: 0.7rem;
+  }
+
+  .brand-cta {
+    font-size: 0.75rem;
   }
 }
 </style>

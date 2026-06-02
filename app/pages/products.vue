@@ -4,11 +4,11 @@
     <div class="page-hero">
       <div class="hero-bg-pattern"></div>
       <div class="container">
-        <a href="#" class="back-link animate-on-scroll fade-left" @click.prevent="goBackToProducts">
+        <a href="#" class="back-link animate-on-scroll fade-left" @click.prevent="goBack">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="15 18 9 12 15 6"/>
           </svg>
-          Back to Products
+          {{ backButtonText }}
         </a>
 
         <div class="hero-content">
@@ -178,7 +178,7 @@
           <div class="empty-icon">📦</div>
           <h3>No products yet</h3>
           <p>Products for this brand will be added soon.</p>
-          <a href="#" class="btn btn-primary" @click.prevent="goBackToProducts">Back to Products</a>
+          <a href="#" class="btn btn-primary" @click.prevent="goBack">{{ backButtonText }}</a>
         </div>
       </div>
     </div>
@@ -304,12 +304,22 @@ const askProduct = (product) => {
   openProductWhatsApp(product.name, product.price)
 }
 
-// Navigate back to the Products section on the homepage,
-// preserving the category the user was browsing
-const goBackToProducts = () => {
-  const category = route.query.category || ''
-  const query = category ? { productCategory: category } : {}
-  router.push({ path: '/', query, hash: '#products' })
+// Dynamic back button text based on whether we came from a category
+const backButtonText = computed(() => {
+  if (categoryFromQuery.value) {
+    const cat = categories.find((c) => c.id === categoryFromQuery.value)
+    return cat ? `Back to ${cat.label} Brands` : 'Back to Brands'
+  }
+  return 'Back to Categories'
+})
+
+// Navigate back to the Category page or homepage
+const goBack = () => {
+  if (categoryFromQuery.value) {
+    router.push(`/category/${categoryFromQuery.value}`)
+  } else {
+    router.push({ path: '/', hash: '#products' })
+  }
 }
 
 useHead({
@@ -832,32 +842,133 @@ useHead({
 
 @media (max-width: 768px) {
   .page-hero { padding: 100px 0 40px; }
-  .product-grid { grid-template-columns: 1fr; }
-  .category-grid { grid-template-columns: 1fr; }
+  
+  .product-grid { 
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 10px; 
+  }
+  
+  .category-grid { 
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 10px; 
+  }
+
+  .category-card {
+    flex-direction: column;
+    padding: 12px 8px;
+    gap: 8px;
+    text-align: center;
+    border-radius: 12px;
+  }
+
+  .cat-card-arrow {
+    display: none;
+  }
+
+  .cat-card-icon {
+    width: 44px;
+    height: 44px;
+    font-size: 1.4rem;
+  }
+
+  .cat-card-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .cat-card-name {
+    font-size: 0.85rem;
+    line-height: 1.2;
+    margin-bottom: 2px;
+  }
+  
+  .cat-card-count {
+    font-size: 0.7rem;
+  }
+
+  .product-card {
+    border-radius: 12px;
+  }
+
+  .product-image {
+    height: 100px;
+  }
+
+  .product-icon {
+    font-size: 2.5rem;
+  }
+
+  .product-badge {
+    font-size: 0.6rem;
+    padding: 2px 6px;
+    top: 6px;
+    right: 6px;
+  }
+
+  .product-info {
+    padding: 10px;
+  }
+
+  .product-category {
+    font-size: 0.6rem;
+  }
+
+  .product-name {
+    font-size: 0.85rem;
+    margin: 4px 0;
+    line-height: 1.3;
+  }
+
+  .product-desc, .product-features {
+    display: none;
+  }
+
+  .product-footer {
+    padding-top: 8px;
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
+  }
+
+  .product-price {
+    font-size: 0.9rem;
+    text-align: left;
+  }
+
+  .btn-wa {
+    width: 100%;
+    font-size: 0.75rem;
+    padding: 6px;
+    justify-content: center;
+  }
+
   .brand-hero-logo { width: 80px; height: 80px; }
   .brand-hero-logo span { font-size: 1.4rem; }
   .hero-meta { flex-direction: column; gap: 6px; }
   .meta-divider { display: none; }
-  .products-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+  
+  .products-header { 
+    flex-direction: column; 
+    align-items: center; 
+    text-align: center;
+    gap: 12px; 
+  }
   .products-section-title { font-size: 1.2rem; }
-}
-
-@media (max-width: 480px) {
-  .product-footer {
-    flex-direction: column;
+  
+  .pagination {
+    flex-wrap: wrap;
     gap: 12px;
-    align-items: flex-start;
+    margin-top: 40px;
   }
-  
-  .page-numbers {
-    gap: 4px;
+  .page-numbers { 
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px; 
   }
-  
-  .page-num {
-    width: 32px;
-    height: 32px;
-    font-size: 0.85rem;
-  }
+  .page-num { width: 34px; height: 34px; font-size: 0.85rem; }
+  .page-btn { width: 38px; height: 38px; }
 }
 
 /* Pagination */
