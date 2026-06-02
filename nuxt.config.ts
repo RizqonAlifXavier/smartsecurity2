@@ -3,6 +3,9 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
 
+  // Disable SSR to avoid IPC connection crash on Windows dev server
+  ssr: false,
+
   app: {
     head: {
       htmlAttrs: { lang: 'en' },

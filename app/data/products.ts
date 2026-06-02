@@ -15,6 +15,7 @@ export interface Category {
   id: string
   label: string
   icon: string
+  description?: string
 }
 
 export interface Brand {
@@ -29,19 +30,19 @@ export interface Brand {
 }
 
 export const categories: Category[] = [
-  { id: 'all', label: 'All', icon: '🔒' },
-  { id: 'fire-alarm', label: 'Fire Alarm', icon: '🔥' },
-  { id: 'access-control', label: 'Access Control', icon: '🚪' },
-  { id: 'cctv', label: 'CCTV', icon: '📹' },
-  { id: 'security-system', label: 'Security System', icon: '🛡️' },
-  { id: 'intruder-alarm', label: 'Intruder Alarm', icon: '🚨' },
-  { id: 'xvr-simulation', label: 'XVR Simulation', icon: '🎮' },
-  { id: 'perimeter-fencing', label: 'Perimeter Fencing', icon: '🛡️' },
-  { id: 'it-solution', label: 'IT Solution', icon: '💻' },
-  { id: 'iptv-matv', label: 'IPTV/MATV', icon: '📺' },
-  { id: 'x-ray', label: 'X-Ray', icon: '🔍' },
-  { id: 'metal-detector', label: 'Metal Detector', icon: '🔎' },
-  { id: 'others', label: 'Others', icon: '⚙️' },
+  { id: 'all', label: 'All', icon: '🔒', description: 'View all brands across every category' },
+  { id: 'fire-alarm', label: 'Fire Alarm', icon: '🔥', description: 'GST, Notifier, Edwards, Simplex, Kidde, Honeywell' },
+  { id: 'access-control', label: 'Access Control', icon: '🚪', description: 'Lenel, Genetec, Solution, ZKTeco' },
+  { id: 'cctv', label: 'CCTV', icon: '📹', description: 'Siqura, Reconyx, Bushnell, Hikvision, Dahua' },
+  { id: 'security-system', label: 'Security System', icon: '🛡️', description: 'GeoVision, Centrix, SAFR, Arecont Vision, ASIS' },
+  { id: 'intruder-alarm', label: 'Intruder Alarm', icon: '🚨', description: 'Bentel Security' },
+  { id: 'xvr-simulation', label: 'XVR Simulation', icon: '🎮', description: 'XVR Simulation' },
+  { id: 'perimeter-fencing', label: 'Perimeter Fencing', icon: '🛡️', description: 'Southwest Microwave' },
+  { id: 'it-solution', label: 'IT Solution', icon: '💻', description: 'LG, ACER, Toshiba, Dell, Hitachi, Samsung, Asus, HP, Fujitsu, Lenovo' },
+  { id: 'iptv-matv', label: 'IPTV/MATV', icon: '📺', description: 'IKUSI' },
+  { id: 'x-ray', label: 'X-Ray', icon: '🔍', description: 'Smiths Detection' },
+  { id: 'metal-detector', label: 'Metal Detector', icon: '🔎', description: 'Garrett, CEIA' },
+  { id: 'others', label: 'Others', icon: '⚙️', description: 'Cisco, Boon Edam, Windows, Intel' },
 
   // GST-specific product sub-categories
   { id: 'gst-ul-addressable', label: 'UL Listed Addressable', icon: '🏅' },

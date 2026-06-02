@@ -9,176 +9,75 @@
         </p>
       </div>
 
-      <!-- Category Filter -->
-      <div class="category-filter animate-on-scroll fade-up delay-2">
-        <button
-          v-for="cat in mainCategories"
+      <!-- Category Cards Grid -->
+      <div class="category-grid">
+        <NuxtLink
+          v-for="(cat, index) in displayCategories"
           :key="cat.id"
-          :class="['filter-btn', { active: activeCategory === cat.id }]"
-          @click="activeCategory = cat.id"
+          :to="`/category/${cat.id}`"
+          class="category-card animate-on-scroll fade-up"
+          :style="{ transitionDelay: `${index * 0.04}s` }"
         >
-          <span class="filter-icon">{{ cat.icon }}</span>
-          {{ cat.label }}
-        </button>
-      </div>
-
-      <!-- Brand Grid -->
-      <div class="brand-grid">
-        <TransitionGroup name="brand">
-          <NuxtLink
-            v-for="(brand, index) in filteredBrands"
-            :key="brand.id"
-            :to="getBrandLink(brand)"
-            class="brand-card"
-            :style="{ animationDelay: `${index * 0.08}s` }"
-          >
-            <!-- Glow effect -->
-            <div class="brand-glow"></div>
-
-            <!-- Logo area -->
-            <div class="brand-logo-area" :class="{ 'has-image-bg': !!brand.logoImage }">
-              <div v-if="!brand.logoImage" class="brand-logo-circle">
-                <span class="brand-logo-text">{{ brand.logo }}</span>
-              </div>
-              <img v-else :src="brand.logoImage" :alt="brand.name" class="brand-full-image" />
-              <div class="brand-shine"></div>
+          <div class="category-glow"></div>
+          <div class="category-icon-area">
+            <div class="category-icon-circle">
+              <span class="category-icon-text">{{ cat.icon }}</span>
             </div>
-
-            <!-- Info -->
-            <div class="brand-info">
-              <span class="brand-category-tag">{{ getBrandCategoryLabel(brand) }}</span>
-              <h3 class="brand-name">{{ brand.name }}</h3>
-              <p class="brand-desc">{{ brand.description }}</p>
-            </div>
-
-            <!-- Footer -->
-            <div class="brand-footer">
-              <span class="brand-product-count">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
-                  <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
-                </svg>
-                {{ getProductCount(brand.id) }} Products
-              </span>
-              <span class="brand-cta">
-                View Products
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="9 18 15 12 9 6"/>
-                </svg>
-              </span>
-            </div>
-          </NuxtLink>
-        </TransitionGroup>
+          </div>
+          <div class="category-info">
+            <h3 class="category-name">{{ cat.label }}</h3>
+            <p class="category-desc">{{ cat.description }}</p>
+          </div>
+          <div class="category-footer">
+            <span class="category-brand-count">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+              </svg>
+              {{ getBrandsInCategory(cat.id).length }} Brands
+            </span>
+            <span class="category-cta">
+              View Brands
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"/>
+              </svg>
+            </span>
+          </div>
+        </NuxtLink>
       </div>
     </div>
   </section>
 </template>
 
 <script setup>
-import { brands, categories, products } from '~/data/products'
+import { brands, categories } from '~/data/products'
 
-const route = useRoute()
-const router = useRouter()
+const { initScrollAnimations } = useScrollAnimation()
 
-const mainCategories = computed(() => categories.filter(c => !c.id.startsWith('gst-')))
+const mainCategories = computed(() => categories.filter(c => !c.id.startsWith('gst-') && c.id !== 'all'))
+const displayCategories = computed(() => mainCategories.value)
 
-const activeCategory = ref('all')
+const getBrandsInCategory = (catId) => {
+  return brands.filter((b) => b.category === catId)
+}
 
-// Restore category filter from URL query when navigating back from a brand page
 onMounted(() => {
-  const savedCategory = route.query.productCategory
-  if (savedCategory) {
-    // Check if the category exists
-    const exists = mainCategories.value.some((c) => c.id === savedCategory) || savedCategory === 'all'
-    if (exists) {
-      activeCategory.value = savedCategory
-    }
-    // Clean up the URL query param
-    const query = { ...route.query }
-    delete query.productCategory
-    router.replace({ query, hash: route.hash })
-  }
+  nextTick(() => {
+    initScrollAnimations()
+  })
 })
-
-// Get unique brand IDs that have at least one product in a given category
-const brandIdsInCategory = (catId) => {
-  return [...new Set(products.filter((p) => p.category === catId).map((p) => p.brand))]
-}
-
-const filteredBrands = computed(() => {
-  if (activeCategory.value === 'all') return brands
-  const ids = brandIdsInCategory(activeCategory.value)
-  return brands.filter((b) => b.category === activeCategory.value || ids.includes(b.id))
-})
-
-const getProductCount = (brandId) => {
-  if (activeCategory.value === 'all') {
-    return products.filter((p) => p.brand === brandId).length
-  }
-  // If this brand's primary category matches, show total products for the brand
-  const brand = brands.find((b) => b.id === brandId)
-  if (brand && brand.category === activeCategory.value) {
-    return products.filter((p) => p.brand === brandId).length
-  }
-  return products.filter((p) => p.brand === brandId && p.category === activeCategory.value).length
-}
-
-const getBrandCategoryLabel = (brand) => {
-  if (activeCategory.value === 'all') return brand.categoryLabel
-  const cat = mainCategories.value.find((c) => c.id === activeCategory.value)
-  return cat ? cat.label : brand.categoryLabel
-}
-
-const getBrandLink = (brand) => {
-  const cat = activeCategory.value === 'all' ? brand.category : activeCategory.value
-  return { path: '/products', query: { brand: brand.id, category: cat } }
-}
 </script>
 
 <style scoped>
-.category-filter {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 48px;
-}
-.filter-btn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 20px;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid var(--border);
-  border-radius: 9999px;
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-.filter-btn:hover {
-  border-color: var(--border-hover);
-  color: var(--white);
-  background: rgba(255,255,255,0.06);
-}
-.filter-btn.active {
-  background: linear-gradient(135deg, var(--red), var(--red-dark));
-  border-color: var(--red);
-  color: var(--white);
-  box-shadow: 0 4px 20px rgba(220,38,38,0.3);
-}
-.filter-icon { font-size: 1rem; }
-
-/* Brand Grid */
-.brand-grid {
+/* Category Grid */
+.category-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 24px;
 }
 
-/* Brand Card */
-.brand-card {
+/* Category Card */
+.category-card {
   position: relative;
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -187,241 +86,179 @@ const getBrandLink = (brand) => {
   transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
   display: flex;
   flex-direction: column;
-  text-decoration: none;
-  color: inherit;
   cursor: pointer;
+  text-decoration: none;
 }
 
-.brand-card:hover {
+.category-card:hover {
   border-color: rgba(220,38,38,0.4);
   background: var(--bg-card-hover);
-  box-shadow: 0 12px 48px rgba(220,38,38,0.15), 0 0 0 1px rgba(220,38,38,0.1);
   transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
 }
 
-/* Glow effect */
-.brand-glow {
+.category-glow {
   position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle at center, rgba(220,38,38,0.06) 0%, transparent 60%);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 0%, rgba(220,38,38,0.15) 0%, transparent 70%);
   opacity: 0;
   transition: opacity 0.5s ease;
   pointer-events: none;
 }
-.brand-card:hover .brand-glow {
+
+.category-card:hover .category-glow {
   opacity: 1;
 }
 
-/* Logo Area */
-.brand-logo-area {
-  position: relative;
-  padding: 36px 24px 28px;
+.category-icon-area {
+  padding: 32px 24px 24px;
   display: flex;
-  align-items: center;
   justify-content: center;
-  background: linear-gradient(180deg, rgba(220,38,38,0.06) 0%, transparent 100%);
   border-bottom: 1px solid var(--border);
-  height: 152px;
+  background: rgba(0,0,0,0.2);
 }
 
-.brand-logo-area.has-image-bg {
-  padding: 0;
-  background: var(--white);
-  overflow: hidden;
-}
-
-.brand-logo-circle {
-  width: 88px;
-  height: 88px;
+.category-icon-circle {
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
-  background: linear-gradient(145deg, #1a1a1a, #111111);
-  border: 2px solid rgba(255,255,255,0.08);
+  background: var(--bg-card);
+  border: 2px solid rgba(220,38,38,0.3);
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  z-index: 1;
+  box-shadow: 0 0 20px rgba(220,38,38,0.2);
   transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-  box-shadow: 0 4px 24px rgba(0,0,0,0.4);
 }
 
-.brand-full-image {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  padding: 24px;
-  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-  position: relative;
-  z-index: 1;
+.category-card:hover .category-icon-circle {
+  transform: scale(1.1);
+  border-color: var(--red);
+  box-shadow: 0 0 30px rgba(220,38,38,0.4);
 }
 
-.brand-card:hover .brand-full-image {
-  transform: scale(1.08);
+.category-icon-text {
+  font-size: 2.2rem;
 }
 
-.brand-card:hover .brand-logo-circle {
-  border-color: rgba(220,38,38,0.5);
-  box-shadow: 0 4px 30px rgba(220,38,38,0.2), 0 0 0 6px rgba(220,38,38,0.05);
-  transform: scale(1.08);
+.category-info {
+  padding: 24px 24px 16px;
+  flex: 1;
 }
 
-.brand-logo-text {
+.category-name {
   font-family: var(--font-heading);
   font-size: 1.4rem;
   font-weight: 800;
   color: var(--white);
-  letter-spacing: 1px;
-  background: linear-gradient(135deg, var(--white) 0%, var(--text-secondary) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  transition: all 0.4s ease;
-}
-
-.brand-card:hover .brand-logo-text {
-  background: linear-gradient(135deg, var(--red-light) 0%, var(--red) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Shine effect */
-.brand-shine {
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 60%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent);
-  transition: left 0.7s ease;
-  pointer-events: none;
-}
-.brand-card:hover .brand-shine {
-  left: 150%;
-}
-
-/* Brand Info */
-.brand-info {
-  padding: 20px 24px 16px;
-  flex: 1;
-}
-
-.brand-category-tag {
-  display: inline-block;
-  padding: 3px 10px;
-  background: var(--red-subtle);
-  border: 1px solid rgba(220,38,38,0.2);
-  border-radius: 6px;
-  font-size: 0.7rem;
-  font-weight: 600;
-  color: var(--red-light);
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  margin-bottom: 10px;
-}
-
-.brand-name {
-  font-family: var(--font-heading);
-  font-size: 1.3rem;
-  font-weight: 800;
-  color: var(--white);
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   transition: color 0.3s ease;
 }
 
-.brand-card:hover .brand-name {
+.category-card:hover .category-name {
   color: var(--red-light);
 }
 
-.brand-desc {
-  font-size: 0.85rem;
+.category-desc {
+  font-size: 0.9rem;
   color: var(--text-secondary);
-  line-height: 1.7;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  line-height: 1.6;
 }
 
-/* Brand Footer */
-.brand-footer {
+.category-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 14px 24px;
+  padding: 16px 24px;
   border-top: 1px solid var(--border);
   background: rgba(255,255,255,0.01);
 }
 
-.brand-product-count {
+.category-brand-count {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   color: var(--text-muted);
   font-weight: 500;
 }
 
-.brand-cta {
+.category-cta {
   display: flex;
   align-items: center;
   gap: 4px;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   font-weight: 600;
   color: var(--red-light);
   transition: all 0.3s ease;
 }
 
-.brand-cta svg {
+.category-cta svg {
   transition: transform 0.3s ease;
 }
 
-.brand-card:hover .brand-cta {
+.category-card:hover .category-cta {
   color: var(--red);
   gap: 8px;
 }
 
-.brand-card:hover .brand-cta svg {
+.category-card:hover .category-cta svg {
   transform: translateX(3px);
 }
 
-/* Transitions for filter */
-.brand-enter-active {
-  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-.brand-leave-active {
-  transition: all 0.25s ease;
-  position: absolute;
-}
-.brand-enter-from {
-  opacity: 0;
-  transform: translateY(40px) scale(0.9);
-}
-.brand-leave-to {
-  opacity: 0;
-  transform: scale(0.85);
-}
-.brand-move {
-  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
 @media (max-width: 768px) {
-  .brand-grid { grid-template-columns: 1fr; }
-  .category-filter { gap: 8px; }
-  .filter-btn { padding: 8px 14px; font-size: 0.8rem; }
-  .brand-logo-circle { width: 72px; height: 72px; }
-  .brand-logo-text { font-size: 1.2rem; }
-}
-
-@media (max-width: 480px) {
-  .brand-footer {
+  .category-grid { 
+    grid-template-columns: 1fr; 
+    gap: 16px; 
+  }
+  
+  /* Horizontal card layout for mobile */
+  .category-card {
+    flex-direction: row;
+    align-items: center;
+    padding: 16px;
+    border-radius: 16px;
+  }
+  
+  .category-icon-area {
+    padding: 0;
+    border-bottom: none;
+    background: transparent;
+    padding-right: 16px;
+    margin-right: 16px;
+    border-right: 1px solid var(--border);
+  }
+  
+  .category-icon-circle { width: 64px; height: 64px; }
+  .category-icon-text { font-size: 1.6rem; }
+  
+  .category-info {
+    padding: 0;
+    flex: 1;
+    display: flex;
     flex-direction: column;
-    gap: 8px;
-    align-items: flex-start;
+    justify-content: center;
+  }
+  
+  .category-name {
+    font-size: 1.1rem;
+    margin-bottom: 4px;
+  }
+  
+  .category-desc {
+    font-size: 0.8rem;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+  }
+
+  .category-footer {
+    display: none; /* Hide footer to make it compact */
   }
 }
 </style>

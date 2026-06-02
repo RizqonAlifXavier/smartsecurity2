@@ -65,7 +65,7 @@
               v-for="(cat, index) in brandCategories"
               :key="cat.id"
               :class="['category-card', 'animate-on-scroll', 'fade-up', { active: activeCategory === cat.id }]"
-              :style="{ transitionDelay: `${index * 0.08}s` }"
+              :style="{ transitionDelay: `${index * 0.04}s` }"
               @click="setCategory(cat.id)"
             >
               <div class="cat-card-glow"></div>
@@ -115,10 +115,10 @@
 
           <div class="product-grid">
             <div
-              v-for="(product, index) in filteredProducts"
+              v-for="(product, index) in paginatedProducts"
               :key="product.id"
               class="product-card animate-on-scroll fade-up"
-              :style="{ transitionDelay: `${index * 0.08}s` }"
+              :style="{ transitionDelay: `${index * 0.04}s` }"
             >
               <div class="product-image">
                 <div class="product-icon">{{ product.icon }}</div>
@@ -140,6 +140,36 @@
                 </div>
               </div>
             </div>
+          </div>
+
+          <!-- Pagination -->
+          <div v-if="totalPages > 1" class="pagination animate-on-scroll fade-up">
+            <button 
+              class="page-btn" 
+              :disabled="currentPage === 1" 
+              @click="changePage(currentPage - 1)"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            
+            <div class="page-numbers">
+              <button 
+                v-for="page in totalPages" 
+                :key="page"
+                :class="['page-num', { active: currentPage === page }]"
+                @click="changePage(page)"
+              >
+                {{ page }}
+              </button>
+            </div>
+
+            <button 
+              class="page-btn" 
+              :disabled="currentPage === totalPages" 
+              @click="changePage(currentPage + 1)"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
           </div>
         </div>
 
@@ -193,6 +223,37 @@ const filteredProducts = computed(() => {
   if (activeCategory.value === 'all') return allBrandProducts.value
   return allBrandProducts.value.filter((p) => p.category === activeCategory.value)
 })
+
+// Pagination Logic
+const currentPage = ref(1)
+const itemsPerPage = 6
+
+const totalPages = computed(() => Math.ceil(filteredProducts.value.length / itemsPerPage))
+
+const paginatedProducts = computed(() => {
+  const start = (currentPage.value - 1) * itemsPerPage
+  return filteredProducts.value.slice(start, start + itemsPerPage)
+})
+
+watch([activeCategory, brandId], () => {
+  currentPage.value = 1
+})
+
+const changePage = (page) => {
+  if (page < 1 || page > totalPages.value) return
+  currentPage.value = page
+  
+  // Scroll slightly above products header
+  const header = document.querySelector('.products-section')
+  if (header) {
+    const y = header.getBoundingClientRect().top + window.scrollY - 100
+    window.scrollTo({ top: y, behavior: 'smooth' })
+  }
+  
+  nextTick(() => {
+    initScrollAnimations()
+  })
+}
 
 // Unique categories that the current brand's products belong to
 const brandCategories = computed(() => {
@@ -331,12 +392,7 @@ useHead({
 
 .brand-hero-logo.has-image {
   background: var(--white);
-  border-radius: 12px;
-  width: auto;
-  min-width: 160px;
-  max-width: 200px;
   border-color: transparent;
-  box-shadow: 0 8px 40px rgba(220,38,38,0.15);
 }
 
 .brand-hero-image {
@@ -638,6 +694,9 @@ useHead({
 }
 
 .product-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 16px;
@@ -688,6 +747,9 @@ useHead({
 
 .product-info {
   padding: 22px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .product-category {
@@ -735,6 +797,7 @@ useHead({
   align-items: center;
   padding-top: 16px;
   border-top: 1px solid var(--border);
+  margin-top: auto;
 }
 
 .product-price {
@@ -777,5 +840,87 @@ useHead({
   .meta-divider { display: none; }
   .products-header { flex-direction: column; align-items: flex-start; gap: 12px; }
   .products-section-title { font-size: 1.2rem; }
+}
+
+@media (max-width: 480px) {
+  .product-footer {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  
+  .page-numbers {
+    gap: 4px;
+  }
+  
+  .page-num {
+    width: 32px;
+    height: 32px;
+    font-size: 0.85rem;
+  }
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 56px;
+}
+
+.page-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+.page-btn:not(:disabled):hover {
+  background: var(--red-subtle);
+  border-color: var(--red);
+  color: var(--red-light);
+  transform: translateY(-2px);
+}
+
+.page-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.page-numbers {
+  display: flex;
+  gap: 8px;
+}
+
+.page-num {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-secondary);
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.page-num:hover {
+  color: var(--white);
+  background: rgba(255,255,255,0.05);
+}
+
+.page-num.active {
+  background: linear-gradient(135deg, var(--red), var(--red-dark));
+  color: var(--white);
+  box-shadow: 0 4px 12px rgba(220,38,38,0.3);
 }
 </style>

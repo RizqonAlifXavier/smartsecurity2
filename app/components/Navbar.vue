@@ -89,13 +89,13 @@ onUnmounted(() => {
 .navbar-brand-wrapper {
   display: flex;
   align-items: center;
-  background: var(--red, #dc2626);
+  background: rgba(15, 15, 15, 0.6);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 50px;
   padding: 12px 24px;
-  box-shadow: 0 8px 32px rgba(220, 38, 38, 0.4);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   pointer-events: auto;
   transition: all var(--transition);
 }
@@ -104,13 +104,13 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   gap: 20px;
-  background: var(--red, #dc2626);
+  background: rgba(15, 15, 15, 0.6);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 50px;
   padding: 12px 20px 12px 32px;
-  box-shadow: 0 8px 32px rgba(220, 38, 38, 0.4);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   pointer-events: auto;
   transition: all var(--transition);
 }
