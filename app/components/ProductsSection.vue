@@ -112,6 +112,11 @@ const getProductCount = (brandId) => {
   if (activeCategory.value === 'all') {
     return products.filter((p) => p.brand === brandId).length
   }
+  // If this brand's primary category matches, show total products for the brand
+  const brand = brands.find((b) => b.id === brandId)
+  if (brand && brand.category === activeCategory.value) {
+    return products.filter((p) => p.brand === brandId).length
+  }
   return products.filter((p) => p.brand === brandId && p.category === activeCategory.value).length
 }
 

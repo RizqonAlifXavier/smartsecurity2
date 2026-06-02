@@ -41,6 +41,17 @@ export const categories: Category[] = [
   { id: 'x-ray', label: 'X-Ray', icon: '🔍' },
   { id: 'metal-detector', label: 'Metal Detector', icon: '🔎' },
   { id: 'others', label: 'Others', icon: '⚙️' },
+
+  // GST-specific product sub-categories
+  { id: 'gst-ul-addressable', label: 'UL Listed Addressable', icon: '🏅' },
+  { id: 'gst-ul-conventional', label: 'UL Listed Conventional', icon: '🔔' },
+  { id: 'gst-en54-addressable', label: 'EN54 Addressable', icon: '🇪🇺' },
+  { id: 'gst-en54-conventional', label: 'EN54 Conventional', icon: '🔶' },
+  { id: 'gst-explosion-proof', label: 'Explosion Proof & Special Detectors', icon: '💥' },
+  { id: 'gst-gas-release', label: 'Gas Release Control', icon: '🧯' },
+  { id: 'gst-tools', label: 'Tools & Accessories', icon: '🔧' },
+  { id: 'gst-software', label: 'Software', icon: '🖥️' },
+  { id: 'gst-voice-evacuation', label: 'Emergency Voice Evacuation', icon: '📢' },
 ]
 
 export const brands: Brand[] = [
@@ -111,8 +122,116 @@ export const brands: Brand[] = [
 ]
 
 export const products: Product[] = [
-  // Fire Alarm (first)
-  { id: 27, name: 'GST Fire Alarm Panel', category: 'fire-alarm', categoryLabel: 'Fire Alarm', brand: 'gst', description: 'Conventional and addressable GST fire alarm panels.', price: 'Contact Us', features: ['Addressable', 'Multi-Loop', 'LCD Display', 'Network'], icon: '🔥' },
+  // =====================================================================
+  // GST — UL Listed Addressable Products
+  // =====================================================================
+  // Panels
+  { id: 100, name: 'GST-IFP4M', category: 'gst-ul-addressable', categoryLabel: 'UL Listed Addressable', brand: 'gst', description: 'Smart modular panel supporting 1–6 Class A loops with 7" touchscreen. Up to 1,452 addresses per panel, 100,000-event history memory.', price: 'Contact Us', features: ['1–6 Loop', 'Class A', 'Touchscreen 7"', '1,452 Addresses'], icon: '🖥️', badge: 'Flagship' },
+  { id: 101, name: 'GST-M200', category: 'gst-ul-addressable', categoryLabel: 'UL Listed Addressable', brand: 'gst', description: 'Smart wall-mount panel for small to medium projects. Supports 1–2 loops with 240–242 address capacity.', price: 'Contact Us', features: ['1–2 Loop', 'Wall Mount', '240 Addresses', 'Compact'], icon: '🖥️' },
+
+  // Network Annunciators
+  { id: 102, name: 'GST-MNA2C', category: 'gst-ul-addressable', categoryLabel: 'UL Listed Addressable', brand: 'gst', description: 'Touchscreen network annunciator for remote system status monitoring via CAN cable.', price: 'Contact Us', features: ['Touchscreen', 'CAN Bus', 'Remote Monitor', 'Network'], icon: '📟' },
+  { id: 103, name: 'GST-MNA2F', category: 'gst-ul-addressable', categoryLabel: 'UL Listed Addressable', brand: 'gst', description: 'Touchscreen network annunciator for remote system status monitoring via fiber optic.', price: 'Contact Us', features: ['Touchscreen', 'Fiber Optic', 'Remote Monitor', 'Network'], icon: '📟' },
+
+  // Intelligent Detectors — DI-M910X Series
+  { id: 104, name: 'DI-M9101N', category: 'gst-ul-addressable', categoryLabel: 'UL Listed Addressable', brand: 'gst', description: 'Multi-criteria / combination smoke & heat intelligent detector with field-programmable address and 360° LED indicator.', price: 'Contact Us', features: ['Multi-Criteria', 'Smoke & Heat', '360° LED', 'Field-Programmable'], icon: '🔍', badge: 'Smart' },
+  { id: 105, name: 'DI-M9102N', category: 'gst-ul-addressable', categoryLabel: 'UL Listed Addressable', brand: 'gst', description: 'Optical / photoelectric intelligent smoke detector with field-programmable address and 360° LED indicator.', price: 'Contact Us', features: ['Photoelectric', 'Smoke Detector', '360° LED', 'Field-Programmable'], icon: '🔍' },
+  { id: 106, name: 'DI-M9103N', category: 'gst-ul-addressable', categoryLabel: 'UL Listed Addressable', brand: 'gst', description: 'Intelligent heat detector (Rate-of-Rise & Fixed Temperature) with field-programmable address and 360° LED indicator.', price: 'Contact Us', features: ['Rate-of-Rise', 'Fixed Temp', '360° LED', 'Field-Programmable'], icon: '🌡️' },
+
+  // Intelligent Modules — Din-Rail Series
+  { id: 107, name: 'DI-M9300', category: 'gst-ul-addressable', categoryLabel: 'UL Listed Addressable', brand: 'gst', description: 'Single input module (Din-Rail) for addressable fire alarm system monitoring.', price: 'Contact Us', features: ['Single Input', 'Din-Rail', 'Addressable', 'Monitor'], icon: '🔌' },
+  { id: 108, name: 'DI-M9301', category: 'gst-ul-addressable', categoryLabel: 'UL Listed Addressable', brand: 'gst', description: 'Input-output module (Din-Rail) for addressable fire alarm system control and monitoring.', price: 'Contact Us', features: ['Input-Output', 'Din-Rail', 'Addressable', 'Control'], icon: '🔌' },
+  { id: 109, name: 'DI-M9319', category: 'gst-ul-addressable', categoryLabel: 'UL Listed Addressable', brand: 'gst', description: 'Zone monitor module (Din-Rail) for monitoring conventional zones on addressable loops.', price: 'Contact Us', features: ['Zone Monitor', 'Din-Rail', 'Addressable', 'Conventional Zone'], icon: '🔌' },
+  { id: 110, name: 'DC-M9503', category: 'gst-ul-addressable', categoryLabel: 'UL Listed Addressable', brand: 'gst', description: 'Loop isolator module (Din-Rail) for protecting loop segments from short circuits.', price: 'Contact Us', features: ['Loop Isolator', 'Din-Rail', 'Short Circuit Protection', 'Auto-Restore'], icon: '🔌', badge: 'Essential' },
+
+  // Call Point & Sounder
+  { id: 111, name: 'DI-M9204', category: 'gst-ul-addressable', categoryLabel: 'UL Listed Addressable', brand: 'gst', description: 'Digital manual call point (resettable) for addressable fire alarm systems.', price: 'Contact Us', features: ['Manual Call Point', 'Resettable', 'Digital', 'Addressable'], icon: '🚨' },
+  { id: 112, name: 'DI-M9402', category: 'gst-ul-addressable', categoryLabel: 'UL Listed Addressable', brand: 'gst', description: 'Sounder base — detector base with integrated siren for addressable notification.', price: 'Contact Us', features: ['Sounder Base', 'Integrated Siren', 'Detector Mount', 'Addressable'], icon: '🔊' },
+
+  // =====================================================================
+  // GST — UL Listed Conventional Products
+  // =====================================================================
+  // Conventional Detectors — DC-M910X Series
+  { id: 120, name: 'DC-M9101N', category: 'gst-ul-conventional', categoryLabel: 'UL Listed Conventional', brand: 'gst', description: 'Conventional multi-criteria detector. Uses 2-wire system with low power consumption.', price: 'Contact Us', features: ['Multi-Criteria', '2-Wire', 'Low Power', 'Conventional'], icon: '🔍' },
+  { id: 121, name: 'DC-M9102N', category: 'gst-ul-conventional', categoryLabel: 'UL Listed Conventional', brand: 'gst', description: 'Conventional smoke detector. Uses 2-wire system with low power consumption.', price: 'Contact Us', features: ['Smoke Detector', '2-Wire', 'Low Power', 'Conventional'], icon: '🔍' },
+  { id: 122, name: 'DC-M9103N', category: 'gst-ul-conventional', categoryLabel: 'UL Listed Conventional', brand: 'gst', description: 'Conventional heat detector. Uses 2-wire system with low power consumption.', price: 'Contact Us', features: ['Heat Detector', '2-Wire', 'Low Power', 'Conventional'], icon: '🌡️' },
+
+  // Sounder Strobe — DC-M9413 to DC-M9416
+  { id: 123, name: 'DC-M9413', category: 'gst-ul-conventional', categoryLabel: 'UL Listed Conventional', brand: 'gst', description: 'Ceiling-mount sounder strobe with field-configurable candela intensity and dB level.', price: 'Contact Us', features: ['Ceiling Mount', 'Sounder Strobe', 'Configurable Candela', 'Audio-Visual'], icon: '🔊' },
+  { id: 124, name: 'DC-M9414', category: 'gst-ul-conventional', categoryLabel: 'UL Listed Conventional', brand: 'gst', description: 'Wall-mount sounder strobe with field-configurable candela intensity and dB level.', price: 'Contact Us', features: ['Wall Mount', 'Sounder Strobe', 'Configurable Candela', 'Audio-Visual'], icon: '🔊' },
+  { id: 125, name: 'DC-M9415', category: 'gst-ul-conventional', categoryLabel: 'UL Listed Conventional', brand: 'gst', description: 'Ceiling-mount strobe light with field-configurable candela intensity for visual notification.', price: 'Contact Us', features: ['Ceiling Mount', 'Strobe', 'Configurable Candela', 'Visual Alert'], icon: '💡' },
+  { id: 126, name: 'DC-M9416', category: 'gst-ul-conventional', categoryLabel: 'UL Listed Conventional', brand: 'gst', description: 'Wall-mount strobe light with field-configurable candela intensity for visual notification.', price: 'Contact Us', features: ['Wall Mount', 'Strobe', 'Configurable Candela', 'Visual Alert'], icon: '💡' },
+
+  // Conventional Call Point & Sounder Base
+  { id: 127, name: 'DC-M9204', category: 'gst-ul-conventional', categoryLabel: 'UL Listed Conventional', brand: 'gst', description: 'Conventional manual call point for zone-based fire alarm systems.', price: 'Contact Us', features: ['Manual Call Point', 'Conventional', '2-Wire', 'Break Glass'], icon: '🚨' },
+  { id: 128, name: 'DC-M9402', category: 'gst-ul-conventional', categoryLabel: 'UL Listed Conventional', brand: 'gst', description: 'Conventional sounder base — detector base with integrated siren.', price: 'Contact Us', features: ['Sounder Base', 'Integrated Siren', 'Conventional', 'Detector Mount'], icon: '🔊' },
+
+  // =====================================================================
+  // GST — EN54 Addressable Products
+  // =====================================================================
+  // EN54 Control Panels
+  { id: 130, name: 'GST-IFP8', category: 'gst-en54-addressable', categoryLabel: 'EN54 Addressable', brand: 'gst', description: 'Large-scale modular control panel, expandable up to 8 loops with network interconnection support up to 240 panels.', price: 'Contact Us', features: ['Up to 8 Loops', '240 Panel Network', 'EN54/LPCB', 'Modular'], icon: '🖥️', badge: 'Enterprise' },
+  { id: 131, name: 'GST-IFP4E', category: 'gst-en54-addressable', categoryLabel: 'EN54 Addressable', brand: 'gst', description: 'Linux-based integrated panel with 7" touchscreen. Supports up to 6 Class A loops (1,452 addresses).', price: 'Contact Us', features: ['Linux OS', 'Touchscreen 7"', '6 Loops Class A', '1,452 Addresses'], icon: '🖥️', badge: 'Premium' },
+  { id: 132, name: 'GST200N-1', category: 'gst-en54-addressable', categoryLabel: 'EN54 Addressable', brand: 'gst', description: 'Compact smart addressable panel with 1 loop capacity. Ideal for offices, retail stores, and restaurants.', price: 'Contact Us', features: ['1 Loop', 'Compact', 'EN54/LPCB', 'Small Buildings'], icon: '🖥️' },
+  { id: 133, name: 'GST200N-2', category: 'gst-en54-addressable', categoryLabel: 'EN54 Addressable', brand: 'gst', description: 'Compact smart addressable panel with 2 loop capacity. Ideal for offices, department stores, and restaurants.', price: 'Contact Us', features: ['2 Loops', 'Compact', 'EN54/LPCB', 'Medium Buildings'], icon: '🖥️' },
+  { id: 134, name: 'GST100', category: 'gst-en54-addressable', categoryLabel: 'EN54 Addressable', brand: 'gst', description: 'Minimalist single-loop addressable panel for small buildings and simple installations.', price: 'Contact Us', features: ['Single Loop', 'Minimalist', 'EN54/LPCB', 'Small Buildings'], icon: '🖥️' },
+
+  // EN54 Repeaters & Mimic Panels
+  { id: 135, name: 'GST-NR2EC', category: 'gst-en54-addressable', categoryLabel: 'EN54 Addressable', brand: 'gst', description: 'LCD network repeater panel via CAN cable for remote system status display.', price: 'Contact Us', features: ['LCD Repeater', 'CAN Bus', 'Network', 'Remote Display'], icon: '📟' },
+  { id: 136, name: 'GST-NR2EF', category: 'gst-en54-addressable', categoryLabel: 'EN54 Addressable', brand: 'gst', description: 'LCD network repeater panel via fiber optic for remote system status display.', price: 'Contact Us', features: ['LCD Repeater', 'Fiber Optic', 'Network', 'Remote Display'], icon: '📟' },
+  { id: 137, name: 'GST-NRP00', category: 'gst-en54-addressable', categoryLabel: 'EN54 Addressable', brand: 'gst', description: 'Local system status repeater panel for displaying fire alarm system status at secondary locations.', price: 'Contact Us', features: ['Status Repeater', 'Local Display', 'Secondary Location', 'EN54'], icon: '📟' },
+  { id: 138, name: 'GST852RP', category: 'gst-en54-addressable', categoryLabel: 'EN54 Addressable', brand: 'gst', description: 'LCD repeater panel for monitoring and displaying fire alarm system events.', price: 'Contact Us', features: ['LCD Display', 'Repeater', 'Event Monitor', 'EN54'], icon: '📟' },
+  { id: 139, name: 'GST8903', category: 'gst-en54-addressable', categoryLabel: 'EN54 Addressable', brand: 'gst', description: 'Smart graphic mimic panel that maps visual building floor-plan layout for intuitive fire alarm monitoring.', price: 'Contact Us', features: ['Graphic Mimic', 'Building Layout', 'Visual Map', 'Smart Display'], icon: '🗺️', badge: 'Visual' },
+
+  // EN54 Intelligent Detectors — DI-910XE Series
+  { id: 140, name: 'DI-9101E', category: 'gst-en54-addressable', categoryLabel: 'EN54 Addressable', brand: 'gst', description: 'Intelligent multi-sensor detector (smoke & heat) certified to EN54/LPCB standards.', price: 'Contact Us', features: ['Multi-Sensor', 'Smoke & Heat', 'EN54/LPCB', 'Intelligent'], icon: '🔍', badge: 'Smart' },
+  { id: 141, name: 'DI-9102E', category: 'gst-en54-addressable', categoryLabel: 'EN54 Addressable', brand: 'gst', description: 'Intelligent photoelectric smoke detector certified to EN54/LPCB standards.', price: 'Contact Us', features: ['Photoelectric', 'Smoke Detector', 'EN54/LPCB', 'Intelligent'], icon: '🔍' },
+  { id: 142, name: 'DI-9103E', category: 'gst-en54-addressable', categoryLabel: 'EN54 Addressable', brand: 'gst', description: 'Intelligent heat detector certified to EN54/LPCB standards.', price: 'Contact Us', features: ['Heat Detector', 'EN54/LPCB', 'Intelligent', 'Fixed/ROR'], icon: '🌡️' },
+  { id: 143, name: 'DI-9105E', category: 'gst-en54-addressable', categoryLabel: 'EN54 Addressable', brand: 'gst', description: 'Reflective beam detector (long-range infrared) for high-ceiling rooms, halls, and warehouses.', price: 'Contact Us', features: ['Beam Detector', 'Infrared', 'Long Range', 'High Ceiling'], icon: '📡', badge: 'Long Range' },
+
+  // EN54 Intelligent Modules — DI-9300E Series
+  { id: 144, name: 'DI-9300E', category: 'gst-en54-addressable', categoryLabel: 'EN54 Addressable', brand: 'gst', description: 'Digital input module for EN54 addressable fire alarm system monitoring.', price: 'Contact Us', features: ['Digital Input', 'EN54', 'Addressable', 'Monitor'], icon: '🔌' },
+  { id: 145, name: 'DI-9301E', category: 'gst-en54-addressable', categoryLabel: 'EN54 Addressable', brand: 'gst', description: 'Digital input-output module for EN54 addressable fire alarm system control and monitoring.', price: 'Contact Us', features: ['Input-Output', 'EN54', 'Addressable', 'Control'], icon: '🔌' },
+  { id: 146, name: 'DI-9302E', category: 'gst-en54-addressable', categoryLabel: 'EN54 Addressable', brand: 'gst', description: 'High voltage output module (relay 220VAC/5A) for integration with elevator control, dampers, or smoke exhaust/pressurized fans.', price: 'Contact Us', features: ['220VAC/5A Relay', 'Elevator Control', 'Damper Integration', 'Smoke Exhaust'], icon: '⚡', badge: 'High Voltage' },
+
+  // =====================================================================
+  // GST — EN54 Conventional Products
+  // =====================================================================
+  { id: 150, name: 'GST EN54 Conventional System', category: 'gst-en54-conventional', categoryLabel: 'EN54 Conventional', brand: 'gst', description: 'Range of conventional (non-addressable) sensors, call points, and alarm sirens compliant with European EN54 safety regulation standards.', price: 'Contact Us', features: ['EN54 Certified', 'Zone-Based', 'Non-Addressable', 'European Standard'], icon: '🔶' },
+
+  // =====================================================================
+  // GST — Explosion Proof & Specified Detectors
+  // =====================================================================
+  { id: 160, name: 'GST Explosion Proof Detectors', category: 'gst-explosion-proof', categoryLabel: 'Explosion Proof & Special Detectors', brand: 'gst', description: 'Fire protection devices designed for extreme industrial environments, hazardous areas, or zones with high gas/vapor explosion risk. Includes flame detectors and high-sensitivity detectors.', price: 'Contact Us', features: ['Hazardous Area', 'Explosion Proof', 'Flame Detector', 'High Sensitivity'], icon: '💥', badge: 'Industrial' },
+
+  // =====================================================================
+  // GST — Gas Release Control Products
+  // =====================================================================
+  { id: 170, name: 'GST Gas Release Control Panel', category: 'gst-gas-release', categoryLabel: 'Gas Release Control', brand: 'gst', description: 'Panel and control units for managing gas suppression agent release. Commonly integrated in server rooms, data centers, archive storage, and electrical substations.', price: 'Contact Us', features: ['Gas Suppression', 'Server Room', 'Data Center', 'Auto Release'], icon: '🧯', badge: 'Critical' },
+
+  // =====================================================================
+  // GST — Tools & Accessories
+  // =====================================================================
+  { id: 180, name: 'GST-MBX22', category: 'gst-tools', categoryLabel: 'Tools & Accessories', brand: 'gst', description: 'Protective Din-Rail module mounting box for protecting installed modules.', price: 'Contact Us', features: ['Din-Rail Box', 'Module Protection', 'Mounting', 'Compact'], icon: '📦' },
+  { id: 181, name: 'GST-MBX29', category: 'gst-tools', categoryLabel: 'Tools & Accessories', brand: 'gst', description: 'Protective Din-Rail module mounting box (large variant) for protecting installed modules.', price: 'Contact Us', features: ['Din-Rail Box', 'Module Protection', 'Large Size', 'Mounting'], icon: '📦' },
+  { id: 182, name: 'D-93TC1', category: 'gst-tools', categoryLabel: 'Tools & Accessories', brand: 'gst', description: 'Transparent protective cover for module connection terminals. Prevents physical contact and external electric shock.', price: 'Contact Us', features: ['Terminal Cover', 'Transparent', 'Shock Protection', 'Safety'], icon: '🛡️' },
+  { id: 183, name: 'D-93TC2', category: 'gst-tools', categoryLabel: 'Tools & Accessories', brand: 'gst', description: 'Transparent protective cover (large variant) for module connection terminals. Prevents physical contact and external electric shock.', price: 'Contact Us', features: ['Terminal Cover', 'Transparent', 'Large Size', 'Safety'], icon: '🛡️' },
+  { id: 184, name: 'GST Handheld Programmer', category: 'gst-tools', categoryLabel: 'Tools & Accessories', brand: 'gst', description: 'Handheld address programmer device for field programming of detector and module addresses.', price: 'Contact Us', features: ['Handheld', 'Address Programming', 'Field Use', 'Portable'], icon: '📱', badge: 'Tool' },
+
+  // =====================================================================
+  // GST — Software
+  // =====================================================================
+  { id: 190, name: 'GST Cause & Effect Configuration Tool', category: 'gst-software', categoryLabel: 'Software', brand: 'gst', description: 'PC-based application for configuring cause-and-effect logic matrix relationships in fire alarm systems.', price: 'Contact Us', features: ['Cause & Effect', 'Logic Matrix', 'PC Software', 'Configuration'], icon: '🖥️' },
+  { id: 191, name: 'GST Defining Tool', category: 'gst-software', categoryLabel: 'Software', brand: 'gst', description: 'PC-based application for programming panel interconnection system and defining network topology.', price: 'Contact Us', features: ['Panel Network', 'System Definition', 'PC Software', 'Topology'], icon: '🖥️' },
+  { id: 192, name: 'GST Graphic Monitoring Software', category: 'gst-software', categoryLabel: 'Software', brand: 'gst', description: 'Real-time graphic monitoring PC software for visualizing the entire building fire alarm condition across all areas.', price: 'Contact Us', features: ['Real-Time', 'Graphic Monitor', 'Building-Wide', 'PC Software'], icon: '🗺️', badge: 'Monitoring' },
+
+  // =====================================================================
+  // GST — Emergency Voice Evacuation
+  // =====================================================================
+  { id: 200, name: 'GST Emergency Voice Evacuation System', category: 'gst-voice-evacuation', categoryLabel: 'Emergency Voice Evacuation', brand: 'gst', description: 'Automatic emergency audio integration and public address (PA) system for broadcasting mass or zoned voice evacuation instructions when valid fire hazard confirmation is detected.', price: 'Contact Us', features: ['Voice Evacuation', 'PA System', 'Zoned Broadcast', 'Auto Trigger'], icon: '📢', badge: 'Life Safety' },
+
+  // Fire Alarm — Other Brands
+  // (Original GST Fire Alarm Panel removed, replaced by detailed products above)
   { id: 29, name: 'Notifier Fire Alarm System', category: 'fire-alarm', categoryLabel: 'Fire Alarm', brand: 'notifier', description: 'Enterprise-class Notifier fire alarm system from Honeywell.', price: 'Contact Us', features: ['ONYX Series', 'Enterprise', 'Addressable', 'Networking'], icon: '🔥', badge: 'Enterprise' },
   { id: 28, name: 'Edwards Fire Detection', category: 'fire-alarm', categoryLabel: 'Fire Alarm', brand: 'edwards', description: 'Edwards fire detection system with life safety technology.', price: 'Contact Us', features: ['EST Platform', 'Life Safety', 'Addressable', 'Integration'], icon: '🔥' },
   { id: 30, name: 'Simplex Fire Protection', category: 'fire-alarm', categoryLabel: 'Fire Alarm', brand: 'simplex', description: 'Simplex fire protection system with detection and notification.', price: 'Contact Us', features: ['TrueAlarm', 'Detection', 'Notification', 'Integration'], icon: '🔥' },
