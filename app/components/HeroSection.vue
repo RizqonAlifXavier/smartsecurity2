@@ -47,12 +47,12 @@
           <div class="marquee-track">
             <!-- First set -->
             <div v-for="brand in heroBrands" :key="brand.id + '-1'" class="marquee-item">
-              <img v-if="brand.logoImage" :src="brand.logoImage" :alt="brand.name" />
+              <img v-if="brand.logoImage" :src="brand.logoImage" :alt="brand.name" loading="lazy" decoding="async" />
               <span v-else class="marquee-text-logo">{{ brand.logo }}</span>
             </div>
             <!-- Duplicated set for infinite loop -->
             <div v-for="brand in heroBrands" :key="brand.id + '-2'" class="marquee-item">
-              <img v-if="brand.logoImage" :src="brand.logoImage" :alt="brand.name" />
+              <img v-if="brand.logoImage" :src="brand.logoImage" :alt="brand.name" loading="lazy" decoding="async" />
               <span v-else class="marquee-text-logo">{{ brand.logo }}</span>
             </div>
           </div>
@@ -144,7 +144,7 @@ const particleStyle = (n) => {
 .hero-content {
   position: relative;
   z-index: 2;
-  padding-top: 120px;
+  padding-top: 180px;
 }
 .hero-badge {
   display: inline-flex;

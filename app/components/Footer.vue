@@ -6,7 +6,7 @@
         <!-- Brand -->
         <div class="footer-brand">
           <div class="footer-logo">
-            <img src="/logo.jpg" alt="Sinergi Sempurna Solusindo" class="brand-logo-img" />
+            <img src="/logo-sss.png" alt="Sinergi Sempurna Solusindo" class="brand-logo-img" loading="lazy" decoding="async" />
           </div>
           <p class="footer-desc">
             PT Sinergi Sempurna Solusindo (Smart Security) — The most comprehensive and trusted authorized distributor for security solutions (CCTV, Access Control, Fire Alarm, IT Solutions) for your home, office, and business. Providing consultation, sales, and professional installation.
@@ -82,7 +82,7 @@ const currentYear = new Date().getFullYear()
 .footer {
   background: transparent;
   border-top: 1px solid var(--border);
-  padding: 80px 0 0;
+  padding: 40px 0 0;
   position: relative;
   overflow: hidden;
 }
@@ -103,7 +103,7 @@ const currentYear = new Date().getFullYear()
   display: grid;
   grid-template-columns: 1.5fr 1fr 1fr 1fr;
   gap: 48px;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
 }
 
 .footer-logo {
@@ -113,16 +113,14 @@ const currentYear = new Date().getFullYear()
   font-family: var(--font-heading);
   font-weight: 800;
   font-size: 1.2rem;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .brand-logo-img {
-  height: 60px;
+  height: 130px;
   width: auto;
+  max-width: none;
   object-fit: contain;
-  background: white;
-  padding: 8px;
-  border-radius: 8px;
 }
 
 .footer-desc {

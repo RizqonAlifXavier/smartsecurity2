@@ -11,11 +11,19 @@
 <script setup>
 useScrollAnimation()
 
-useHead({
+useSeoMeta({
   title: 'Smart Security - Trusted Security Solutions | CCTV, Access Control, Alarm System',
-  meta: [
-    { name: 'description', content: 'Smart Security provides the most comprehensive security solutions: CCTV, Access Control, Alarm System, Intercom, Fire Alarm. Free consultation & professional installation.' },
-  ],
+  description: 'Smart Security provides the most comprehensive security solutions: CCTV, Access Control, Alarm System, Intercom, Fire Alarm. Free consultation & professional installation.',
+  ogTitle: 'Smart Security - Trusted Security Solutions',
+  ogDescription: 'The most comprehensive security solutions for your home and business. CCTV, Access Control, Alarm System.',
+  ogType: 'website',
+  twitterCard: 'summary_large_image',
+  twitterTitle: 'Smart Security - Trusted Security Solutions',
+  twitterDescription: 'The most comprehensive security solutions for your home and business.',
+  keywords: 'smart security, cctv, access control, alarm system, security, security system, fire alarm, intercom, surveillance, indonesia, genetec, lenel, siqura, gst'
+})
+
+useHead({
   script: [
     {
       type: 'application/ld+json',

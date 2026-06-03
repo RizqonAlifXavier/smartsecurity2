@@ -14,7 +14,7 @@
         <div class="hero-content">
           <div class="brand-hero-badge animate-on-scroll bounce-in">
             <div class="brand-hero-logo" :class="{ 'has-image': !!currentBrand?.logoImage }">
-              <img v-if="currentBrand?.logoImage" :src="currentBrand.logoImage" :alt="currentBrand.name" class="brand-hero-image" />
+              <img v-if="currentBrand?.logoImage" :src="currentBrand.logoImage" :alt="currentBrand.name" class="brand-hero-image" loading="lazy" decoding="async" />
               <span v-else>{{ currentBrand?.logo || '?' }}</span>
             </div>
           </div>
@@ -322,18 +322,24 @@ const goBack = () => {
   }
 }
 
-useHead({
-  title: currentBrand.value
-    ? `${currentBrand.value.name} - ${currentBrand.value.categoryLabel} Products | Smart Security`
-    : 'All Products | Smart Security',
-  meta: [
-    {
-      name: 'description',
-      content: currentBrand.value
-        ? `View ${currentBrand.value.name} products for ${currentBrand.value.categoryLabel} at Smart Security. ${currentBrand.value.description}`
-        : 'View all security products from Smart Security.',
-    },
-  ],
+const seoTitle = computed(() => currentBrand.value 
+  ? `${currentBrand.value.name} - ${currentBrand.value.categoryLabel} Products | Smart Security`
+  : 'All Products | Smart Security')
+
+const seoDesc = computed(() => currentBrand.value
+  ? `View ${currentBrand.value.name} products for ${currentBrand.value.categoryLabel} at Smart Security. ${currentBrand.value.description || 'High quality security solutions.'}`
+  : 'View all security products from Smart Security. We offer the best CCTV, Access Control, and Alarm Systems.')
+
+useSeoMeta({
+  title: seoTitle,
+  description: seoDesc,
+  ogTitle: seoTitle,
+  ogDescription: seoDesc,
+  twitterTitle: seoTitle,
+  twitterDescription: seoDesc,
+  keywords: computed(() => currentBrand.value 
+    ? `${currentBrand.value.name}, ${currentBrand.value.categoryLabel}, smart security, cctv indonesia, access control, security system`
+    : 'smart security, security products, cctv, access control, fire alarm, indonesia')
 })
 </script>
 

@@ -48,7 +48,7 @@
             <div class="brand-glow"></div>
             <div class="brand-logo-area">
               <div class="brand-logo-circle" :class="{ 'has-image': !!brand.logoImage }">
-                <img v-if="brand.logoImage" :src="brand.logoImage" :alt="brand.name" class="brand-logo-image" />
+                <img v-if="brand.logoImage" :src="brand.logoImage" :alt="brand.name" class="brand-logo-image" loading="lazy" decoding="async" />
                 <span v-else class="brand-logo-text">{{ brand.logo }}</span>
               </div>
               <div class="brand-shine"></div>
@@ -117,18 +117,24 @@ onMounted(() => {
   })
 })
 
-useHead({
-  title: currentCategory.value 
-    ? `${currentCategory.value.label} Brands | Smart Security` 
-    : 'Category | Smart Security',
-  meta: [
-    {
-      name: 'description',
-      content: currentCategory.value 
-        ? `Explore our partner brands for ${currentCategory.value.label}. ${currentCategory.value.description}` 
-        : 'Explore our security brands by category.',
-    }
-  ]
+const seoTitle = computed(() => currentCategory.value 
+  ? `${currentCategory.value.label} Brands | Smart Security` 
+  : 'Category | Smart Security')
+
+const seoDesc = computed(() => currentCategory.value 
+  ? `Explore our partner brands for ${currentCategory.value.label}. ${currentCategory.value.description || 'High quality security solutions.'}` 
+  : 'Explore our security brands by category.')
+
+useSeoMeta({
+  title: seoTitle,
+  description: seoDesc,
+  ogTitle: seoTitle,
+  ogDescription: seoDesc,
+  twitterTitle: seoTitle,
+  twitterDescription: seoDesc,
+  keywords: computed(() => currentCategory.value 
+    ? `${currentCategory.value.label}, security brands, cctv indonesia, access control, smart security`
+    : 'smart security, security brands, cctv, access control, fire alarm, indonesia')
 })
 </script>
 

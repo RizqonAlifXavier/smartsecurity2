@@ -36,5 +36,15 @@ export default defineNuxtConfig({
     },
   },
 
+  modules: [
+    '@nuxtjs/sitemap',
+    '@nuxtjs/robots'
+  ],
+
+  site: {
+    url: 'https://smartsecurity.co.id',
+    name: 'Smart Security'
+  },
+
   css: ['~/assets/css/main.css'],
 })
