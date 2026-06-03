@@ -54,7 +54,13 @@ import { brands, categories } from '~/data/products'
 
 const { initScrollAnimations } = useScrollAnimation()
 
-const mainCategories = computed(() => categories.filter(c => !c.id.startsWith('gst-') && c.id !== 'all'))
+const mainCategories = computed(() => categories.filter(c => 
+  !c.id.startsWith('gst-') && 
+  !c.id.startsWith('siqura-') && 
+  !c.id.startsWith('genetec-') && 
+  !c.id.startsWith('lenel-') && 
+  c.id !== 'all'
+))
 const displayCategories = computed(() => mainCategories.value)
 
 const getBrandsInCategory = (catId) => {

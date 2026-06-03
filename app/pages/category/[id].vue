@@ -106,7 +106,7 @@ const getProductCount = (brandId) => {
 }
 
 const getBrandLink = (brand) => {
-  return { path: '/products', query: { brand: brand.id, category: brand.category } }
+  return { path: '/products', query: { brand: brand.id } }
 }
 
 const { initScrollAnimations } = useScrollAnimation()

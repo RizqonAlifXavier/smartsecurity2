@@ -144,7 +144,7 @@ const particleStyle = (n) => {
 .hero-content {
   position: relative;
   z-index: 2;
-  padding-top: 100px;
+  padding-top: 120px;
 }
 .hero-badge {
   display: inline-flex;
@@ -182,7 +182,7 @@ const particleStyle = (n) => {
 .hero-subtitle {
   font-size: 1.15rem;
   color: var(--text-secondary);
-  max-width: 600px;
+  max-width: 700px;
   line-height: 1.7;
   margin-bottom: 36px;
 }
@@ -215,8 +215,8 @@ const particleStyle = (n) => {
   position: relative;
   width: 100%;
   height: 100%;
-  max-width: 500px;
-  max-height: 500px;
+  max-width: 650px;
+  max-height: 650px;
 }
 .image-wrapper {
   position: absolute;
