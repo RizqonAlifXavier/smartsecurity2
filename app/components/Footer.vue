@@ -121,6 +121,15 @@ const currentYear = new Date().getFullYear()
   width: auto;
   max-width: none;
   object-fit: contain;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.brand-logo-img:hover {
+  transform: scale(1.05) translateZ(0);
+  filter: drop-shadow(0 10px 20px rgba(220,38,38,0.4));
 }
 
 .footer-desc {

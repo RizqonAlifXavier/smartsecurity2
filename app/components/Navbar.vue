@@ -161,7 +161,15 @@ onUnmounted(() => {
   height: 130px;
   width: auto;
   object-fit: contain;
-  transition: height 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.brand-logo-img:hover {
+  transform: scale(1.05) translateZ(0);
+  filter: drop-shadow(0 10px 20px rgba(220,38,38,0.4));
 }
 
 .navbar.scrolled .brand-logo-img {
@@ -189,11 +197,15 @@ onUnmounted(() => {
 
 
 .navbar-link {
+  display: inline-block;
   font-size: 0.95rem;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.9);
-  transition: color var(--transition-fast);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   position: relative;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .navbar-link::after {
@@ -209,6 +221,8 @@ onUnmounted(() => {
 
 .navbar-link:hover {
   color: var(--white);
+  transform: scale(1.1) translateZ(0);
+  filter: drop-shadow(0 0 8px rgba(220,38,38,0.9)) drop-shadow(0 4px 15px rgba(220,38,38,0.7));
 }
 
 .navbar-link:hover::after {
