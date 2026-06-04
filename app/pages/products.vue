@@ -195,6 +195,7 @@ const { initScrollAnimations } = useScrollAnimation()
 
 const brandId = computed(() => route.query.brand || '')
 const categoryFromQuery = computed(() => route.query.category || '')
+const fromCategoryQuery = computed(() => route.query.from_category || '')
 
 const currentBrand = computed(() => {
   return brands.find((b) => b.id === brandId.value) || null
@@ -306,6 +307,10 @@ const askProduct = (product) => {
 
 // Dynamic back button text based on whether we came from a category
 const backButtonText = computed(() => {
+  if (fromCategoryQuery.value) {
+    const cat = categories.find((c) => c.id === fromCategoryQuery.value)
+    return cat ? `Back to ${cat.label} Brands` : 'Back to Brands'
+  }
   if (categoryFromQuery.value) {
     const cat = categories.find((c) => c.id === categoryFromQuery.value)
     return cat ? `Back to ${cat.label} Brands` : 'Back to Brands'
@@ -315,7 +320,9 @@ const backButtonText = computed(() => {
 
 // Navigate back to the Category page or homepage
 const goBack = () => {
-  if (categoryFromQuery.value) {
+  if (fromCategoryQuery.value) {
+    router.push(`/category/${fromCategoryQuery.value}`)
+  } else if (categoryFromQuery.value) {
     router.push(`/category/${categoryFromQuery.value}`)
   } else {
     router.push({ path: '/', hash: '#products' })

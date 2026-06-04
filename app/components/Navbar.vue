@@ -190,7 +190,6 @@ onUnmounted(() => {
   transition: all var(--transition);
   max-width: 600px;
   opacity: 1;
-  overflow: hidden;
   white-space: nowrap;
 }
 
@@ -272,6 +271,19 @@ onUnmounted(() => {
 }
 
 @media (max-width: 768px) {
+  .brand-logo-img {
+    height: 56px;
+  }
+
+  .navbar-inner {
+    background: rgba(15, 15, 15, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 8px 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+
   .navbar-nav-wrapper {
     background: transparent;
     backdrop-filter: none;
