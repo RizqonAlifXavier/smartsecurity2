@@ -153,6 +153,10 @@ onMounted(() => {
 .category-info {
   padding: 24px 24px 16px;
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .category-name {

@@ -4,6 +4,7 @@
     <LazyAboutSection />
     <LazyProductsSection />
     <LazyFeaturesSection />
+    <LazyBrandsMarquee />
     <LazyContactSection />
   </div>
 </template>
