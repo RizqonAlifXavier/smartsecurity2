@@ -37,6 +37,7 @@ export default defineNuxtConfig({
   },
 
   modules: [
+    '@nuxt/image',
     '@nuxtjs/sitemap',
     '@nuxtjs/robots'
   ],

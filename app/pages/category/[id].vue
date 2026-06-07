@@ -48,7 +48,7 @@
             <div class="brand-glow"></div>
             <div class="brand-logo-area">
               <div class="brand-logo-circle" :class="{ 'has-image': !!brand.logoImage }">
-                <img v-if="brand.logoImage" :src="brand.logoImage" :alt="brand.name" class="brand-logo-image" loading="lazy" decoding="async" />
+                <NuxtImg v-if="brand.logoImage" :src="brand.logoImage" :alt="brand.name" class="brand-logo-image" loading="lazy" decoding="async" />
                 <span v-else class="brand-logo-text">{{ brand.logo }}</span>
               </div>
               <div class="brand-shine"></div>

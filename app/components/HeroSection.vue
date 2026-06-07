@@ -25,18 +25,27 @@
               Contact Us
             </a>
           </div>
+          <!-- Thumbnail gallery like the reference web -->
+          <div class="hero-thumbnails animate-on-scroll fade-up delay-4">
+            <div 
+              v-for="(slide, index) in slides" 
+              :key="slide.id"
+              class="thumb" 
+              :class="{ active: activeIndex === index }"
+              @click="setSlide(index)"
+            >
+              <NuxtImg :src="slide.src" :alt="slide.alt" :class="{'thumb-blend': slide.isTransparent}" />
+            </div>
+          </div>
         </div>
 
         <div class="hero-image-side animate-on-scroll fade-up delay-4">
-          <div class="image-composition">
-            <div class="image-wrapper img-1">
-              <img src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&w=800&q=80" alt="Advanced CCTV Security Camera" />
+          <div class="hero-float-anim">
+            <div class="main-image-wrapper">
+              <transition name="hero-fade" mode="out-in">
+                <NuxtImg :key="activeIndex" :src="slides[activeIndex].src" :alt="slides[activeIndex].alt" class="floating-cctv" />
+              </transition>
             </div>
-            <div class="image-wrapper img-2">
-              <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80" alt="Smart Technology Security" />
-            </div>
-            <div class="decor-circle"></div>
-            <div class="decor-dots"></div>
           </div>
         </div>
       </div>
@@ -47,12 +56,12 @@
           <div class="marquee-track">
             <!-- First set -->
             <div v-for="brand in heroBrands" :key="brand.id + '-1'" class="marquee-item">
-              <img v-if="brand.logoImage" :src="brand.logoImage" :alt="brand.name" loading="lazy" decoding="async" />
+              <NuxtImg v-if="brand.logoImage" :src="brand.logoImage" :alt="brand.name" loading="lazy" decoding="async" />
               <span v-else class="marquee-text-logo">{{ brand.logo }}</span>
             </div>
             <!-- Duplicated set for infinite loop -->
             <div v-for="brand in heroBrands" :key="brand.id + '-2'" class="marquee-item">
-              <img v-if="brand.logoImage" :src="brand.logoImage" :alt="brand.name" loading="lazy" decoding="async" />
+              <NuxtImg v-if="brand.logoImage" :src="brand.logoImage" :alt="brand.name" loading="lazy" decoding="async" />
               <span v-else class="marquee-text-logo">{{ brand.logo }}</span>
             </div>
           </div>
@@ -63,7 +72,45 @@
 </template>
 
 <script setup>
+import { ref, onMounted, onUnmounted } from 'vue'
 import { brands } from '~/data/products'
+
+const slides = [
+  { id: 1, src: '/images/cctv_hero.svg' , alt: 'Featured CCTV', isTransparent: true },
+  { id: 2, src: '/images/access_control_hero.svg', alt: 'Access Control', isTransparent: true },
+  { id: 3, src: '/images/alarm_hero.svg', alt: 'Alarm System', isTransparent: true },
+  { id: 4, src: '/images/fire_alarm_hero.svg', alt: 'Fire Alarm', isTransparent: true }
+]
+
+const activeIndex = ref(0)
+let intervalId = null
+
+const nextSlide = () => {
+  activeIndex.value = (activeIndex.value + 1) % slides.length
+}
+
+const setSlide = (index) => {
+  activeIndex.value = index
+  resetInterval()
+}
+
+const resetInterval = () => {
+  if (intervalId) clearInterval(intervalId)
+  intervalId = setInterval(nextSlide, 5000)
+}
+
+onMounted(() => {
+  // Preload all slide images so they appear instantly
+  slides.forEach(slide => {
+    const img = new Image()
+    img.src = slide.src
+  })
+  intervalId = setInterval(nextSlide, 5000)
+})
+
+onUnmounted(() => {
+  if (intervalId) clearInterval(intervalId)
+})
 
 const heroBrands = brands.filter(b => b.logoImage || b.logo)
 
@@ -190,7 +237,7 @@ const particleStyle = (n) => {
   display: flex;
   gap: 16px;
   flex-wrap: wrap;
-  margin-bottom: 60px;
+  margin-bottom: 30px;
 }
 .btn-lg {
   padding: 16px 36px;
@@ -206,74 +253,70 @@ const particleStyle = (n) => {
 .hero-image-side {
   position: relative;
   width: 100%;
-  aspect-ratio: 1 / 1;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.image-composition {
+.hero-float-anim {
+  animation: floating-hero 6s ease-in-out infinite;
+}
+.main-image-wrapper {
   position: relative;
   width: 100%;
-  height: 100%;
-  max-width: 650px;
-  max-height: 650px;
+  max-width: 550px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
 }
-.image-wrapper {
-  position: absolute;
-  border-radius: 24px;
+.floating-cctv {
+  width: 100%;
+  height: auto;
+  max-height: 500px;
+  object-fit: contain;
+}
+@keyframes floating-hero {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+.hero-thumbnails {
+  display: flex;
+  gap: 16px;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+.thumb {
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-  border: 1px solid rgba(255,255,255,0.1);
-  transition: transform 0.5s ease;
+  border: 2px solid rgba(255,255,255,0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: rgba(255,255,255,0.02);
 }
-.image-wrapper img {
+.thumb img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  transition: transform 0.7s ease;
+  object-fit: contain;
+  padding: 4px;
+  transition: all 0.3s ease;
 }
-.img-1 {
-  width: 65%;
-  aspect-ratio: 4/5;
-  top: 0;
-  left: 0;
-  z-index: 2;
+.thumb:hover {
+  border-color: rgba(255,255,255,0.3);
 }
-.img-2 {
-  width: 60%;
-  aspect-ratio: 1/1;
-  bottom: 5%;
-  right: 0;
-  z-index: 1;
+.thumb.active {
+  border-color: var(--red);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(220, 38, 38, 0.2);
 }
-.image-wrapper:hover {
-  transform: translateY(-10px);
-  z-index: 3;
+.hero-fade-enter-active,
+.hero-fade-leave-active {
+  transition: opacity 0.4s ease;
 }
-.image-wrapper:hover img {
-  transform: scale(1.05);
-}
-.decor-circle {
-  position: absolute;
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, rgba(220,38,38,0.2), rgba(239,68,68,0.05));
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 0;
-  filter: blur(40px);
-}
-.decor-dots {
-  position: absolute;
-  width: 150px;
-  height: 150px;
-  background-image: radial-gradient(rgba(255,255,255,0.2) 2px, transparent 2px);
-  background-size: 20px 20px;
-  bottom: -20px;
-  left: -20px;
-  z-index: 0;
+.hero-fade-enter-from,
+.hero-fade-leave-to {
+  opacity: 0;
 }
 .hero-brands-marquee {
   width: 100%;

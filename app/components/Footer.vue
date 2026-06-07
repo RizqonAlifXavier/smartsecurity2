@@ -6,7 +6,7 @@
         <!-- Brand -->
         <div class="footer-brand">
           <div class="footer-logo">
-            <img src="/logo-sss.png" alt="Sinergi Sempurna Solusindo" class="brand-logo-img" loading="lazy" decoding="async" />
+            <NuxtImg src="/logo-sss.png" alt="Sinergi Sempurna Solusindo" class="brand-logo-img" loading="lazy" decoding="async" />
           </div>
           <p class="footer-desc">
             PT Sinergi Sempurna Solusindo (Smart Security) — The most comprehensive and trusted authorized distributor for security solutions (CCTV, Access Control, Fire Alarm, IT Solutions) for your home, office, and business. Providing consultation, sales, and professional installation.

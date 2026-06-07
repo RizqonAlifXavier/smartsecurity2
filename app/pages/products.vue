@@ -14,7 +14,7 @@
         <div class="hero-content">
           <div class="brand-hero-badge animate-on-scroll bounce-in">
             <div class="brand-hero-logo" :class="{ 'has-image': !!currentBrand?.logoImage }">
-              <img v-if="currentBrand?.logoImage" :src="currentBrand.logoImage" :alt="currentBrand.name" class="brand-hero-image" loading="lazy" decoding="async" />
+              <NuxtImg v-if="currentBrand?.logoImage" :src="currentBrand.logoImage" :alt="currentBrand.name" class="brand-hero-image" loading="lazy" decoding="async" />
               <span v-else>{{ currentBrand?.logo || '?' }}</span>
             </div>
           </div>

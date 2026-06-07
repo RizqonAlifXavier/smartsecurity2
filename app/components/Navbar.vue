@@ -4,7 +4,7 @@
       <div class="navbar-inner">
         <div class="navbar-brand-wrapper">
           <NuxtLink to="/" class="navbar-logo" @click="closeMenu">
-            <img src="/logo-sss.png" alt="Sinergi Sempurna Solusindo" class="brand-logo-img" />
+            <NuxtImg src="/logo-sss.png" alt="Sinergi Sempurna Solusindo" class="brand-logo-img" />
           </NuxtLink>
         </div>
 
