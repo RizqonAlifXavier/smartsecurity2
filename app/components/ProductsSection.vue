@@ -21,7 +21,7 @@
           <div class="category-glow"></div>
           <div class="category-icon-area">
             <div class="category-icon-circle">
-              <span class="category-icon-text">{{ cat.icon }}</span>
+              <div class="category-icon-svg" v-html="getCategoryIcon(cat.id)"></div>
             </div>
           </div>
           <div class="category-info">
@@ -65,6 +65,38 @@ const displayCategories = computed(() => mainCategories.value)
 
 const getBrandsInCategory = (catId) => {
   return brands.filter((b) => b.category === catId)
+}
+
+// Professional SVG icons per category (no emojis)
+const categoryIconSvgs = {
+  // Fire Alarm — alarm bell with side ringing arcs
+  'fire-alarm': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/><path d="M3.5 5.5C4.8 3.7 6.7 2.5 9 2"/><path d="M20.5 5.5C19.2 3.7 17.3 2.5 15 2"/></svg>`,
+  // Access Control — padlock with keyhole dot
+  'access-control': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/><circle cx="12" cy="16" r="1.5" fill="currentColor" stroke="none"/></svg>`,
+  // CCTV — dome/box security camera with lens
+  'cctv': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 00-2 2v9a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>`,
+  // Security System — shield with verified checkmark
+  'security-system': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>`,
+  // Intruder Alarm — alert bell with active indicator dot
+  'intruder-alarm': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/><circle cx="18" cy="4" r="3" fill="currentColor" stroke="none"/></svg>`,
+  // XVR Simulation — VR goggles/headset with lenses
+  'xvr-simulation': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a2 2 0 012-2h16a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V9z"/><circle cx="9" cy="12" r="2"/><circle cx="15" cy="12" r="2"/><line x1="11" y1="12" x2="13" y2="12"/></svg>`,
+  // Perimeter Fencing — fence posts with horizontal rails
+  'perimeter-fencing': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="9"/><line x1="12" y1="21" x2="12" y2="9"/><line x1="20" y1="21" x2="20" y2="9"/><line x1="2" y1="13" x2="22" y2="13"/><line x1="2" y1="17" x2="22" y2="17"/><polyline points="2 9 4 5 12 5 20 5 22 9"/></svg>`,
+  // IT Solution — server rack (stacked units with indicator lights)
+  'it-solution': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="10" y1="6" x2="10.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/><line x1="10" y1="18" x2="10.01" y2="18"/></svg>`,
+  // IPTV/MATV — television with antenna signal
+  'iptv-matv': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg>`,
+  // X-Ray — scanner conveyor with wave pattern inside
+  'x-ray': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/><path d="M7 15l2-3 3 4 2-2 2 3"/></svg>`,
+  // Metal Detector — walk-through arch/portal detector gate
+  'metal-detector': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V5a2 2 0 012-2h12a2 2 0 012 2v16"/><line x1="2" y1="21" x2="22" y2="21"/><line x1="10" y1="3" x2="10" y2="21"/><line x1="14" y1="3" x2="14" y2="21"/><line x1="8" y1="9" x2="16" y2="9"/><line x1="8" y1="13" x2="16" y2="13"/></svg>`,
+  // Others — 4-grid squares (misc/apps)
+  'others': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>`,
+}
+
+const getCategoryIcon = (id) => {
+  return categoryIconSvgs[id] || categoryIconSvgs['others']
 }
 
 onMounted(() => {
@@ -146,8 +178,26 @@ onMounted(() => {
   box-shadow: 0 0 30px rgba(220,38,38,0.4);
 }
 
-.category-icon-text {
-  font-size: 2.2rem;
+.category-icon-svg {
+  width: 38px;
+  height: 38px;
+  color: rgba(255, 255, 255, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.category-icon-svg :deep(svg) {
+  width: 100%;
+  height: 100%;
+  stroke: rgba(255, 255, 255, 0.92);
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.18));
+  transition: filter 0.4s ease, transform 0.4s ease;
+}
+
+.category-card:hover .category-icon-svg :deep(svg) {
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.45));
+  transform: scale(1.1);
 }
 
 .category-info {
@@ -246,8 +296,9 @@ onMounted(() => {
     height: 52px; 
   }
   
-  .category-icon-text { 
-    font-size: 1.4rem; 
+  .category-icon-svg {
+    width: 24px;
+    height: 24px;
   }
   
   .category-info {
