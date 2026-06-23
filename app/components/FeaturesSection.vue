@@ -132,7 +132,7 @@ const cardAnim = (i) => anims[i % anims.length]
   font-size: 1.15rem;
   font-weight: 700;
   margin-bottom: 10px;
-  color: var(--white);
+  color: var(--text-primary);
 }
 .feature-desc {
   color: var(--text-secondary);

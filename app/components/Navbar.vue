@@ -107,10 +107,10 @@ onUnmounted(() => {
 .navbar.scrolled .navbar-inner {
   width: auto;
   gap: 40px;
-  background: rgba(15, 15, 15, 0.85);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.15);
   padding: 8px 24px 8px 16px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
@@ -127,10 +127,10 @@ onUnmounted(() => {
   align-items: center;
   gap: 20px;
   position: relative;
-  background: rgba(15, 15, 15, 0.6);
+  background: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 50px;
   padding: 12px 20px 12px 32px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
@@ -199,7 +199,7 @@ onUnmounted(() => {
   display: inline-block;
   font-size: 0.95rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(0, 0, 0, 0.9);
   transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   position: relative;
   backface-visibility: hidden;
@@ -214,12 +214,12 @@ onUnmounted(() => {
   left: 0;
   width: 0;
   height: 2px;
-  background: var(--white, #ffffff);
+  background: var(--text-primary);
   transition: width var(--transition);
 }
 
 .navbar-link:hover {
-  color: var(--white);
+  color: var(--red);
   transform: scale(1.1) translateZ(0);
   filter: drop-shadow(0 0 8px rgba(220,38,38,0.9)) drop-shadow(0 4px 15px rgba(220,38,38,0.7));
 }
@@ -231,14 +231,14 @@ onUnmounted(() => {
 .navbar-cta {
   padding: 10px 20px;
   font-size: 0.85rem;
-  color: var(--bg-primary) !important;
-  background: var(--white) !important;
-  box-shadow: 0 2px 12px rgba(255, 255, 255, 0.15) !important;
+  color: var(--white) !important;
+  background: var(--text-primary) !important;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15) !important;
 }
 
 .navbar-cta:hover {
-  background: var(--text-secondary) !important;
-  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.25) !important;
+  background: var(--red) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
   transform: translateY(-2px);
 }
 
@@ -255,7 +255,7 @@ onUnmounted(() => {
   display: block;
   width: 24px;
   height: 2px;
-  background: var(--white);
+  background: var(--text-primary);
   border-radius: 2px;
   transition: all var(--transition);
 }
@@ -276,10 +276,10 @@ onUnmounted(() => {
   }
 
   .navbar-inner {
-    background: rgba(15, 15, 15, 0.85);
+    background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(0, 0, 0, 0.15);
     padding: 8px 16px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   }
@@ -314,10 +314,10 @@ onUnmounted(() => {
     top: 100%;
     right: 0;
     margin-top: 16px;
-    background: rgba(15, 15, 15, 0.95);
+    background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(0, 0, 0, 0.15);
     border-radius: 16px;
     padding: 20px 24px;
     flex-direction: column;

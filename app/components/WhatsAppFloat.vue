@@ -76,7 +76,7 @@ const openChat = () => {
   opacity: 0;
   pointer-events: none;
   transition: all 0.3s ease;
-  border: 1px solid rgba(255,255,255,0.06);
+  border: 1px solid rgba(0, 0, 0,0.06);
 }
 .wa-float:hover .wa-tooltip {
   opacity: 1;

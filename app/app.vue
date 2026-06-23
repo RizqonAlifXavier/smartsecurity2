@@ -3,6 +3,7 @@
     <!-- Global animated background -->
     <div class="global-bg">
       <div class="global-grid"></div>
+      <div class="interactive-glow"></div>
       <div class="global-orb global-orb-1"></div>
       <div class="global-orb global-orb-2"></div>
       <div class="global-orb global-orb-3"></div>
@@ -18,6 +19,8 @@
 </template>
 
 <script setup>
+import { onMounted, onUnmounted } from 'vue'
+
 const particleStyle = (n) => {
   const size = Math.random() * 4 + 2
   return {
@@ -29,6 +32,19 @@ const particleStyle = (n) => {
     animationDuration: `${Math.random() * 15 + 10}s`,
   }
 }
+
+const handleMouseMove = (e) => {
+  document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`)
+  document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`)
+}
+
+onMounted(() => {
+  window.addEventListener('mousemove', handleMouseMove, { passive: true })
+})
+
+onUnmounted(() => {
+  window.removeEventListener('mousemove', handleMouseMove)
+})
 </script>
 
 <style>
@@ -44,20 +60,32 @@ const particleStyle = (n) => {
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
-  background:
-    radial-gradient(ellipse at 20% 30%, rgba(220,38,38,0.10) 0%, transparent 55%),
-    radial-gradient(ellipse at 75% 70%, rgba(220,38,38,0.07) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 50%, rgba(15,15,15,1) 0%, rgba(10,10,10,1) 100%);
+  background: radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255,1) 0%, rgba(245, 247, 250,1) 100%);
 }
 
 .global-grid {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    linear-gradient(rgba(0, 0, 0, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.06) 1px, transparent 1px);
   background-size: 60px 60px;
   animation: grid-move 25s linear infinite;
+}
+
+.interactive-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(220,38,38,0.12) 0%, transparent 60%);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(calc(var(--mouse-x, 50vw) - 400px), calc(var(--mouse-y, 50vh) - 400px));
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1;
+  will-change: transform;
 }
 
 .global-orb {
@@ -70,7 +98,7 @@ const particleStyle = (n) => {
 .global-orb-1 {
   width: 500px;
   height: 500px;
-  background: rgba(220,38,38,0.15);
+  background: rgba(0, 0, 0, 0.03);
   top: -150px;
   right: -150px;
   animation: float 10s ease-in-out infinite;
@@ -79,7 +107,7 @@ const particleStyle = (n) => {
 .global-orb-2 {
   width: 400px;
   height: 400px;
-  background: rgba(220,38,38,0.10);
+  background: rgba(0, 0, 0, 0.02);
   bottom: 20%;
   left: -120px;
   animation: float 12s ease-in-out infinite 3s;
@@ -88,7 +116,7 @@ const particleStyle = (n) => {
 .global-orb-3 {
   width: 300px;
   height: 300px;
-  background: rgba(220,38,38,0.08);
+  background: rgba(0, 0, 0, 0.02);
   top: 40%;
   right: 10%;
   animation: float 14s ease-in-out infinite 6s;
@@ -97,7 +125,7 @@ const particleStyle = (n) => {
 .global-orb-4 {
   width: 350px;
   height: 350px;
-  background: rgba(220,38,38,0.06);
+  background: rgba(0, 0, 0, 0.015);
   bottom: -100px;
   left: 40%;
   animation: float 16s ease-in-out infinite 2s;
@@ -105,7 +133,7 @@ const particleStyle = (n) => {
 
 .global-particle {
   position: absolute;
-  background: rgba(220,38,38,0.45);
+  background: rgba(0, 0, 0, 0.1);
   border-radius: 50%;
   animation: particle-float linear infinite;
 }

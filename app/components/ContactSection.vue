@@ -86,9 +86,9 @@ const submitForm = () => {
 <style scoped>
 .contact-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
-  align-items: start;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 60px;
+  align-items: flex-start;
 }
 .contact-info {
   display: flex;
@@ -127,7 +127,7 @@ const submitForm = () => {
 }
 .cc-value {
   font-size: 0.95rem;
-  color: var(--white);
+  color: var(--text-primary);
   font-weight: 600;
 }
 .contact-wa-btn {
@@ -158,10 +158,10 @@ const submitForm = () => {
 .form-group textarea {
   width: 100%;
   padding: 12px 16px;
-  background: rgba(255,255,255,0.03);
+  background: rgba(0, 0, 0,0.03);
   border: 1px solid var(--border);
   border-radius: 10px;
-  color: var(--white);
+  color: var(--text-primary);
   font-size: 0.95rem;
   transition: border-color 0.3s ease;
 }

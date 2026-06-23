@@ -143,7 +143,7 @@ const currentYear = new Date().getFullYear()
   font-size: 1rem;
   font-weight: 700;
   margin-bottom: 20px;
-  color: var(--white);
+  color: var(--text-primary);
 }
 
 .footer-col ul {
@@ -202,14 +202,14 @@ const currentYear = new Date().getFullYear()
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.05);
+  background: rgba(0, 0, 0,0.05);
   color: var(--text-secondary);
   transition: all var(--transition);
 }
 
 .social-link:hover {
   background: var(--red);
-  color: var(--white);
+  color: var(--text-primary);
   transform: translateY(-2px);
 }
 

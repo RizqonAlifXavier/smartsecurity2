@@ -8,7 +8,12 @@
           We partner with world-leading security brands to deliver the best solutions
         </p>
       </div>
+    </div>
 
+    <!-- Brands Marquee Section (Full Width) -->
+    <BrandsMarquee />
+
+    <div class="container" style="margin-top: 24px;">
       <!-- Category Cards Grid -->
       <div class="category-grid">
         <NuxtLink
@@ -181,7 +186,7 @@ onMounted(() => {
 .category-icon-svg {
   width: 38px;
   height: 38px;
-  color: rgba(255, 255, 255, 0.92);
+  color: rgba(0, 0, 0, 0.92);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -190,13 +195,13 @@ onMounted(() => {
 .category-icon-svg :deep(svg) {
   width: 100%;
   height: 100%;
-  stroke: rgba(255, 255, 255, 0.92);
-  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.18));
+  stroke: rgba(0, 0, 0, 0.92);
+  filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.18));
   transition: filter 0.4s ease, transform 0.4s ease;
 }
 
 .category-card:hover .category-icon-svg :deep(svg) {
-  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.45));
+  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.45));
   transform: scale(1.1);
 }
 
@@ -213,7 +218,7 @@ onMounted(() => {
   font-family: var(--font-heading);
   font-size: 1.4rem;
   font-weight: 800;
-  color: var(--white);
+  color: var(--text-primary);
   margin-bottom: 12px;
   transition: color 0.3s ease;
 }
@@ -234,7 +239,7 @@ onMounted(() => {
   align-items: center;
   padding: 16px 24px;
   border-top: 1px solid var(--border);
-  background: rgba(255,255,255,0.01);
+  background: rgba(0, 0, 0,0.01);
 }
 
 .category-brand-count {

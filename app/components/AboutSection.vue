@@ -13,8 +13,8 @@
           <p class="about-text animate-on-scroll fade-up delay-3">
             As a trusted sales company, we provide high-quality products from world-renowned brands (CCTV, Access Control, Fire Alarm, X-Ray, Metal Detectors, IT Solutions, and more), supported by an experienced team of technicians and responsive after-sales service.
           </p>
-          <div class="about-features">
-            <div v-for="(feat, i) in features" :key="i" class="about-feature animate-on-scroll bounce-in" :class="`delay-${i + 3}`">
+          <div class="about-features animate-on-scroll fade-up delay-4">
+            <div v-for="(feat, i) in features" :key="i" class="about-feature">
               <div class="af-icon">✓</div>
               <span>{{ feat }}</span>
             </div>
@@ -101,7 +101,7 @@ onMounted(() => {
 <style scoped>
 .about-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 0.85fr 1.15fr;
   gap: 80px;
   align-items: center;
 }
@@ -119,9 +119,9 @@ onMounted(() => {
   margin-bottom: 16px;
 }
 .about-features {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
   margin-top: 24px;
 }
 .about-feature {

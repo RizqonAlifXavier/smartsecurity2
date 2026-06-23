@@ -377,7 +377,7 @@ useSeoMeta({
   font-weight: 500;
   padding: 8px 16px;
   border-radius: var(--radius-full);
-  background: rgba(255,255,255,0.04);
+  background: rgba(0, 0, 0,0.04);
   border: 1px solid var(--border);
   transition: all 0.3s ease;
   margin-bottom: 32px;
@@ -385,9 +385,9 @@ useSeoMeta({
 }
 
 .back-link:hover {
-  color: var(--white);
+  color: var(--text-primary);
   border-color: var(--border-hover);
-  background: rgba(255,255,255,0.08);
+  background: rgba(0, 0, 0,0.08);
   transform: translateX(-4px);
 }
 
@@ -470,7 +470,7 @@ useSeoMeta({
 }
 
 .meta-divider {
-  color: rgba(255,255,255,0.15);
+  color: rgba(0, 0, 0,0.15);
 }
 
 /* Products Content */
@@ -588,7 +588,7 @@ useSeoMeta({
   font-family: var(--font-heading);
   font-size: 1.05rem;
   font-weight: 700;
-  color: var(--white);
+  color: var(--text-primary);
   margin-bottom: 4px;
   transition: color 0.3s ease;
 }
@@ -635,7 +635,7 @@ useSeoMeta({
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: var(--text-primary);
   box-shadow: 0 4px 12px rgba(220,38,38,0.3);
   animation: pop-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
@@ -671,7 +671,7 @@ useSeoMeta({
   font-family: var(--font-heading);
   font-size: 1.4rem;
   font-weight: 800;
-  color: var(--white);
+  color: var(--text-primary);
   display: flex;
   align-items: center;
   gap: 10px;
@@ -693,7 +693,7 @@ useSeoMeta({
   gap: 8px;
   padding: 10px 20px;
   border-radius: var(--radius-full);
-  background: rgba(255,255,255,0.04);
+  background: rgba(0, 0, 0,0.04);
   border: 1px solid var(--border);
   color: var(--text-secondary);
   font-size: 0.85rem;
@@ -705,8 +705,8 @@ useSeoMeta({
 
 .btn-show-all:hover {
   border-color: var(--border-hover);
-  color: var(--white);
-  background: rgba(255,255,255,0.08);
+  color: var(--text-primary);
+  background: rgba(0, 0, 0,0.08);
 }
 
 /* Product Grid */
@@ -760,7 +760,7 @@ useSeoMeta({
   right: 12px;
   padding: 4px 14px;
   background: var(--red);
-  color: white;
+  color: var(--text-primary);
   font-size: 0.75rem;
   font-weight: 700;
   border-radius: 9999px;
@@ -788,7 +788,7 @@ useSeoMeta({
   font-size: 1.2rem;
   font-weight: 700;
   margin: 8px 0;
-  color: var(--white);
+  color: var(--text-primary);
 }
 
 .product-desc {
@@ -807,7 +807,7 @@ useSeoMeta({
 
 .feature-tag {
   padding: 4px 12px;
-  background: rgba(255,255,255,0.04);
+  background: rgba(0, 0, 0,0.04);
   border: 1px solid var(--border);
   border-radius: 6px;
   font-size: 0.75rem;
@@ -827,7 +827,7 @@ useSeoMeta({
   font-family: var(--font-heading);
   font-size: 1.2rem;
   font-weight: 800;
-  color: var(--white);
+  color: var(--text-primary);
 }
 
 /* Empty State */
@@ -844,7 +844,7 @@ useSeoMeta({
 .empty-state h3 {
   font-family: var(--font-heading);
   font-size: 1.5rem;
-  color: var(--white);
+  color: var(--text-primary);
   margin-bottom: 8px;
 }
 
@@ -1000,7 +1000,7 @@ useSeoMeta({
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.05);
+  background: rgba(0, 0, 0,0.05);
   border: 1px solid var(--border);
   color: var(--text-primary);
   transition: all 0.3s ease;
@@ -1038,13 +1038,13 @@ useSeoMeta({
 }
 
 .page-num:hover {
-  color: var(--white);
-  background: rgba(255,255,255,0.05);
+  color: var(--text-primary);
+  background: rgba(0, 0, 0,0.05);
 }
 
 .page-num.active {
   background: linear-gradient(135deg, var(--red), var(--red-dark));
-  color: var(--white);
+  color: var(--text-primary);
   box-shadow: 0 4px 12px rgba(220,38,38,0.3);
 }
 </style>

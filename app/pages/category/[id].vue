@@ -159,7 +159,7 @@ useSeoMeta({
   font-weight: 500;
   margin-bottom: 32px;
   padding: 8px 16px;
-  background: rgba(255,255,255,0.05);
+  background: rgba(0, 0, 0,0.05);
   border: 1px solid var(--border);
   border-radius: 50px;
   transition: all 0.3s ease;
@@ -169,7 +169,7 @@ useSeoMeta({
 .back-link:hover {
   background: rgba(220,38,38,0.1);
   border-color: rgba(220,38,38,0.3);
-  color: var(--white);
+  color: var(--text-primary);
   transform: translateX(-4px);
 }
 
@@ -227,7 +227,7 @@ useSeoMeta({
   align-items: center;
   gap: 8px;
   padding: 8px 16px;
-  background: rgba(255,255,255,0.03);
+  background: rgba(0, 0, 0,0.03);
   border: 1px solid var(--border);
   border-radius: 50px;
   font-size: 0.9rem;
@@ -331,7 +331,7 @@ useSeoMeta({
   font-family: var(--font-heading);
   font-size: 1.8rem;
   font-weight: 900;
-  color: var(--white);
+  color: var(--text-primary);
   letter-spacing: 1px;
 }
 
@@ -341,7 +341,7 @@ useSeoMeta({
   left: -100%;
   width: 60%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent);
+  background: linear-gradient(90deg, transparent, rgba(0, 0, 0,0.04), transparent);
   transition: left 0.7s ease;
   pointer-events: none;
 }
@@ -374,7 +374,7 @@ useSeoMeta({
   font-family: var(--font-heading);
   font-size: 1.3rem;
   font-weight: 800;
-  color: var(--white);
+  color: var(--text-primary);
   margin-bottom: 8px;
   transition: color 0.3s ease;
 }
@@ -401,7 +401,7 @@ useSeoMeta({
   align-items: center;
   padding: 14px 24px;
   border-top: 1px solid var(--border);
-  background: rgba(255,255,255,0.01);
+  background: rgba(0, 0, 0,0.01);
 }
 
 .brand-product-count {

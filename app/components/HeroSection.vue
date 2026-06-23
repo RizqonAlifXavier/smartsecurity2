@@ -117,10 +117,36 @@ const particleStyle = (n) => {
 <style scoped>
 .hero {
   position: relative;
-  min-height: 100vh;
+  min-height: calc(100vh - 164px);
   display: flex;
   align-items: center;
   overflow: hidden;
+  margin: 140px 16px 24px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 32px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+  border: 1px solid var(--border);
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  right: -50%;
+  background: var(--red);
+  transform: skewX(-25deg);
+  transform-origin: center left;
+  z-index: 0;
+  pointer-events: none;
+}
+@media (min-width: 1440px) {
+  .hero {
+    max-width: 1408px;
+    margin: 140px auto 24px;
+  }
 }
 .hero-bg {
   position: absolute;
@@ -131,9 +157,9 @@ const particleStyle = (n) => {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-  background-size: 60px 60px;
+    linear-gradient(rgba(0, 0, 0, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.08) 1px, transparent 1px);
+  background-size: 50px 50px;
   animation: grid-move 25s linear infinite;
 }
 .hero-orb {
@@ -175,7 +201,7 @@ const particleStyle = (n) => {
 .hero-content {
   position: relative;
   z-index: 2;
-  padding-top: 180px;
+  padding-top: 0px;
 }
 .hero-badge {
   display: inline-flex;
@@ -198,11 +224,11 @@ const particleStyle = (n) => {
   animation: pulse-ring 2s ease infinite;
 }
 .hero-title {
-  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
   font-weight: 900;
-  line-height: 1.1;
+  line-height: 1.15;
   margin-bottom: 24px;
-  max-width: 800px;
+  max-width: 95%;
 }
 .hero-highlight {
   background: linear-gradient(135deg, #DC2626, #EF4444, #DC2626);
@@ -211,10 +237,10 @@ const particleStyle = (n) => {
   background-clip: text;
 }
 .hero-subtitle {
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   color: var(--text-secondary);
-  max-width: 700px;
-  line-height: 1.7;
+  max-width: 90%;
+  line-height: 1.6;
   margin-bottom: 36px;
 }
 .hero-actions {
@@ -229,10 +255,10 @@ const particleStyle = (n) => {
 }
 .hero-grid-layout {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 40px;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 30px;
   align-items: center;
-  margin-bottom: 60px;
+  margin-bottom: 20px;
 }
 .hero-image-side {
   position: relative;
@@ -274,10 +300,10 @@ const particleStyle = (n) => {
   height: 80px;
   border-radius: 12px;
   overflow: hidden;
-  border: 2px solid rgba(255,255,255,0.1);
+  border: 2px solid rgba(0, 0, 0,0.1);
   cursor: pointer;
   transition: all 0.3s ease;
-  background: rgba(255,255,255,0.02);
+  background: rgba(0, 0, 0,0.02);
 }
 .thumb img {
   width: 100%;
@@ -287,7 +313,7 @@ const particleStyle = (n) => {
   transition: all 0.3s ease;
 }
 .thumb:hover {
-  border-color: rgba(255,255,255,0.3);
+  border-color: rgba(0, 0, 0,0.3);
 }
 .thumb.active {
   border-color: var(--red);
@@ -326,7 +352,8 @@ const particleStyle = (n) => {
   }
 }
 @media (max-width: 768px) {
-  .hero-content { padding-top: 80px; }
+  .hero { margin: 80px 16px 32px; border-radius: 24px; min-height: calc(100vh - 112px); }
+  .hero-content { padding-top: 40px; }
   .hero-actions { flex-direction: column; }
   .btn-lg { width: 100%; justify-content: center; }
   .img-1 { width: 70%; }

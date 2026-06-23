@@ -118,7 +118,7 @@ onMounted(() => {
   height: 40px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--red), var(--red-dark));
-  color: white;
+  color: var(--text-primary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -128,7 +128,7 @@ onMounted(() => {
 .tc-name {
   font-weight: 600;
   font-size: 0.9rem;
-  color: var(--white);
+  color: var(--text-primary);
 }
 .tc-role {
   font-size: 0.8rem;
@@ -144,7 +144,7 @@ onMounted(() => {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.15);
+  background: rgba(0, 0, 0,0.15);
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;

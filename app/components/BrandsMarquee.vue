@@ -1,21 +1,19 @@
 <template>
   <div class="brands-marquee-section">
-    <div class="container">
-      <div class="hero-brands-marquee animate-on-scroll fade-up delay-1">
-        <p class="marquee-title">Trusted Partner of World Leading Brands</p>
-        <div class="marquee-container">
-          <div class="marquee-track">
-            <!-- First set -->
-            <div v-for="brand in heroBrands" :key="brand.id + '-1'" class="marquee-item">
-              <NuxtImg v-if="brand.logoImage" :src="brand.logoImage" :alt="brand.name" loading="lazy" decoding="async" />
-              <span v-else class="marquee-text-logo">{{ brand.logo }}</span>
-            </div>
-            <!-- Duplicated set for infinite loop -->
-            <div v-for="brand in heroBrands" :key="brand.id + '-2'" class="marquee-item">
-              <NuxtImg v-if="brand.logoImage" :src="brand.logoImage" :alt="brand.name" loading="lazy" decoding="async" />
-              <span v-else class="marquee-text-logo">{{ brand.logo }}</span>
-            </div>
-          </div>
+    <div class="hero-brands-marquee animate-on-scroll fade-up delay-1">
+      <p class="marquee-title">Trusted Partner of World Leading Brands</p>
+      <div class="marquee-container">
+        <div class="marquee-track">
+          <!-- First set -->
+          <NuxtLink v-for="brand in heroBrands" :key="brand.id + '-1'" :to="`/products?brand=${brand.id}`" class="marquee-item">
+            <NuxtImg v-if="brand.logoImage" :src="brand.logoImage" :alt="brand.name" loading="lazy" decoding="async" />
+            <span v-else class="marquee-text-logo">{{ brand.logo }}</span>
+          </NuxtLink>
+          <!-- Duplicated set for infinite loop -->
+          <NuxtLink v-for="brand in heroBrands" :key="brand.id + '-2'" :to="`/products?brand=${brand.id}`" class="marquee-item">
+            <NuxtImg v-if="brand.logoImage" :src="brand.logoImage" :alt="brand.name" loading="lazy" decoding="async" />
+            <span v-else class="marquee-text-logo">{{ brand.logo }}</span>
+          </NuxtLink>
         </div>
       </div>
     </div>
@@ -30,19 +28,13 @@ const heroBrands = brands.filter(b => b.logoImage || b.logo)
 
 <style scoped>
 .brands-marquee-section {
-  padding: 60px 0;
+  padding: 0;
   background-color: transparent;
 }
 .hero-brands-marquee {
   width: 100%;
-  max-width: 800px;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  backdrop-filter: blur(10px);
   padding: 24px 0;
   overflow: hidden;
-  margin: 0 auto; /* Center it horizontally */
 }
 .marquee-title {
   text-align: center;
