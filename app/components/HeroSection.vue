@@ -117,10 +117,11 @@ const particleStyle = (n) => {
 <style scoped>
 .hero {
   position: relative;
-  min-height: calc(100vh - 164px);
+  min-height: calc(100vh - 84px); /* Reset min-height without card margin */
   display: flex;
   align-items: center;
   overflow: hidden;
+  /* Card Wrapper Styles - Temporarily Hidden
   margin: 140px 16px 24px;
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(12px);
@@ -128,7 +129,9 @@ const particleStyle = (n) => {
   border-radius: 32px;
   box-shadow: 0 10px 40px rgba(0,0,0,0.04);
   border: 1px solid var(--border);
+  */
 }
+/* Right half solid red background - Temporarily Hidden
 .hero::before {
   content: '';
   position: absolute;
@@ -142,6 +145,7 @@ const particleStyle = (n) => {
   z-index: 0;
   pointer-events: none;
 }
+*/
 @media (min-width: 1440px) {
   .hero {
     max-width: 1408px;
@@ -255,7 +259,7 @@ const particleStyle = (n) => {
 }
 .hero-grid-layout {
   display: grid;
-  grid-template-columns: 0.85fr 1.15fr;
+  grid-template-columns: 1.1fr 0.9fr;
   gap: 30px;
   align-items: center;
   margin-bottom: 20px;

@@ -86,7 +86,7 @@ const submitForm = () => {
 <style scoped>
 .contact-grid {
   display: grid;
-  grid-template-columns: 0.85fr 1.15fr;
+  grid-template-columns: 1fr 1fr;
   gap: 60px;
   align-items: flex-start;
 }
