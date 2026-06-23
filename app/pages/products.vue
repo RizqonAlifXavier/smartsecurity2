@@ -153,14 +153,16 @@
             </button>
             
             <div class="page-numbers">
-              <button 
-                v-for="page in totalPages" 
-                :key="page"
-                :class="['page-num', { active: currentPage === page }]"
-                @click="changePage(page)"
-              >
-                {{ page }}
-              </button>
+              <template v-for="(page, idx) in visiblePages" :key="idx">
+                <span v-if="page === '...'" class="page-ellipsis">…</span>
+                <button 
+                  v-else
+                  :class="['page-num', { active: currentPage === page }]"
+                  @click="changePage(page)"
+                >
+                  {{ page }}
+                </button>
+              </template>
             </div>
 
             <button 
@@ -230,6 +232,35 @@ const currentPage = ref(1)
 const itemsPerPage = 6
 
 const totalPages = computed(() => Math.ceil(filteredProducts.value.length / itemsPerPage))
+
+// Truncated page numbers for cleaner pagination
+const visiblePages = computed(() => {
+  const total = totalPages.value
+  const current = currentPage.value
+  const pages = []
+  
+  if (total <= 7) {
+    for (let i = 1; i <= total; i++) pages.push(i)
+    return pages
+  }
+  
+  // Always show first page
+  pages.push(1)
+  
+  if (current > 3) pages.push('...')
+  
+  // Show pages around current
+  const start = Math.max(2, current - 1)
+  const end = Math.min(total - 1, current + 1)
+  for (let i = start; i <= end; i++) pages.push(i)
+  
+  if (current < total - 2) pages.push('...')
+  
+  // Always show last page
+  pages.push(total)
+  
+  return pages
+})
 
 const paginatedProducts = computed(() => {
   const start = (currentPage.value - 1) * itemsPerPage
@@ -503,7 +534,7 @@ useSeoMeta({
 
 .category-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 16px;
 }
 
@@ -712,7 +743,7 @@ useSeoMeta({
 /* Product Grid */
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 24px;
 }
 
@@ -851,6 +882,15 @@ useSeoMeta({
 .empty-state p {
   color: var(--text-secondary);
   margin-bottom: 24px;
+}
+
+@media (max-width: 1024px) {
+  .category-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .product-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 @media (max-width: 768px) {
@@ -1046,5 +1086,17 @@ useSeoMeta({
   background: linear-gradient(135deg, var(--red), var(--red-dark));
   color: var(--text-primary);
   box-shadow: 0 4px 12px rgba(220,38,38,0.3);
+}
+
+.page-ellipsis {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 2px;
 }
 </style>

@@ -356,7 +356,7 @@ const particleStyle = (n) => {
   }
 }
 @media (max-width: 768px) {
-  .hero { margin: 80px 16px 32px; border-radius: 24px; min-height: calc(100vh - 112px); }
+  .hero { min-height: calc(100vh - 80px); }
   .hero-content { padding-top: 40px; }
   .hero-actions { flex-direction: column; }
   .btn-lg { width: 100%; justify-content: center; }
