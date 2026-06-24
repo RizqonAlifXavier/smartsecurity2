@@ -101,21 +101,21 @@ const features = [
 ]
 
 const clientsList = [
-  { name: 'Pertamina TBK', logo: '/clients/Pertamina_TBK.png' },
-  { name: 'PLN', logo: '/clients/PLN.webp' },
-  { name: 'Bank Indonesia', logo: '/clients/BI_Logo.png' },
-  { name: 'Freeport', logo: '/clients/Freeport.jpg', scale: 1.65 },
-  { name: 'PGN', logo: '/clients/PGN.png' },
-  { name: 'MedcoEnergi', logo: '/clients/MedcoEnergi.png' },
-  { name: 'Waskita', logo: '/clients/waskita.png' },
-  { name: 'Peruri', logo: '/clients/peruri.png' },
-  { name: 'Pertamina EP', logo: '/clients/Pertamina_EP.png' },
-  { name: 'Pertamina Hulu Energi ONWJ', logo: '/clients/Pertamina Hulu energi ONWJ.png' },
-  { name: 'DHL', logo: '/clients/DHL.webp' },
-  { name: 'Aston', logo: '/clients/Aston.png' },
-  { name: 'Ajinomoto', logo: '/clients/ajinomoto.png' },
-  { name: 'Mattel', logo: '/clients/mattel.png' },
-  { name: 'Pocari Sweat', logo: '/clients/pocari.png' },
+  { name: 'Pertamina TBK', logo: '/Clients/Pertamina_TBK.png' },
+  { name: 'PLN', logo: '/Clients/PLN.webp' },
+  { name: 'Bank Indonesia', logo: '/Clients/BI_Logo.png' },
+  { name: 'Freeport', logo: '/Clients/Freeport.jpg', scale: 1.65 },
+  { name: 'PGN', logo: '/Clients/PGN.png' },
+  { name: 'MedcoEnergi', logo: '/Clients/MedcoEnergi.png' },
+  { name: 'Waskita', logo: '/Clients/waskita.png' },
+  { name: 'Peruri', logo: '/Clients/peruri.png' },
+  { name: 'Pertamina EP', logo: '/Clients/Pertamina_EP.png' },
+  { name: 'Pertamina Hulu Energi ONWJ', logo: '/Clients/Pertamina%20Hulu%20energi%20ONWJ.png' },
+  { name: 'DHL', logo: '/Clients/DHL.webp' },
+  { name: 'Aston', logo: '/Clients/Aston.png' },
+  { name: 'Ajinomoto', logo: '/Clients/ajinomoto.png' },
+  { name: 'Mattel', logo: '/Clients/mattel.png' },
+  { name: 'Pocari Sweat', logo: '/Clients/pocari.png' },
 ]
 
 const marqueeClients1 = clientsList.slice(0, 8)
