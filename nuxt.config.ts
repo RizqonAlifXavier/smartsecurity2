@@ -46,6 +46,33 @@ export default defineNuxtConfig({
     '@nuxtjs/robots'
   ],
 
+  experimental: {
+    payloadExtraction: false,
+    renderJsonPayloads: true,
+  },
+
+  vite: {
+    build: {
+      cssCodeSplit: true,
+      chunkSizeWarningLimit: 1000,
+    },
+    optimizeDeps: {
+      include: ['vue', 'vue-router'],
+    },
+  },
+
+  image: {
+    quality: 80,
+    format: ['webp', 'avif', 'jpeg', 'png'],
+    screens: {
+      sm: 640,
+      md: 768,
+      lg: 1024,
+      xl: 1280,
+      xxl: 1536,
+    },
+  },
+
   site: {
     url: 'https://smartsecurity.co.id',
     name: 'Smart Security'

@@ -201,7 +201,7 @@ useSeoMeta({
   font-size: clamp(2rem, 5vw, 3.5rem);
   font-weight: 800;
   margin-bottom: 16px;
-  background: linear-gradient(135deg, var(--white) 0%, #a0a0a0 100%);
+  background: black;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -291,7 +291,7 @@ useSeoMeta({
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0,0,0,0.2);
+  background: linear-gradient(135deg, var(--red-light) 0%, var(--red-dark) 100%);
   border-bottom: 1px solid var(--border);
   overflow: hidden;
 }
@@ -301,19 +301,19 @@ useSeoMeta({
   height: 90px;
   border-radius: 50%;
   background: var(--bg-card);
-  border: 2px solid rgba(220,38,38,0.3);
+  border: 2px solid rgba(255, 255, 255, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 20px rgba(220,38,38,0.2);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
   transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
   overflow: hidden;
 }
 
 .brand-card:hover .brand-logo-circle {
   transform: scale(1.1);
-  border-color: var(--red);
-  box-shadow: 0 0 30px rgba(220,38,38,0.4);
+  border-color: var(--white);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
 }
 
 .brand-logo-circle.has-image {
@@ -341,7 +341,7 @@ useSeoMeta({
   left: -100%;
   width: 60%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(0, 0, 0,0.04), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
   transition: left 0.7s ease;
   pointer-events: none;
 }

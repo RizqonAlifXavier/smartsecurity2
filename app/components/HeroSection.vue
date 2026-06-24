@@ -205,7 +205,8 @@ const particleStyle = (n) => {
 .hero-content {
   position: relative;
   z-index: 2;
-  padding-top: 0px;
+  padding-top: 140px;
+  padding-bottom: 60px;
 }
 .hero-badge {
   display: inline-flex;
@@ -273,6 +274,10 @@ const particleStyle = (n) => {
 }
 .hero-float-anim {
   animation: floating-hero 6s ease-in-out infinite;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
 }
 .main-image-wrapper {
   position: relative;
@@ -357,7 +362,7 @@ const particleStyle = (n) => {
 }
 @media (max-width: 768px) {
   .hero { min-height: calc(100vh - 80px); }
-  .hero-content { padding-top: 40px; }
+  .hero-content { padding-top: 100px; padding-bottom: 40px; }
   .hero-actions { flex-direction: column; }
   .btn-lg { width: 100%; justify-content: center; }
   .img-1 { width: 70%; }

@@ -46,6 +46,48 @@
           <div class="about-ring" data-parallax="rotate" data-parallax-speed="0.2"></div>
         </div>
       </div>
+
+      <!-- CLIENT MARQUEE SECTION -->
+      <div class="clients-marquee-section animate-on-scroll fade-up delay-4">
+        <p class="marquee-title">Our Esteemed Clients & Technology Partners</p>
+        
+        <div class="marquee-wrapper">
+          <!-- Row 1: Moving Left -->
+          <div class="marquee-container">
+            <div class="marquee-track track-left">
+              <div v-for="client in marqueeClients1" :key="client.name + '-1-1'" class="marquee-item">
+                <div class="logo-wrapper" :style="{ transform: client.scale ? `scale(${client.scale})` : 'scale(1)' }">
+                  <NuxtImg :src="client.logo" :alt="client.name" loading="lazy" decoding="async" />
+                </div>
+              </div>
+              <!-- Duplicated set for infinite loop -->
+              <div v-for="client in marqueeClients1" :key="client.name + '-1-2'" class="marquee-item">
+                <div class="logo-wrapper" :style="{ transform: client.scale ? `scale(${client.scale})` : 'scale(1)' }">
+                  <NuxtImg :src="client.logo" :alt="client.name" loading="lazy" decoding="async" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 2: Moving Right -->
+          <div class="marquee-container">
+            <div class="marquee-track track-right">
+              <div v-for="client in marqueeClients2" :key="client.name + '-2-1'" class="marquee-item">
+                <div class="logo-wrapper" :style="{ transform: client.scale ? `scale(${client.scale})` : 'scale(1)' }">
+                  <NuxtImg :src="client.logo" :alt="client.name" loading="lazy" decoding="async" />
+                </div>
+              </div>
+              <!-- Duplicated set for infinite loop -->
+              <div v-for="client in marqueeClients2" :key="client.name + '-2-2'" class="marquee-item">
+                <div class="logo-wrapper" :style="{ transform: client.scale ? `scale(${client.scale})` : 'scale(1)' }">
+                  <NuxtImg :src="client.logo" :alt="client.name" loading="lazy" decoding="async" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 </template>
@@ -57,6 +99,27 @@ const features = [
   '24/7 Support Service',
   'Free Consultation',
 ]
+
+const clientsList = [
+  { name: 'Pertamina TBK', logo: '/clients/Pertamina_TBK.png' },
+  { name: 'PLN', logo: '/clients/PLN.webp' },
+  { name: 'Bank Indonesia', logo: '/clients/BI_Logo.png' },
+  { name: 'Freeport', logo: '/clients/Freeport.jpg', scale: 1.65 },
+  { name: 'PGN', logo: '/clients/PGN.png' },
+  { name: 'MedcoEnergi', logo: '/clients/MedcoEnergi.png' },
+  { name: 'Waskita', logo: '/clients/waskita.png' },
+  { name: 'Peruri', logo: '/clients/peruri.png' },
+  { name: 'Pertamina EP', logo: '/clients/Pertamina_EP.png' },
+  { name: 'Pertamina Hulu Energi ONWJ', logo: '/clients/Pertamina Hulu energi ONWJ.png' },
+  { name: 'DHL', logo: '/clients/DHL.webp' },
+  { name: 'Aston', logo: '/clients/Aston.png' },
+  { name: 'Ajinomoto', logo: '/clients/ajinomoto.png' },
+  { name: 'Mattel', logo: '/clients/mattel.png' },
+  { name: 'Pocari Sweat', logo: '/clients/pocari.png' },
+]
+
+const marqueeClients1 = clientsList.slice(0, 8)
+const marqueeClients2 = clientsList.slice(8)
 
 const counter1 = ref(null)
 const counter2 = ref(null)
@@ -208,6 +271,108 @@ onMounted(() => {
   border-radius: 50%;
   box-shadow: 0 0 20px var(--red-glow);
 }
+
+/* CLIENTS MARQUEE STYLES */
+.clients-marquee-section {
+  width: 100%;
+  margin-top: 100px;
+  padding: 40px 0 20px;
+  border-top: 1px solid var(--border);
+  overflow: hidden;
+}
+.marquee-title {
+  text-align: center;
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-bottom: 36px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.marquee-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  width: 100%;
+}
+.marquee-container {
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+.marquee-track {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  width: max-content;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+.track-left {
+  animation: scroll-marquee-left 45s linear infinite;
+}
+.track-right {
+  animation: scroll-marquee-right 45s linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+.marquee-item {
+  flex-shrink: 0;
+  width: 240px;
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--white);
+  border-radius: 16px;
+  padding: 12px 20px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  border: 1px solid rgba(0,0,0,0.04);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: pointer;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+}
+.logo-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.4s ease;
+}
+.marquee-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.4s ease;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05));
+}
+.marquee-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(220,38,38,0.15);
+  border-color: rgba(220,38,38,0.3);
+}
+.marquee-item:hover .logo-wrapper img {
+  transform: scale(1.12);
+}
+
+@keyframes scroll-marquee-left {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(calc(-50% - 16px), 0, 0); }
+}
+@keyframes scroll-marquee-right {
+  0% { transform: translate3d(calc(-50% - 16px), 0, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
 @media (max-width: 768px) {
   .about-grid {
     grid-template-columns: 1fr;
@@ -216,5 +381,11 @@ onMounted(() => {
   .about-features { grid-template-columns: 1fr; }
   .about-visual { min-height: 300px; }
   .about-ring { width: 280px; height: 280px; }
+  
+  .clients-marquee-section { margin-top: 60px; padding: 24px 0; }
+  .marquee-title { font-size: 0.8rem; margin-bottom: 24px; }
+  .marquee-wrapper { gap: 16px; }
+  .marquee-item { width: 180px; height: 80px; padding: 10px 16px; border-radius: 12px; }
 }
 </style>
+

@@ -2,8 +2,12 @@
   <section class="products-page">
     <!-- Hero Banner -->
     <div class="page-hero">
-      <div class="hero-bg-pattern"></div>
-      <div class="container">
+      <div v-if="currentBrand?.bgImage" class="brand-hero-bg">
+        <NuxtImg :src="currentBrand.bgImage" :alt="currentBrand.name" class="brand-hero-bg-img" loading="eager" decoding="async" />
+        <div class="brand-hero-bg-overlay"></div>
+      </div>
+      <div v-else class="hero-bg-pattern"></div>
+      <div class="container hero-container">
         <a href="#" class="back-link animate-on-scroll fade-left" @click.prevent="goBack">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="15 18 9 12 15 6"/>
@@ -113,6 +117,37 @@
             </button>
           </div>
 
+          <!-- Search Bar -->
+          <div class="search-container animate-on-scroll fade-up">
+            <div class="search-box">
+              <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+              <input 
+                v-model="searchQuery" 
+                type="text" 
+                placeholder="Cari produk berdasarkan nama, deskripsi, atau fitur..." 
+                class="search-input"
+              />
+              <button v-if="searchQuery" class="clear-search" @click="searchQuery = ''" aria-label="Clear search">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"/>
+                  <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div v-if="filteredProducts.length === 0" class="empty-search-state animate-on-scroll fade-up">
+            <div class="empty-icon">🔍</div>
+            <h3>Produk tidak ditemukan</h3>
+            <p>Tidak ada produk yang cocok dengan pencarian "{{ searchQuery }}".</p>
+            <button class="btn btn-primary" @click="searchQuery = ''; if(activeCategory !== 'all') setCategory('all')">
+              Reset Pencarian
+            </button>
+          </div>
+
           <div class="product-grid">
             <div
               v-for="(product, index) in paginatedProducts"
@@ -121,7 +156,15 @@
               :style="{ transitionDelay: `${index * 0.04}s` }"
             >
               <div class="product-image">
-                <div class="product-icon">{{ product.icon }}</div>
+                <NuxtImg 
+                  v-if="product.image" 
+                  :src="product.image" 
+                  :alt="product.name" 
+                  class="product-img" 
+                  loading="lazy" 
+                  decoding="async" 
+                />
+                <div v-else class="product-icon">{{ product.icon }}</div>
                 <span v-if="product.badge" class="product-badge">{{ product.badge }}</span>
               </div>
               <div class="product-info">
@@ -221,15 +264,31 @@ watch(categoryFromQuery, (val) => {
   }
 }, { immediate: true })
 
-// Products filtered by both brand and active category
+// Search Query Ref
+const searchQuery = ref('')
+
+// Products filtered by brand, active category, and search query
 const filteredProducts = computed(() => {
-  if (activeCategory.value === 'all') return allBrandProducts.value
-  return allBrandProducts.value.filter((p) => p.category === activeCategory.value)
+  let list = allBrandProducts.value
+  if (activeCategory.value !== 'all') {
+    list = list.filter((p) => p.category === activeCategory.value)
+  }
+  if (searchQuery.value.trim()) {
+    const q = searchQuery.value.toLowerCase().trim()
+    list = list.filter((p) => {
+      const nameMatch = p.name?.toLowerCase().includes(q)
+      const descMatch = p.description?.toLowerCase().includes(q)
+      const featureMatch = p.features?.some(f => f.toLowerCase().includes(q))
+      const catMatch = p.categoryLabel?.toLowerCase().includes(q)
+      return nameMatch || descMatch || featureMatch || catMatch
+    })
+  }
+  return list
 })
 
 // Pagination Logic
 const currentPage = ref(1)
-const itemsPerPage = 6
+const itemsPerPage = 8
 
 const totalPages = computed(() => Math.ceil(filteredProducts.value.length / itemsPerPage))
 
@@ -267,7 +326,7 @@ const paginatedProducts = computed(() => {
   return filteredProducts.value.slice(start, start + itemsPerPage)
 })
 
-watch([activeCategory, brandId], () => {
+watch([activeCategory, brandId, searchQuery], () => {
   currentPage.value = 1
 })
 
@@ -386,7 +445,7 @@ useSeoMeta({
 .page-hero {
   position: relative;
   padding: 120px 0 60px;
-  background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+  background: linear-gradient(180deg, rgba(248, 249, 250, 0.7) 0%, rgba(255, 255, 255, 0.7) 100%);
   overflow: hidden;
 }
 
@@ -397,6 +456,32 @@ useSeoMeta({
   background-size: 32px 32px;
   opacity: 0.5;
   pointer-events: none;
+}
+
+.brand-hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.brand-hero-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.brand-hero-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.9) 100%);
+  pointer-events: none;
+}
+
+.hero-container {
+  position: relative;
+  z-index: 1;
 }
 
 .back-link {
@@ -470,7 +555,7 @@ useSeoMeta({
   font-family: var(--font-heading);
   font-size: clamp(2rem, 5vw, 3.2rem);
   font-weight: 900;
-  background: linear-gradient(135deg, var(--white), var(--text-secondary));
+  background: black ;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -740,6 +825,105 @@ useSeoMeta({
   background: rgba(0, 0, 0,0.08);
 }
 
+/* Search Bar */
+.search-container {
+  margin-bottom: 36px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  padding: 8px 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.search-box:focus-within {
+  border-color: var(--red);
+  box-shadow: 0 8px 30px rgba(220, 38, 38, 0.15);
+  transform: translateY(-2px);
+}
+
+.search-icon {
+  color: var(--text-muted);
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.search-input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  padding: 10px 0;
+  font-size: 1rem;
+  color: var(--text-primary);
+  outline: none;
+  font-family: inherit;
+}
+
+.search-input::placeholder {
+  color: var(--text-muted);
+}
+
+.clear-search {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.clear-search:hover {
+  color: var(--red);
+  background: rgba(220, 38, 38, 0.1);
+}
+
+.empty-search-state {
+  text-align: center;
+  padding: 60px 20px;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 24px;
+  border: 1px solid var(--border);
+  margin-bottom: 40px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.empty-search-state .empty-icon {
+  font-size: 3.5rem;
+  margin-bottom: 16px;
+}
+
+.empty-search-state h3 {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.empty-search-state p {
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+
 /* Product Grid */
 .product-grid {
   display: grid;
@@ -768,16 +952,32 @@ useSeoMeta({
 .product-image {
   position: relative;
   height: 200px;
-  background: linear-gradient(135deg, rgba(220,38,38,0.08), rgba(220,38,38,0.02));
+  background: linear-gradient(135deg, var(--red-light) 0%, var(--red-dark) 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   border-bottom: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.product-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  padding: 24px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.product-card:hover .product-img {
+  transform: scale(1.1);
 }
 
 .product-icon {
   font-size: 4.5rem;
-  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.4));
   transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
@@ -790,13 +990,14 @@ useSeoMeta({
   top: 12px;
   right: 12px;
   padding: 4px 14px;
-  background: var(--red);
-  color: var(--text-primary);
+  background: var(--white);
+  color: var(--red-dark);
   font-size: 0.75rem;
   font-weight: 700;
   border-radius: 9999px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 .product-info {

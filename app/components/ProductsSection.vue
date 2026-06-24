@@ -161,7 +161,7 @@ onMounted(() => {
   display: flex;
   justify-content: center;
   border-bottom: 1px solid var(--border);
-  background: rgba(0,0,0,0.2);
+  background: linear-gradient(135deg, var(--red-light) 0%, var(--red-dark) 100%);
 }
 
 .category-icon-circle {
@@ -169,18 +169,18 @@ onMounted(() => {
   height: 80px;
   border-radius: 50%;
   background: var(--bg-card);
-  border: 2px solid rgba(220,38,38,0.3);
+  border: 2px solid rgba(255, 255, 255, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 20px rgba(220,38,38,0.2);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
   transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .category-card:hover .category-icon-circle {
   transform: scale(1.1);
-  border-color: var(--red);
-  box-shadow: 0 0 30px rgba(220,38,38,0.4);
+  border-color: var(--white);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
 }
 
 .category-icon-svg {
