@@ -110,7 +110,7 @@ const clientsList = [
   { name: 'Waskita', logo: '/Clients/waskita.png' },
   { name: 'Peruri', logo: '/Clients/peruri.png' },
   { name: 'Pertamina EP', logo: '/Clients/Pertamina_EP.png' },
-  { name: 'Pertamina Hulu Energi ONWJ', logo: '/Clients/Pertamina%20Hulu%20energi%20ONWJ.png' },
+  { name: 'Pertamina Hulu Energi ONWJ', logo: '/Clients/Pertamina Hulu energi ONWJ.png' },
   { name: 'DHL', logo: '/Clients/DHL.webp' },
   { name: 'Aston', logo: '/Clients/Aston.png' },
   { name: 'Ajinomoto', logo: '/Clients/ajinomoto.png' },
