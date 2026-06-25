@@ -47,42 +47,14 @@
         </div>
       </div>
 
-      <!-- CLIENT MARQUEE SECTION -->
-      <div class="clients-marquee-section animate-on-scroll fade-up delay-4">
-        <p class="marquee-title">Our Esteemed Clients & Technology Partners</p>
+      <!-- CLIENTS GRID SECTION -->
+      <div class="clients-grid-section animate-on-scroll fade-up delay-4">
+        <p class="clients-section-title">Our Esteemed Clients & Technology Partners</p>
         
-        <div class="marquee-wrapper">
-          <!-- Row 1: Moving Left -->
-          <div class="marquee-container">
-            <div class="marquee-track track-left">
-              <div v-for="client in marqueeClients1" :key="client.name + '-1-1'" class="marquee-item">
-                <div class="logo-wrapper" :style="{ transform: client.scale ? `scale(${client.scale})` : 'scale(1)' }">
-                  <NuxtImg :src="client.logo" :alt="client.name" loading="lazy" decoding="async" />
-                </div>
-              </div>
-              <!-- Duplicated set for infinite loop -->
-              <div v-for="client in marqueeClients1" :key="client.name + '-1-2'" class="marquee-item">
-                <div class="logo-wrapper" :style="{ transform: client.scale ? `scale(${client.scale})` : 'scale(1)' }">
-                  <NuxtImg :src="client.logo" :alt="client.name" loading="lazy" decoding="async" />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Row 2: Moving Right -->
-          <div class="marquee-container">
-            <div class="marquee-track track-right">
-              <div v-for="client in marqueeClients2" :key="client.name + '-2-1'" class="marquee-item">
-                <div class="logo-wrapper" :style="{ transform: client.scale ? `scale(${client.scale})` : 'scale(1)' }">
-                  <NuxtImg :src="client.logo" :alt="client.name" loading="lazy" decoding="async" />
-                </div>
-              </div>
-              <!-- Duplicated set for infinite loop -->
-              <div v-for="client in marqueeClients2" :key="client.name + '-2-2'" class="marquee-item">
-                <div class="logo-wrapper" :style="{ transform: client.scale ? `scale(${client.scale})` : 'scale(1)' }">
-                  <NuxtImg :src="client.logo" :alt="client.name" loading="lazy" decoding="async" />
-                </div>
-              </div>
+        <div class="clients-grid">
+          <div v-for="client in clientsList" :key="client.name" class="client-grid-item">
+            <div class="logo-wrapper" :style="{ transform: client.scale ? `scale(${client.scale})` : 'scale(1)' }">
+              <NuxtImg :src="client.logo" :alt="client.name" loading="lazy" decoding="async" />
             </div>
           </div>
         </div>
@@ -101,21 +73,21 @@ const features = [
 ]
 
 const clientsList = [
-  { name: 'Pertamina TBK', logo: '/Clients/Pertamina_TBK.png' },
-  { name: 'PLN', logo: '/Clients/PLN.webp' },
-  { name: 'Bank Indonesia', logo: '/Clients/BI_Logo.png' },
-  { name: 'Freeport', logo: '/Clients/Freeport.jpg', scale: 1.65 },
-  { name: 'PGN', logo: '/Clients/PGN.png' },
-  { name: 'MedcoEnergi', logo: '/Clients/MedcoEnergi.png' },
-  { name: 'Waskita', logo: '/Clients/waskita.png' },
-  { name: 'Peruri', logo: '/Clients/peruri.png' },
-  { name: 'Pertamina EP', logo: '/Clients/Pertamina_EP.png' },
-  { name: 'Pertamina Hulu Energi ONWJ', logo: '/Clients/Pertamina Hulu energi ONWJ.png' },
-  { name: 'DHL', logo: '/Clients/DHL.webp' },
-  { name: 'Aston', logo: '/Clients/Aston.png' },
-  { name: 'Ajinomoto', logo: '/Clients/ajinomoto.png' },
-  { name: 'Mattel', logo: '/Clients/mattel.png' },
-  { name: 'Pocari Sweat', logo: '/Clients/pocari.png' },
+  { name: 'Pertamina TBK', logo: '/Clients/pertamina.svg', scale: 1.6 },
+  { name: 'PLN', logo: '/Clients/pln.svg', scale: 1.7 },
+  { name: 'Bank Indonesia', logo: '/Clients/BI_Logo.png', scale: 1.1 },
+  { name: 'Freeport', logo: '/Clients/freeport.svg', scale: 1.9 },
+  { name: 'PGN', logo: '/Clients/PGN.png', scale: 1.3 },
+  { name: 'MedcoEnergi', logo: '/Clients/MedcoEnergi.png', scale: 0.95 },
+  { name: 'Waskita', logo: '/Clients/waskita.svg', scale: 1.4 },
+  { name: 'Peruri', logo: '/Clients/peruri.svg', scale: 1.7 },
+  { name: 'Pertamina EP', logo: '/Clients/Pertamina_EP.png', scale: 1.4 },
+  { name: 'Pertamina Hulu Energi ONWJ', logo: '/Clients/pertamina_phe.svg', scale: 1.6 },
+  { name: 'DHL', logo: '/Clients/dhl.svg', scale: 1.3 },
+  { name: 'Aston', logo: '/Clients/aston.svg', scale: 1.7 },
+  { name: 'Ajinomoto', logo: '/Clients/ajinomoto.svg', scale: 1.7 },
+  { name: 'Mattel', logo: '/Clients/Mattel.svg', scale: 1.5 },
+  { name: 'Pocari Sweat', logo: '/Clients/pocari.svg', scale: 1.5 },
 ]
 
 const marqueeClients1 = clientsList.slice(0, 8)
@@ -272,73 +244,39 @@ onMounted(() => {
   box-shadow: 0 0 20px var(--red-glow);
 }
 
-/* CLIENTS MARQUEE STYLES */
-.clients-marquee-section {
+/* CLIENTS GRID STYLES */
+.clients-grid-section {
   width: 100%;
   margin-top: 100px;
   padding: 40px 0 20px;
   border-top: 1px solid var(--border);
-  overflow: hidden;
 }
-.marquee-title {
+.clients-section-title {
   text-align: center;
   font-size: 1rem;
   color: var(--text-muted);
-  margin-bottom: 36px;
+  margin-bottom: 48px;
   letter-spacing: 2px;
   text-transform: uppercase;
   font-weight: 700;
 }
-.marquee-wrapper {
-  display: flex;
-  flex-direction: column;
+.clients-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
   gap: 28px;
   width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
 }
-.marquee-container {
-  display: flex;
-  overflow: hidden;
-  position: relative;
-  width: 100%;
-  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-}
-.marquee-track {
-  display: flex;
-  align-items: center;
-  gap: 32px;
-  width: max-content;
-  will-change: transform;
-  transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
-  perspective: 1000px;
-}
-.track-left {
-  animation: scroll-marquee-left 45s linear infinite;
-}
-.track-right {
-  animation: scroll-marquee-right 45s linear infinite;
-}
-.marquee-track:hover {
-  animation-play-state: paused;
-}
-.marquee-item {
-  flex-shrink: 0;
-  width: 240px;
-  height: 110px;
+.client-grid-item {
+  height: 130px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--white);
-  border-radius: 16px;
-  padding: 12px 20px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-  border: 1px solid rgba(0,0,0,0.04);
+  background: transparent;
+  padding: 0 16px;
   transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   cursor: pointer;
-  will-change: transform;
-  backface-visibility: hidden;
-  transform: translate3d(0, 0, 0);
 }
 .logo-wrapper {
   width: 100%;
@@ -348,29 +286,26 @@ onMounted(() => {
   justify-content: center;
   transition: transform 0.4s ease;
 }
-.marquee-item img {
+.client-grid-item img {
   width: 100%;
   height: 100%;
   object-fit: contain;
   transition: transform 0.4s ease;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05));
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.08));
 }
-.marquee-item:hover {
+.client-grid-item:hover {
   transform: translateY(-6px);
-  box-shadow: 0 16px 40px rgba(220,38,38,0.15);
-  border-color: rgba(220,38,38,0.3);
 }
-.marquee-item:hover .logo-wrapper img {
-  transform: scale(1.12);
+.client-grid-item:hover .logo-wrapper img {
+  transform: scale(1.18);
+  filter: drop-shadow(0 8px 20px rgba(220, 38, 38, 0.2));
 }
 
-@keyframes scroll-marquee-left {
-  0% { transform: translate3d(0, 0, 0); }
-  100% { transform: translate3d(calc(-50% - 16px), 0, 0); }
-}
-@keyframes scroll-marquee-right {
-  0% { transform: translate3d(calc(-50% - 16px), 0, 0); }
-  100% { transform: translate3d(0, 0, 0); }
+@media (max-width: 1024px) {
+  .clients-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -382,10 +317,10 @@ onMounted(() => {
   .about-visual { min-height: 300px; }
   .about-ring { width: 280px; height: 280px; }
   
-  .clients-marquee-section { margin-top: 60px; padding: 24px 0; }
-  .marquee-title { font-size: 0.8rem; margin-bottom: 24px; }
-  .marquee-wrapper { gap: 16px; }
-  .marquee-item { width: 180px; height: 80px; padding: 10px 16px; border-radius: 12px; }
+  .clients-grid-section { margin-top: 60px; padding: 24px 0; }
+  .clients-section-title { font-size: 0.85rem; margin-bottom: 28px; }
+  .clients-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .client-grid-item { height: 100px; padding: 0 12px; background: transparent; }
 }
 </style>
 

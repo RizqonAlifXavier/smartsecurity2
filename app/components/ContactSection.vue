@@ -11,7 +11,7 @@
       <div class="contact-grid">
         <!-- Contact Info Cards -->
         <div class="contact-info animate-on-scroll swing-left delay-1">
-          <div class="contact-card" v-for="(c, i) in contactInfo" :key="i" data-parallax="right" :data-parallax-speed="(0.02 + i * 0.02).toFixed(2)">
+          <div class="contact-card" v-for="(c, i) in contactInfo" :key="i">
             <div class="cc-icon" v-html="c.svg"></div>
             <div>
               <h4 class="cc-title">{{ c.title }}</h4>

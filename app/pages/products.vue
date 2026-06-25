@@ -3,7 +3,7 @@
     <!-- Hero Banner -->
     <div class="page-hero">
       <div v-if="currentBrand?.bgImage" class="brand-hero-bg">
-        <NuxtImg :src="currentBrand.bgImage" :alt="currentBrand.name" class="brand-hero-bg-img" loading="eager" decoding="async" />
+        <img :src="currentBrand.bgImage" :alt="currentBrand.name" class="brand-hero-bg-img" loading="eager" decoding="async" />
         <div class="brand-hero-bg-overlay"></div>
       </div>
       <div v-else class="hero-bg-pattern"></div>
@@ -469,13 +469,17 @@ useSeoMeta({
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  object-position: center center;
+  transform: scale(1.04);
+  filter: blur(3px) brightness(0.92);
 }
 
 .brand-hero-bg-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.9) 100%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.4) 100%),
+              radial-gradient(rgba(0, 0, 0, 0.08) 1px, transparent 1px);
+  background-size: 100% 100%, 4px 4px;
   pointer-events: none;
 }
 
@@ -517,8 +521,8 @@ useSeoMeta({
 
 .brand-hero-logo {
   display: inline-flex;
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   background: linear-gradient(145deg, #1a1a1a, #111111);
   border: 2px solid rgba(220,38,38,0.3);
@@ -532,18 +536,24 @@ useSeoMeta({
 .brand-hero-logo.has-image {
   background: var(--white);
   border-color: transparent;
+  padding: 12px;
 }
 
 .brand-hero-image {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  padding: 16px;
+  transform: scale(1.1);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.brand-hero-logo:hover .brand-hero-image {
+  transform: scale(1.18);
 }
 
 .brand-hero-logo span {
   font-family: var(--font-heading);
-  font-size: 1.8rem;
+  font-size: 2.2rem;
   font-weight: 800;
   background: linear-gradient(135deg, var(--red-light), var(--red));
   -webkit-background-clip: text;
@@ -563,11 +573,13 @@ useSeoMeta({
 }
 
 .page-subtitle {
-  color: var(--text-secondary);
+  color: var(--text-primary);
   font-size: 1.1rem;
+  font-weight: 600;
   max-width: 560px;
   margin: 0 auto 20px;
   line-height: 1.7;
+  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
 }
 
 .hero-meta {
@@ -575,8 +587,10 @@ useSeoMeta({
   align-items: center;
   justify-content: center;
   gap: 12px;
-  color: var(--text-muted);
-  font-size: 0.9rem;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
 }
 
 .meta-item {

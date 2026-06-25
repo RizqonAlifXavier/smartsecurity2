@@ -10,10 +10,7 @@
       <div class="global-orb global-orb-4"></div>
     </div>
 
-    <!-- Global floating thick particles (Foreground overlay) -->
-    <div class="global-particles-overlay">
-      <div v-for="n in 40" :key="n" class="global-particle" :style="particleStyle(n)"></div>
-    </div>
+    <!-- Global floating thick particles removed for clean background -->
 
     <NuxtRouteAnnouncer />
     <NuxtLayout>
@@ -24,22 +21,6 @@
 
 <script setup>
 import { onMounted, onUnmounted } from 'vue'
-
-const particleStyle = (n) => {
-  const size = Math.random() * 10 + 6
-  const colors = ['rgba(26, 26, 26, 0.85)', 'rgba(220, 38, 38, 0.85)', 'rgba(153, 27, 27, 0.85)', 'rgba(0, 0, 0, 0.9)']
-  const bgColor = colors[Math.floor(Math.random() * colors.length)]
-  return {
-    width: `${size}px`,
-    height: `${size}px`,
-    backgroundColor: bgColor,
-    left: `${Math.random() * 100}%`,
-    top: `${Math.random() * 100}%`,
-    animationDelay: `${Math.random() * 5}s`,
-    animationDuration: `${Math.random() * 12 + 8}s`,
-    boxShadow: '0 2px 8px rgba(0,0,0,0.3)'
-  }
-}
 
 let ticking = false
 const handleMouseMove = (e) => {
@@ -207,6 +188,9 @@ onUnmounted(() => {
   }
   .global-orb {
     filter: blur(60px);
+  }
+  .global-grid {
+    animation: none !important;
   }
 }
 

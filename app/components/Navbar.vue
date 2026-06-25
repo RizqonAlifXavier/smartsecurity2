@@ -158,7 +158,7 @@ onUnmounted(() => {
 }
 
 .brand-logo-img {
-  height: 80px;
+  height: 115px;
   width: auto;
   object-fit: contain;
   transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -168,12 +168,12 @@ onUnmounted(() => {
 }
 
 .brand-logo-img:hover {
-  transform: scale(1.05) translateZ(0);
+  transform: scale(1.1) translateZ(0);
   filter: drop-shadow(0 10px 20px rgba(220,38,38,0.4));
 }
 
 .navbar.scrolled .brand-logo-img {
-  height: 48px;
+  height: 65px;
 }
 
 .navbar-menu {
@@ -272,7 +272,7 @@ onUnmounted(() => {
 
 @media (max-width: 768px) {
   .brand-logo-img {
-    height: 56px;
+    height: 78px;
   }
 
   .navbar-inner {

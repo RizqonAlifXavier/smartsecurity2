@@ -287,7 +287,7 @@ useSeoMeta({
 /* Logo Area */
 .brand-logo-area {
   position: relative;
-  height: 160px;
+  height: 180px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -297,8 +297,8 @@ useSeoMeta({
 }
 
 .brand-logo-circle {
-  width: 90px;
-  height: 90px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   background: var(--bg-card);
   border: 2px solid rgba(255, 255, 255, 0.8);
@@ -325,11 +325,19 @@ useSeoMeta({
   width: 100%;
   height: 100%;
   object-fit: contain;
+  transform: scale(1.1);
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.08));
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.brand-card:hover .brand-logo-image {
+  transform: scale(1.18);
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
 }
 
 .brand-logo-text {
   font-family: var(--font-heading);
-  font-size: 1.8rem;
+  font-size: 2.2rem;
   font-weight: 900;
   color: var(--text-primary);
   letter-spacing: 1px;
@@ -485,15 +493,19 @@ useSeoMeta({
   }
   
   .brand-logo-circle { 
-    width: 52px; 
-    height: 52px; 
+    width: 76px; 
+    height: 76px; 
   }
 
   .brand-logo-circle.has-image {
-    padding: 6px;
+    padding: 8px;
   }
   
-  .brand-logo-text { font-size: 1.1rem; }
+  .brand-logo-image {
+    transform: scale(1.05);
+  }
+  
+  .brand-logo-text { font-size: 1.5rem; }
   
   .brand-info {
     padding: 0;
@@ -504,7 +516,7 @@ useSeoMeta({
   }
   
   .brand-name {
-    font-size: 0.95rem;
+    font-size: 1.1rem;
     margin: 0;
     text-align: center;
     line-height: 1.3;

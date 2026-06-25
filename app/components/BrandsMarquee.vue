@@ -1,40 +1,27 @@
 <template>
-  <div class="brands-marquee-section">
-    <div class="hero-brands-marquee animate-on-scroll fade-up delay-1">
-      <p class="marquee-title">Trusted Partner of World Leading Brands</p>
+  <div class="brands-carousel-section">
+    <div class="hero-brands-carousel animate-on-scroll fade-up delay-1">
+      <div class="carousel-header">
+        <p class="carousel-title">Trusted Partner of World Leading Brands</p>
+      </div>
       
-      <!-- Container for the 2 moving marquee rows (2 kolom/baris) -->
-      <div class="marquee-wrapper">
-        <!-- Row 1: Moving Left -->
-        <div class="marquee-container">
-          <div class="marquee-track track-left">
-            <!-- First set -->
-            <NuxtLink v-for="brand in marqueeRow1" :key="brand.id + '-1-1'" :to="`/products?brand=${brand.id}`" class="marquee-item">
+      <!-- Single container for both rows so they slide together synchronously -->
+      <div class="carousel-wrapper">
+        <div class="carousel-container">
+          <button @click="scrollLeft(mainTrack)" class="carousel-nav nav-left" aria-label="Previous page">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          
+          <div ref="mainTrack" class="carousel-track">
+            <NuxtLink v-for="brand in sortedBrands" :key="brand.id" :to="`/products?brand=${brand.id}`" class="carousel-item">
               <NuxtImg v-if="brand.logoImage" :src="brand.logoImage" :alt="brand.name" loading="lazy" decoding="async" />
-              <span v-else class="marquee-text-logo">{{ brand.logo }}</span>
-            </NuxtLink>
-            <!-- Duplicated set for infinite loop -->
-            <NuxtLink v-for="brand in marqueeRow1" :key="brand.id + '-1-2'" :to="`/products?brand=${brand.id}`" class="marquee-item">
-              <NuxtImg v-if="brand.logoImage" :src="brand.logoImage" :alt="brand.name" loading="lazy" decoding="async" />
-              <span v-else class="marquee-text-logo">{{ brand.logo }}</span>
+              <span v-else class="carousel-text-logo">{{ brand.logo }}</span>
             </NuxtLink>
           </div>
-        </div>
 
-        <!-- Row 2: Moving Right -->
-        <div class="marquee-container">
-          <div class="marquee-track track-right">
-            <!-- First set -->
-            <NuxtLink v-for="brand in marqueeRow2" :key="brand.id + '-2-1'" :to="`/products?brand=${brand.id}`" class="marquee-item">
-              <NuxtImg v-if="brand.logoImage" :src="brand.logoImage" :alt="brand.name" loading="lazy" decoding="async" />
-              <span v-else class="marquee-text-logo">{{ brand.logo }}</span>
-            </NuxtLink>
-            <!-- Duplicated set for infinite loop -->
-            <NuxtLink v-for="brand in marqueeRow2" :key="brand.id + '-2-2'" :to="`/products?brand=${brand.id}`" class="marquee-item">
-              <NuxtImg v-if="brand.logoImage" :src="brand.logoImage" :alt="brand.name" loading="lazy" decoding="async" />
-              <span v-else class="marquee-text-logo">{{ brand.logo }}</span>
-            </NuxtLink>
-          </div>
+          <button @click="scrollRight(mainTrack)" class="carousel-nav nav-right" aria-label="Next page">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
         </div>
       </div>
 
@@ -43,123 +30,172 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import { brands } from '~/data/products'
 
 // Filter all brands that have a logoImage or logo text
 const validBrands = brands.filter(b => b.logoImage || b.logo)
 
-// Split into two distinct groups for 2 moving marquee rows/columns
-const half = Math.ceil(validBrands.length / 2)
-const marqueeRow1 = validBrands.slice(0, half)
-const marqueeRow2 = validBrands.slice(half)
+// Priority brands to appear at the very beginning (default position)
+const priorityIds = ['gst', 'lenel', 'genetec', 'siqura']
+
+// Sort so priorityIds appear first in the exact order specified
+const sortedBrands = [
+  ...validBrands.filter(b => priorityIds.includes(b.id)).sort((a, b) => priorityIds.indexOf(a.id) - priorityIds.indexOf(b.id)),
+  ...validBrands.filter(b => !priorityIds.includes(b.id))
+]
+
+const mainTrack = ref(null)
+
+const scrollLeft = (el) => {
+  if (el) {
+    const scrollAmount = window.innerWidth <= 768 ? 220 : 800
+    el.scrollBy({ left: -scrollAmount, behavior: 'smooth' })
+  }
+}
+
+const scrollRight = (el) => {
+  if (el) {
+    const scrollAmount = window.innerWidth <= 768 ? 220 : 800
+    el.scrollBy({ left: scrollAmount, behavior: 'smooth' })
+  }
+}
 </script>
 
 <style scoped>
-.brands-marquee-section {
+.brands-carousel-section {
   padding: 0;
   background-color: transparent;
 }
-.hero-brands-marquee {
+.hero-brands-carousel {
   width: 100%;
-  padding: 36px 0;
+  padding: 36px 0 64px;
   overflow: hidden;
 }
-.marquee-title {
-  text-align: center;
-  font-size: 1rem;
-  color: var(--text-muted);
+.carousel-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-bottom: 32px;
+}
+.carousel-title {
+  text-align: center;
+  font-size: 1.1rem;
+  color: var(--text-muted);
   letter-spacing: 2px;
   text-transform: uppercase;
   font-weight: 700;
+  margin: 0;
 }
-.marquee-wrapper {
+.carousel-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 28px;
   width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
-.marquee-container {
-  display: flex;
-  overflow: hidden;
-  position: relative;
-  width: 100%;
-  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-}
-.marquee-track {
+.carousel-container {
   display: flex;
   align-items: center;
-  gap: 32px;
-  width: max-content;
-  will-change: transform;
-  transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
-  perspective: 1000px;
+  position: relative;
+  width: 100%;
 }
-.track-left {
-  animation: scroll-marquee-left 118s linear infinite;
+.carousel-track {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  grid-auto-columns: 260px;
+  grid-auto-flow: column;
+  gap: 28px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  padding: 16px 8px;
+  width: 100%;
 }
-.track-right {
-  animation: scroll-marquee-right 118s linear infinite;
+.carousel-track::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
-.marquee-track:hover {
-  animation-play-state: paused;
-}
-.marquee-item {
-  flex-shrink: 0;
-  width: 240px;
-  height: 110px;
+.carousel-item {
+  scroll-snap-align: start;
+  width: 270px;
+  height: 125px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: var(--white);
-  border-radius: 16px;
-  padding: 12px 20px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-  border: 1px solid rgba(0,0,0,0.04);
+  border-radius: 20px;
+  padding: 16px 26px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  border: 1px solid rgba(0,0,0,0.05);
+  overflow: hidden;
   transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  will-change: transform;
-  backface-visibility: hidden;
-  transform: translate3d(0, 0, 0);
 }
-.marquee-item img {
+.carousel-item img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  transition: transform 0.4s ease;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05));
+  transform: scale(1.08);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.06));
 }
-.marquee-item:hover {
+.carousel-item:hover {
   transform: translateY(-6px);
-  box-shadow: 0 16px 40px rgba(220,38,38,0.15);
+  box-shadow: 0 16px 40px rgba(220,38,38,0.18);
   border-color: rgba(220,38,38,0.3);
 }
-.marquee-item:hover img {
-  transform: scale(1.12);
+.carousel-item:hover img {
+  transform: scale(1.18);
 }
-.marquee-text-logo {
+.carousel-text-logo {
   font-family: var(--font-heading);
-  font-size: 1.6rem;
+  font-size: 2rem;
   font-weight: 800;
   color: var(--bg-primary);
 }
-
-@keyframes scroll-marquee-left {
-  0% { transform: translate3d(0, 0, 0); }
-  100% { transform: translate3d(calc(-50% - 16px), 0, 0); }
+.carousel-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
 }
-@keyframes scroll-marquee-right {
-  0% { transform: translate3d(calc(-50% - 16px), 0, 0); }
-  100% { transform: translate3d(0, 0, 0); }
+.carousel-nav:hover {
+  background: var(--red-light);
+  color: var(--white);
+  border-color: var(--red-light);
+  box-shadow: 0 12px 32px rgba(220,38,38,0.3);
+  transform: translateY(-50%) scale(1.1);
+}
+.nav-left {
+  left: -20px;
+}
+.nav-right {
+  right: -20px;
 }
 
 @media (max-width: 768px) {
-  .hero-brands-marquee { padding: 20px 0; }
-  .marquee-title { font-size: 0.8rem; margin-bottom: 20px; }
-  .marquee-wrapper { gap: 16px; }
-  .marquee-item { width: 180px; height: 80px; padding: 10px 16px; border-radius: 12px; }
-  .marquee-text-logo { font-size: 1.3rem; }
+  .hero-brands-carousel { padding: 20px 0 40px; }
+  .carousel-title { font-size: 0.85rem; }
+  .carousel-wrapper { padding: 0 12px; }
+  .carousel-track { grid-auto-columns: 190px; gap: 16px; padding: 8px 4px; }
+  .carousel-item { width: 190px; height: 95px; padding: 12px 20px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.08); }
+  .carousel-item img { filter: none; transform: scale(1.05); }
+  .carousel-text-logo { font-size: 1.5rem; }
+  .carousel-nav { display: none; /* Hide buttons on mobile, allow natural swipe */ }
 }
 </style>
 

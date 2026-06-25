@@ -10,10 +10,7 @@
       </div>
     </div>
 
-    <!-- Brands Marquee Section (Full Width) -->
-    <BrandsMarquee />
-
-    <div class="container" style="margin-top: 24px;">
+    <div class="container" style="margin-top: 24px; margin-bottom: 64px;">
       <!-- Category Cards Grid -->
       <div class="category-grid">
         <NuxtLink
@@ -51,6 +48,9 @@
         </NuxtLink>
       </div>
     </div>
+
+    <!-- Brands Marquee Section (Static Swipeable Carousel) -->
+    <BrandsMarquee />
   </section>
 </template>
 
@@ -74,30 +74,30 @@ const getBrandsInCategory = (catId) => {
 
 // Professional SVG icons per category (no emojis)
 const categoryIconSvgs = {
-  // Fire Alarm — alarm bell with side ringing arcs
-  'fire-alarm': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/><path d="M3.5 5.5C4.8 3.7 6.7 2.5 9 2"/><path d="M20.5 5.5C19.2 3.7 17.3 2.5 15 2"/></svg>`,
-  // Access Control — padlock with keyhole dot
-  'access-control': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/><circle cx="12" cy="16" r="1.5" fill="currentColor" stroke="none"/></svg>`,
-  // CCTV — dome/box security camera with lens
-  'cctv': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 00-2 2v9a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>`,
-  // Security System — shield with verified checkmark
-  'security-system': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>`,
-  // Intruder Alarm — alert bell with active indicator dot
-  'intruder-alarm': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/><circle cx="18" cy="4" r="3" fill="currentColor" stroke="none"/></svg>`,
-  // XVR Simulation — VR goggles/headset with lenses
-  'xvr-simulation': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a2 2 0 012-2h16a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V9z"/><circle cx="9" cy="12" r="2"/><circle cx="15" cy="12" r="2"/><line x1="11" y1="12" x2="13" y2="12"/></svg>`,
-  // Perimeter Fencing — fence posts with horizontal rails
-  'perimeter-fencing': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="9"/><line x1="12" y1="21" x2="12" y2="9"/><line x1="20" y1="21" x2="20" y2="9"/><line x1="2" y1="13" x2="22" y2="13"/><line x1="2" y1="17" x2="22" y2="17"/><polyline points="2 9 4 5 12 5 20 5 22 9"/></svg>`,
-  // IT Solution — server rack (stacked units with indicator lights)
-  'it-solution': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="10" y1="6" x2="10.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/><line x1="10" y1="18" x2="10.01" y2="18"/></svg>`,
-  // IPTV/MATV — television with antenna signal
-  'iptv-matv': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg>`,
-  // X-Ray — scanner conveyor with wave pattern inside
-  'x-ray': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/><path d="M7 15l2-3 3 4 2-2 2 3"/></svg>`,
-  // Metal Detector — walk-through arch/portal detector gate
-  'metal-detector': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V5a2 2 0 012-2h12a2 2 0 012 2v16"/><line x1="2" y1="21" x2="22" y2="21"/><line x1="10" y1="3" x2="10" y2="21"/><line x1="14" y1="3" x2="14" y2="21"/><line x1="8" y1="9" x2="16" y2="9"/><line x1="8" y1="13" x2="16" y2="13"/></svg>`,
-  // Others — 4-grid squares (misc/apps)
-  'others': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>`,
+  // Fire Alarm — Iconfromus Flaticon design (loaded from public/icon/fire-alarm.png)
+  'fire-alarm': `<img src="/icon/fire-alarm.png" alt="Fire Alarm" style="width: 100%; height: 100%; object-fit: contain;" />`,
+  // Access Control — Biometric fingerprint lock (loaded from public/icon/Finger.png)
+  'access-control': `<img src="/icon/Finger.png" alt="Access Control" style="width: 100%; height: 100%; object-fit: contain;" />`,
+  // CCTV — Surveillance camera (loaded from public/icon/cctv.png)
+  'cctv': `<img src="/icon/cctv.png" alt="CCTV" style="width: 100%; height: 100%; object-fit: contain;" />`,
+  // Security System — Cyber security shield (loaded from public/icon/cyber-security.png)
+  'security-system': `<img src="/icon/cyber-security.png" alt="Security System" style="width: 100%; height: 100%; object-fit: contain;" />`,
+  // Intruder Alarm — Intruder security alert (loaded from public/icon/intruder.png)
+  'intruder-alarm': `<img src="/icon/intruder.png" alt="Intruder Alarm" style="width: 100%; height: 100%; object-fit: contain;" />`,
+  // XVR Simulation — Augmented reality / simulation (loaded from public/icon/augmented-reality.png)
+  'xvr-simulation': `<img src="/icon/augmented-reality.png" alt="XVR Simulation" style="width: 100%; height: 100%; object-fit: contain;" />`,
+  // Perimeter Fencing — Perimeter fence barriers (loaded from public/icon/fence.png)
+  'perimeter-fencing': `<img src="/icon/fence.png" alt="Perimeter Fencing" style="width: 100%; height: 100%; object-fit: contain;" />`,
+  // IT Solution — Enterprise software solutions (loaded from public/icon/software.png)
+  'it-solution': `<img src="/icon/software.png" alt="IT Solution" style="width: 100%; height: 100%; object-fit: contain;" />`,
+  // IPTV/MATV — Media television systems (loaded from public/icon/tv.png)
+  'iptv-matv': `<img src="/icon/tv.png" alt="IPTV/MATV" style="width: 100%; height: 100%; object-fit: contain;" />`,
+  // X-Ray — Scanner inspection systems (loaded from public/icon/xray.png)
+  'x-ray': `<img src="/icon/xray.png" alt="X-Ray" style="width: 100%; height: 100%; object-fit: contain;" />`,
+  // Metal Detector — Portal detector gate (loaded from public/icon/detection.png)
+  'metal-detector': `<img src="/icon/detection.png" alt="Metal Detector" style="width: 100%; height: 100%; object-fit: contain;" />`,
+  // Others — General high-end solutions
+  'others': `<img src="/icon/cyber-security.png" alt="Others" style="width: 100%; height: 100%; object-fit: contain;" />`,
 }
 
 const getCategoryIcon = (id) => {
@@ -112,6 +112,23 @@ onMounted(() => {
 </script>
 
 <style scoped>
+/* Flaticon Attribution Footnote */
+.attribution-footnote {
+  text-align: center;
+  margin-top: 36px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+.attribution-footnote a {
+  text-decoration: underline;
+  text-decoration-color: rgba(0,0,0,0.2);
+  transition: all var(--transition-fast);
+}
+.attribution-footnote a:hover {
+  color: var(--red);
+  text-decoration-color: var(--red);
+}
+
 /* Category Grid */
 .category-grid {
   display: grid;
@@ -122,22 +139,24 @@ onMounted(() => {
 /* Category Card */
 .category-card {
   position: relative;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(220, 38, 38, 0.12);
+  border-radius: 28px;
   overflow: hidden;
   transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
   display: flex;
   flex-direction: column;
   cursor: pointer;
   text-decoration: none;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
 
 .category-card:hover {
-  border-color: rgba(220,38,38,0.4);
-  background: var(--bg-card-hover);
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  border-color: rgba(220, 38, 38, 0.4);
+  background: var(--white);
+  transform: translateY(-10px);
+  box-shadow: 0 22px 48px rgba(220, 38, 38, 0.14);
 }
 
 .category-glow {
@@ -146,7 +165,7 @@ onMounted(() => {
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at 50% 0%, rgba(220,38,38,0.15) 0%, transparent 70%);
+  background: radial-gradient(circle at 50% 0%, rgba(220, 38, 38, 0.18) 0%, transparent 75%);
   opacity: 0;
   transition: opacity 0.5s ease;
   pointer-events: none;
@@ -157,56 +176,57 @@ onMounted(() => {
 }
 
 .category-icon-area {
-  padding: 32px 24px 24px;
+  padding: 36px 24px 16px;
   display: flex;
   justify-content: center;
-  border-bottom: 1px solid var(--border);
-  background: linear-gradient(135deg, var(--red-light) 0%, var(--red-dark) 100%);
+  background: linear-gradient(180deg, rgba(220, 38, 38, 0.06) 0%, rgba(255, 255, 255, 0) 100%);
 }
 
 .category-icon-circle {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: var(--bg-card);
-  border: 2px solid rgba(255, 255, 255, 0.8);
+  width: 96px;
+  height: 96px;
+  border-radius: 28px;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border: 1px solid rgba(220, 38, 38, 0.18);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 12px 32px rgba(220, 38, 38, 0.12);
   transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .category-card:hover .category-icon-circle {
-  transform: scale(1.1);
-  border-color: var(--white);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+  transform: scale(1.1) rotate(3deg);
+  border-color: rgba(220, 38, 38, 0.45);
+  box-shadow: 0 16px 42px rgba(220, 38, 38, 0.22);
 }
 
 .category-icon-svg {
-  width: 38px;
-  height: 38px;
+  width: 56px;
+  height: 56px;
   color: rgba(0, 0, 0, 0.92);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.category-icon-svg :deep(svg) {
+.category-icon-svg :deep(svg),
+.category-icon-svg :deep(img) {
   width: 100%;
   height: 100%;
   stroke: rgba(0, 0, 0, 0.92);
-  filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.18));
+  filter: drop-shadow(0 4px 8px rgba(220, 38, 38, 0.18));
   transition: filter 0.4s ease, transform 0.4s ease;
 }
 
-.category-card:hover .category-icon-svg :deep(svg) {
-  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.45));
-  transform: scale(1.1);
+.category-card:hover .category-icon-svg :deep(svg),
+.category-card:hover .category-icon-svg :deep(img) {
+  filter: drop-shadow(0 6px 16px rgba(220, 38, 38, 0.32));
+  transform: scale(1.15);
 }
 
 .category-info {
-  padding: 24px 24px 16px;
+  padding: 12px 24px 24px;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -228,7 +248,7 @@ onMounted(() => {
 }
 
 .category-desc {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: var(--text-secondary);
   line-height: 1.6;
 }
@@ -237,9 +257,9 @@ onMounted(() => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 24px;
-  border-top: 1px solid var(--border);
-  background: rgba(0, 0, 0,0.01);
+  padding: 18px 24px;
+  border-top: 1px solid rgba(220, 38, 38, 0.08);
+  background: rgba(255, 255, 255, 0.4);
 }
 
 .category-brand-count {
@@ -248,7 +268,16 @@ onMounted(() => {
   gap: 6px;
   font-size: 0.85rem;
   color: var(--text-muted);
-  font-weight: 500;
+  font-weight: 700;
+  background: rgba(0, 0, 0, 0.04);
+  padding: 6px 14px;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.category-card:hover .category-brand-count {
+  background: rgba(220, 38, 38, 0.1);
+  color: var(--red-light);
 }
 
 .category-cta {
@@ -256,7 +285,7 @@ onMounted(() => {
   align-items: center;
   gap: 4px;
   font-size: 0.9rem;
-  font-weight: 600;
+  font-weight: 800;
   color: var(--red-light);
   transition: all 0.3s ease;
 }
@@ -271,7 +300,7 @@ onMounted(() => {
 }
 
 .category-card:hover .category-cta svg {
-  transform: translateX(3px);
+  transform: translateX(4px);
 }
 
 @media (max-width: 1024px) {
