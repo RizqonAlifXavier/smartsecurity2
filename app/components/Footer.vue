@@ -101,8 +101,8 @@ const currentYear = new Date().getFullYear()
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 2.8fr auto auto 1.1fr;
-  gap: 36px;
+  grid-template-columns: 2.4fr 1fr 1fr 1.5fr;
+  gap: 32px;
   margin-bottom: 48px;
   align-items: start;
 }
