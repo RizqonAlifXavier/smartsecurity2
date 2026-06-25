@@ -82,7 +82,7 @@ const currentYear = new Date().getFullYear()
 .footer {
   background: transparent;
   border-top: 1px solid var(--border);
-  padding: 40px 0 0;
+  padding: 48px 0 0;
   position: relative;
   overflow: hidden;
 }
@@ -101,23 +101,25 @@ const currentYear = new Date().getFullYear()
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1fr;
-  gap: 48px;
-  margin-bottom: 40px;
+  grid-template-columns: 2.8fr auto auto 1.1fr;
+  gap: 36px;
+  margin-bottom: 48px;
+  align-items: start;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 24px;
 }
 
 .footer-logo {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-heading);
-  font-weight: 800;
-  font-size: 1.2rem;
-  margin-bottom: 12px;
+  flex-shrink: 0;
+  margin-bottom: 0;
 }
 
 .brand-logo-img {
-  height: 130px;
+  height: 95px;
   width: auto;
   max-width: none;
   object-fit: contain;
@@ -135,14 +137,15 @@ const currentYear = new Date().getFullYear()
 .footer-desc {
   color: var(--text-secondary);
   font-size: 0.9rem;
-  line-height: 1.7;
+  line-height: 1.6;
+  margin: 0;
 }
 
 .footer-heading {
   font-family: var(--font-heading);
   font-size: 1rem;
   font-weight: 700;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   color: var(--text-primary);
 }
 
@@ -217,6 +220,11 @@ const currentYear = new Date().getFullYear()
   .footer-grid {
     grid-template-columns: 1fr;
     gap: 32px;
+  }
+  .footer-brand {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
   }
   .footer-bottom {
     flex-direction: column;

@@ -19,7 +19,7 @@
         >
           <div class="feature-icon-wrap">
             <div class="feature-glow"></div>
-            <span class="feature-icon">{{ feature.icon }}</span>
+            <NuxtImg :src="feature.icon" :alt="feature.title" class="feature-icon-img" loading="lazy" decoding="async" />
           </div>
           <h3 class="feature-title">{{ feature.title }}</h3>
           <p class="feature-desc">{{ feature.description }}</p>
@@ -33,32 +33,32 @@
 <script setup>
 const features = [
   {
-    icon: '🛡️',
+    icon: '/icon/guarantee.png',
     title: 'Guaranteed Products',
     description: 'All products come with official warranty. We only provide products from trusted brands with guaranteed quality.'
   },
   {
-    icon: '⚡',
+    icon: '/icon/rush.png',
     title: 'Fast Installation',
     description: 'Our professional technician team is ready to perform quick and clean installations, with minimal downtime for your business.'
   },
   {
-    icon: '🎯',
+    icon: '/icon/free.png',
     title: 'Free Consultation',
     description: 'Get free consultation from our expert team to determine the right security solution for your needs.'
   },
   {
-    icon: '🔧',
+    icon: '/icon/customer-service.png',
     title: '24/7 Support',
     description: 'Technical support service available 24 hours a day, 7 days a week. We are ready to help whenever you need us.'
   },
   {
-    icon: '💰',
+    icon: '/icon/coin.png',
     title: 'Competitive Pricing',
     description: 'Competitive prices with premium quality. Various packages available to suit your budget.'
   },
   {
-    icon: '🏆',
+    icon: '/icon/trophy.png',
     title: '10+ Years of Experience',
     description: 'Over a decade of experience serving thousands of clients across various industry sectors.'
   },
@@ -102,30 +102,34 @@ const cardAnim = (i) => anims[i % anims.length]
 .feature-card:hover::before { opacity: 1; }
 .feature-icon-wrap {
   position: relative;
-  width: 56px;
-  height: 56px;
+  width: 72px;
+  height: 72px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 .feature-glow {
   position: absolute;
-  inset: -8px;
-  background: radial-gradient(circle, rgba(220,38,38,0.15), transparent);
+  inset: -12px;
+  background: radial-gradient(circle, rgba(220,38,38,0.18), transparent);
   border-radius: 50%;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.4s ease;
 }
 .feature-card:hover .feature-glow { opacity: 1; }
-.feature-icon {
-  font-size: 2.2rem;
+.feature-icon-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
   position: relative;
   z-index: 1;
   transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.08));
 }
-.feature-card:hover .feature-icon {
-  transform: scale(1.2) rotate(-5deg);
+.feature-card:hover .feature-icon-img {
+  transform: scale(1.15) rotate(-4deg);
+  filter: drop-shadow(0 8px 20px rgba(220,38,38,0.25));
 }
 .feature-title {
   font-family: var(--font-heading);

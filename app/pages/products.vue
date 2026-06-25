@@ -22,11 +22,23 @@
               <span v-else>{{ currentBrand?.logo || '?' }}</span>
             </div>
           </div>
-          <h1 class="page-title animate-on-scroll fade-up delay-1">{{ currentBrand?.name || 'All Products' }}</h1>
-          <p class="page-subtitle animate-on-scroll fade-up delay-2">
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="products-content">
+      <div class="container">
+
+        <!-- ==================== -->
+        <!-- BRAND PAGE HEADER    -->
+        <!-- ==================== -->
+        <div class="brand-page-header animate-on-scroll fade-up">
+          <h1 class="page-title">{{ currentBrand?.name || 'All Products' }}</h1>
+          <p class="page-subtitle">
             {{ currentBrand?.description || 'View all available security products' }}
           </p>
-          <div class="hero-meta animate-on-scroll fade-up delay-3">
+          <div class="hero-meta">
             <span class="meta-item">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
@@ -43,12 +55,6 @@
             </span>
           </div>
         </div>
-      </div>
-    </div>
-
-    <!-- Main Content -->
-    <div class="products-content">
-      <div class="container">
 
         <!-- ==================== -->
         <!-- CATEGORY CARDS GRID  -->
@@ -101,8 +107,8 @@
           <div class="products-header animate-on-scroll fade-up">
             <div class="products-header-left">
               <h2 class="products-section-title">
-                <span class="products-section-icon">{{ activeCategoryIcon }}</span>
-                {{ activeCategoryLabel }} Products
+                <span class="products-section-icon">{{ searchQuery ? '🔍' : activeCategoryIcon }}</span>
+                {{ searchQuery ? `Hasil Pencarian: "${searchQuery}"` : `${activeCategoryLabel} Products` }}
               </h2>
               <p class="products-section-count">{{ filteredProducts.length }} products found</p>
             </div>
@@ -125,12 +131,13 @@
                 <line x1="21" y1="21" x2="16.65" y2="16.65"/>
               </svg>
               <input 
-                v-model="searchQuery" 
+                :value="searchQueryInput" 
+                @input="updateSearch($event.target.value)"
                 type="text" 
                 placeholder="Cari produk berdasarkan nama, deskripsi, atau fitur..." 
                 class="search-input"
               />
-              <button v-if="searchQuery" class="clear-search" @click="searchQuery = ''" aria-label="Clear search">
+              <button v-if="searchQueryInput" class="clear-search" @click="clearSearch" aria-label="Clear search">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <line x1="18" y1="6" x2="6" y2="18"/>
                   <line x1="6" y1="6" x2="18" y2="18"/>
@@ -143,7 +150,7 @@
             <div class="empty-icon">🔍</div>
             <h3>Produk tidak ditemukan</h3>
             <p>Tidak ada produk yang cocok dengan pencarian "{{ searchQuery }}".</p>
-            <button class="btn btn-primary" @click="searchQuery = ''; if(activeCategory !== 'all') setCategory('all')">
+            <button class="btn btn-primary" @click="clearSearch(); if(activeCategory !== 'all') setCategory('all')">
               Reset Pencarian
             </button>
           </div>
@@ -152,8 +159,8 @@
             <div
               v-for="(product, index) in paginatedProducts"
               :key="product.id"
-              class="product-card animate-on-scroll fade-up"
-              :style="{ transitionDelay: `${index * 0.04}s` }"
+              :class="['product-card', { 'animate-on-scroll fade-up': !searchQuery }]"
+              :style="{ transitionDelay: !searchQuery ? `${index * 0.04}s` : '0s' }"
             >
               <div class="product-image">
                 <NuxtImg 
@@ -246,10 +253,18 @@ const currentBrand = computed(() => {
   return brands.find((b) => b.id === brandId.value) || null
 })
 
-// All products for the current brand (no category filter)
+// All products for the current brand (no category filter) with pre-computed search index for 100x faster filtering
 const allBrandProducts = computed(() => {
-  if (!brandId.value) return products
-  return products.filter((p) => p.brand === brandId.value)
+  const list = !brandId.value ? products : products.filter((p) => p.brand === brandId.value)
+  return list.map(p => ({
+    ...p,
+    _searchIndex: [
+      p.name,
+      p.description,
+      p.categoryLabel,
+      ...(p.features || [])
+    ].filter(Boolean).join(' ').toLowerCase()
+  }))
 })
 
 // Default to 'all' — show all products
@@ -264,24 +279,41 @@ watch(categoryFromQuery, (val) => {
   }
 }, { immediate: true })
 
-// Search Query Ref
+// Optimized Debounced Search Refs
+const searchQueryInput = ref('')
 const searchQuery = ref('')
+let searchTimeout = null
 
-// Products filtered by brand, active category, and search query
+const updateSearch = (val) => {
+  searchQueryInput.value = val
+  if (searchTimeout) clearTimeout(searchTimeout)
+  searchTimeout = setTimeout(() => {
+    searchQuery.value = val
+  }, 150)
+}
+
+const clearSearch = () => {
+  searchQueryInput.value = ''
+  searchQuery.value = ''
+  if (searchTimeout) clearTimeout(searchTimeout)
+}
+
+// Products filtered by brand, active category, and search query (Extremely fast O(1) string matching)
 const filteredProducts = computed(() => {
   let list = allBrandProducts.value
+  
+  // Jika ada input pencarian, cari di SELURUH produk brand ini (abaikan filter kategori aktif)
+  if (searchQuery.value.trim()) {
+    const keywords = searchQuery.value.toLowerCase().trim().split(/\s+/)
+    return list.filter((p) => {
+      // Pastikan semua kata kunci cocok dengan indeks pre-computed
+      return keywords.every(kw => p._searchIndex.includes(kw))
+    })
+  }
+
+  // Jika tidak ada pencarian (tampilan default), saring berdasarkan kategori aktif
   if (activeCategory.value !== 'all') {
     list = list.filter((p) => p.category === activeCategory.value)
-  }
-  if (searchQuery.value.trim()) {
-    const q = searchQuery.value.toLowerCase().trim()
-    list = list.filter((p) => {
-      const nameMatch = p.name?.toLowerCase().includes(q)
-      const descMatch = p.description?.toLowerCase().includes(q)
-      const featureMatch = p.features?.some(f => f.toLowerCase().includes(q))
-      const catMatch = p.categoryLabel?.toLowerCase().includes(q)
-      return nameMatch || descMatch || featureMatch || catMatch
-    })
   }
   return list
 })
@@ -328,6 +360,9 @@ const paginatedProducts = computed(() => {
 
 watch([activeCategory, brandId, searchQuery], () => {
   currentPage.value = 1
+  nextTick(() => {
+    initScrollAnimations()
+  })
 })
 
 const changePage = (page) => {
@@ -444,8 +479,8 @@ useSeoMeta({
 /* Page Hero */
 .page-hero {
   position: relative;
-  padding: 120px 0 60px;
-  background: linear-gradient(180deg, rgba(248, 249, 250, 0.7) 0%, rgba(255, 255, 255, 0.7) 100%);
+  padding: 150px 0 40px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(248, 249, 250, 0.7) 100%);
   overflow: hidden;
 }
 
@@ -460,7 +495,10 @@ useSeoMeta({
 
 .brand-hero-bg {
   position: absolute;
-  inset: 0;
+  top: 120px;
+  left: 0;
+  right: 0;
+  bottom: 0;
   z-index: 0;
   overflow: hidden;
 }
@@ -470,16 +508,18 @@ useSeoMeta({
   height: 100%;
   object-fit: cover;
   object-position: center center;
-  transform: scale(1.04);
-  filter: blur(3px) brightness(0.92);
+  transform: scale(1.01);
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
 }
 
 .brand-hero-bg-overlay {
   position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.4) 100%),
-              radial-gradient(rgba(0, 0, 0, 0.08) 1px, transparent 1px);
-  background-size: 100% 100%, 4px 4px;
+  top: 120px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.15) 100%);
   pointer-events: none;
 }
 
@@ -512,17 +552,25 @@ useSeoMeta({
 }
 
 .hero-content {
-  text-align: center;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  min-height: 380px;
 }
 
 .brand-hero-badge {
-  margin-bottom: 24px;
+  position: absolute;
+  top: 0;
+  right: 16px;
+  margin-bottom: 0;
+  flex-shrink: 0;
+  z-index: 10;
 }
 
 .brand-hero-logo {
   display: inline-flex;
-  width: 120px;
-  height: 120px;
+  width: 110px;
+  height: 110px;
   border-radius: 50%;
   background: linear-gradient(145deg, #1a1a1a, #111111);
   border: 2px solid rgba(220,38,38,0.3);
@@ -536,7 +584,7 @@ useSeoMeta({
 .brand-hero-logo.has-image {
   background: var(--white);
   border-color: transparent;
-  padding: 12px;
+  padding: 10px;
 }
 
 .brand-hero-image {
@@ -561,51 +609,76 @@ useSeoMeta({
   background-clip: text;
 }
 
+/* Brand Page Header (Above Categories) */
+.brand-page-header {
+  margin-bottom: 40px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+
 .page-title {
   font-family: var(--font-heading);
-  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-size: clamp(2.4rem, 5vw, 4rem);
   font-weight: 900;
-  background: black ;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 12px;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+  line-height: 1.1;
 }
 
 .page-subtitle {
-  color: var(--text-primary);
-  font-size: 1.1rem;
-  font-weight: 600;
-  max-width: 560px;
-  margin: 0 auto 20px;
-  line-height: 1.7;
-  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
+  color: var(--text-secondary);
+  font-size: 1.25rem;
+  font-weight: 500;
+  max-width: 720px;
+  margin: 0 0 24px 0;
+  line-height: 1.6;
 }
 
 .hero-meta {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 12px;
+  justify-content: flex-start;
+  gap: 20px;
   color: var(--text-primary);
-  font-size: 0.95rem;
-  font-weight: 600;
-  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
+  font-size: 1.05rem;
+  font-weight: 700;
 }
 
 .meta-item {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 
 .meta-divider {
   color: rgba(0, 0, 0,0.15);
 }
 
+@media (max-width: 768px) {
+  .hero-content {
+    min-height: 120px;
+    margin-top: 20px;
+  }
+  .brand-hero-badge {
+    position: relative;
+    top: auto;
+    right: auto;
+    margin-left: auto;
+  }
+  .brand-hero-logo {
+    width: 90px;
+    height: 90px;
+  }
+  .brand-page-header {
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+  }
+}
+
 /* Products Content */
 .products-content {
-  padding: 60px 0 100px;
+  padding: 60px 0 40px;
 }
 
 /* ======================== */

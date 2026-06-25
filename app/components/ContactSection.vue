@@ -60,8 +60,13 @@ const form = reactive({ name: '', email: '', phone: '', message: '' })
 
 const contactInfo = [
   {
-    title: 'Address',
-    value: 'PT SINERGI SEMPURNA SOLUSINDO, Jl. Ngagel No.213-I, Surabaya',
+    title: 'Head Office',
+    value: 'PT. Golden Solution Indonesia, JL. Angkasa No.4, Kemayoran, Jakarta Pusat',
+    svg: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>'
+  },
+  {
+    title: 'Branch Office',
+    value: 'PT. Sinergi Sempurna Solusindo, Jl. Ngagel No.213-I, Surabaya',
     svg: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>'
   },
   {

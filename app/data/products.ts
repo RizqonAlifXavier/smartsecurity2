@@ -80,7 +80,7 @@ export const categories: Category[] = [
 
 export const brands: Brand[] = [
   // Fire Alarm (highlighted first)
-  { id: 'gst', name: 'GST', category: 'fire-alarm', categoryLabel: 'Fire Alarm', logo: 'GST', logoImage: '/brands/GST.jpg', bgImage: '/Product/GST_Product/hero.webp', description: 'Reliable conventional and addressable fire alarm systems' },
+  { id: 'gst', name: 'GST', category: 'fire-alarm', categoryLabel: 'Fire Alarm', logo: 'GST', logoImage: '/brands/GST.jpg', bgImage: '/Product/GST_Product/hero.png', description: 'Reliable conventional and addressable fire alarm systems' },
   { id: 'notifier', name: 'Notifier', category: 'fire-alarm', categoryLabel: 'Fire Alarm', logo: 'NTF', logoImage: '/brands/notifier.png', description: 'Enterprise-class fire alarm system from Honeywell' },
   { id: 'edwards', name: 'Edwards', category: 'fire-alarm', categoryLabel: 'Fire Alarm', logo: 'EDW', logoImage: '/brands/edwards.png', description: 'High-quality fire alarm and life safety systems' },
   { id: 'simplex', name: 'Simplex', category: 'fire-alarm', categoryLabel: 'Fire Alarm', logo: 'SPX', logoImage: '/brands/simplex.png', description: 'Leading fire detection and notification system solutions' },

@@ -123,7 +123,7 @@ onUnmounted(() => {
   position: absolute;
   border-radius: 50%;
   filter: blur(90px);
-  opacity: 0.45;
+  opacity: 0.35;
   pointer-events: none;
   will-change: transform;
   transform: translate3d(0, 0, 0);
@@ -134,7 +134,7 @@ onUnmounted(() => {
 .global-orb-1 {
   width: 550px;
   height: 550px;
-  background: radial-gradient(circle, rgba(239, 68, 68, 0.55) 0%, rgba(220, 38, 38, 0.25) 60%, transparent 100%);
+  background: radial-gradient(circle, rgba(185, 28, 28, 0.4) 0%, rgba(153, 27, 27, 0.18) 60%, transparent 100%);
   top: -100px;
   right: -100px;
   animation: orb-move-1 18s ease-in-out infinite;
@@ -143,7 +143,7 @@ onUnmounted(() => {
 .global-orb-2 {
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, rgba(220, 38, 38, 0.5) 0%, rgba(153, 27, 27, 0.25) 60%, transparent 100%);
+  background: radial-gradient(circle, rgba(153, 27, 27, 0.38) 0%, rgba(127, 29, 29, 0.15) 60%, transparent 100%);
   bottom: 10%;
   left: -100px;
   animation: orb-move-2 22s ease-in-out infinite 2s;
@@ -152,7 +152,7 @@ onUnmounted(() => {
 .global-orb-3 {
   width: 450px;
   height: 450px;
-  background: radial-gradient(circle, rgba(255, 138, 138, 0.5) 0%, rgba(239, 68, 68, 0.22) 60%, transparent 100%);
+  background: radial-gradient(circle, rgba(185, 28, 28, 0.35) 0%, rgba(153, 27, 27, 0.15) 60%, transparent 100%);
   top: 35%;
   right: 15%;
   animation: orb-move-3 25s ease-in-out infinite 4s;
@@ -161,7 +161,7 @@ onUnmounted(() => {
 .global-orb-4 {
   width: 600px;
   height: 600px;
-  background: radial-gradient(circle, rgba(239, 68, 68, 0.45) 0%, rgba(153, 27, 27, 0.25) 60%, transparent 100%);
+  background: radial-gradient(circle, rgba(153, 27, 27, 0.35) 0%, rgba(127, 29, 29, 0.15) 60%, transparent 100%);
   bottom: -150px;
   left: 30%;
   animation: orb-move-4 28s ease-in-out infinite 1s;
@@ -188,7 +188,11 @@ onUnmounted(() => {
   }
   .global-orb {
     filter: blur(60px);
+    opacity: 0.22;
   }
+  .global-orb-1 { width: 280px; height: 280px; top: -50px; right: -50px; }
+  .global-orb-2 { width: 260px; height: 260px; bottom: 15%; left: -50px; }
+  .global-orb-3, .global-orb-4 { display: none !important; }
   .global-grid {
     animation: none !important;
   }
