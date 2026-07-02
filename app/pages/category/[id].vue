@@ -244,28 +244,31 @@ useSeoMeta({
 /* Brand Grid */
 .brand-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 24px;
 }
 
 /* Brand Card */
 .brand-card {
   position: relative;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(220, 38, 38, 0.12);
+  border-radius: 28px;
   overflow: hidden;
   transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
   display: flex;
   flex-direction: column;
+  cursor: pointer;
   text-decoration: none;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
 
 .brand-card:hover {
-  border-color: rgba(220,38,38,0.4);
-  background: var(--bg-card-hover);
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  border-color: rgba(220, 38, 38, 0.4);
+  background: var(--white);
+  transform: translateY(-10px);
+  box-shadow: 0 22px 48px rgba(220, 38, 38, 0.14);
 }
 
 .brand-glow {
@@ -274,7 +277,7 @@ useSeoMeta({
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at 50% 0%, rgba(220,38,38,0.15) 0%, transparent 70%);
+  background: radial-gradient(circle at 50% 0%, rgba(220, 38, 38, 0.18) 0%, transparent 75%);
   opacity: 0;
   transition: opacity 0.5s ease;
   pointer-events: none;
@@ -286,53 +289,47 @@ useSeoMeta({
 
 /* Logo Area */
 .brand-logo-area {
-  position: relative;
-  height: 180px;
+  padding: 36px 24px 16px;
   display: flex;
-  align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, var(--red-light) 0%, var(--red-dark) 100%);
-  border-bottom: 1px solid var(--border);
-  overflow: hidden;
+  background: linear-gradient(180deg, rgba(220, 38, 38, 0.06) 0%, rgba(255, 255, 255, 0) 100%);
 }
 
 .brand-logo-circle {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  background: var(--bg-card);
-  border: 2px solid rgba(255, 255, 255, 0.8);
+  width: 110px;
+  height: 110px;
+  border-radius: 28px;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border: 1px solid rgba(220, 38, 38, 0.18);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 12px 32px rgba(220, 38, 38, 0.12);
   transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-  overflow: hidden;
 }
 
 .brand-card:hover .brand-logo-circle {
-  transform: scale(1.1);
-  border-color: var(--white);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+  transform: scale(1.1) rotate(3deg);
+  border-color: rgba(220, 38, 38, 0.45);
+  box-shadow: 0 16px 42px rgba(220, 38, 38, 0.22);
 }
 
 .brand-logo-circle.has-image {
   background: var(--white);
-  padding: 12px;
+  padding: 16px;
 }
 
 .brand-logo-image {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  transform: scale(1.1);
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.08));
   transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .brand-card:hover .brand-logo-image {
-  transform: scale(1.18);
-  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+  transform: scale(1.1);
+  filter: drop-shadow(0 4px 8px rgba(220, 38, 38, 0.15));
 }
 
 .brand-logo-text {
@@ -344,24 +341,17 @@ useSeoMeta({
 }
 
 .brand-shine {
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 60%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
-  transition: left 0.7s ease;
-  pointer-events: none;
-}
-
-.brand-card:hover .brand-shine {
-  left: 150%;
+  display: none;
 }
 
 /* Brand Info */
 .brand-info {
-  padding: 20px 24px 16px;
+  padding: 12px 24px 24px;
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .brand-category-tag {
@@ -380,10 +370,10 @@ useSeoMeta({
 
 .brand-name {
   font-family: var(--font-heading);
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   font-weight: 800;
   color: var(--text-primary);
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   transition: color 0.3s ease;
 }
 
@@ -392,9 +382,9 @@ useSeoMeta({
 }
 
 .brand-desc {
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   color: var(--text-secondary);
-  line-height: 1.7;
+  line-height: 1.6;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   line-clamp: 2;
@@ -407,26 +397,35 @@ useSeoMeta({
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 14px 24px;
-  border-top: 1px solid var(--border);
-  background: rgba(0, 0, 0,0.01);
+  padding: 18px 24px;
+  border-top: 1px solid rgba(220, 38, 38, 0.08);
+  background: rgba(255, 255, 255, 0.4);
 }
 
 .brand-product-count {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   color: var(--text-muted);
-  font-weight: 500;
+  font-weight: 700;
+  background: rgba(0, 0, 0, 0.04);
+  padding: 6px 14px;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.brand-card:hover .brand-product-count {
+  background: rgba(220, 38, 38, 0.1);
+  color: var(--red-light);
 }
 
 .brand-cta {
   display: flex;
   align-items: center;
   gap: 4px;
-  font-size: 0.85rem;
-  font-weight: 600;
+  font-size: 0.9rem;
+  font-weight: 800;
   color: var(--red-light);
   transition: all 0.3s ease;
 }
@@ -441,7 +440,7 @@ useSeoMeta({
 }
 
 .brand-card:hover .brand-cta svg {
-  transform: translateX(3px);
+  transform: translateX(4px);
 }
 
 /* Empty State */
@@ -469,6 +468,13 @@ useSeoMeta({
   margin-bottom: 24px;
 }
 
+@media (max-width: 1024px) {
+  .brand-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+}
+
 @media (max-width: 768px) {
   .brand-grid { 
     grid-template-columns: repeat(2, 1fr); 
@@ -476,16 +482,15 @@ useSeoMeta({
   }
   
   .brand-card {
+    display: flex;
     flex-direction: column;
     align-items: center;
     padding: 16px 12px;
-    border-radius: 12px;
     text-align: center;
     gap: 0;
   }
   
   .brand-logo-area {
-    height: auto;
     padding: 0;
     border-bottom: none;
     background: transparent;
@@ -493,8 +498,8 @@ useSeoMeta({
   }
   
   .brand-logo-circle { 
-    width: 76px; 
-    height: 76px; 
+    width: 64px; 
+    height: 64px; 
   }
 
   .brand-logo-circle.has-image {
@@ -516,7 +521,7 @@ useSeoMeta({
   }
   
   .brand-name {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     margin: 0;
     text-align: center;
     line-height: 1.3;
@@ -527,11 +532,11 @@ useSeoMeta({
   }
 
   .brand-footer {
-    display: flex;
-    flex-direction: column;
     padding: 0;
     border-top: none;
     background: transparent;
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 6px;

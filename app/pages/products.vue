@@ -162,16 +162,19 @@
               :class="['product-card', { 'animate-on-scroll fade-up': !searchQuery }]"
               :style="{ transitionDelay: !searchQuery ? `${index * 0.04}s` : '0s' }"
             >
-              <div class="product-image">
-                <NuxtImg 
-                  v-if="product.image" 
-                  :src="product.image" 
-                  :alt="product.name" 
-                  class="product-img" 
-                  loading="lazy" 
-                  decoding="async" 
-                />
-                <div v-else class="product-icon">{{ product.icon }}</div>
+              <div class="product-glow"></div>
+              <div class="product-image-area">
+                <div class="product-image-circle">
+                  <NuxtImg 
+                    v-if="product.image" 
+                    :src="product.image" 
+                    :alt="product.name" 
+                    class="product-img" 
+                    loading="lazy" 
+                    decoding="async" 
+                  />
+                  <div v-else class="product-icon">{{ product.icon }}</div>
+                </div>
                 <span v-if="product.badge" class="product-badge">{{ product.badge }}</span>
               </div>
               <div class="product-info">
@@ -181,13 +184,13 @@
                 <div class="product-features">
                   <span v-for="f in product.features" :key="f" class="feature-tag">{{ f }}</span>
                 </div>
-                <div class="product-footer">
-                  <span class="product-price">{{ product.price }}</span>
-                  <button class="btn btn-wa btn-sm" @click.prevent="askProduct(product)">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
-                    Ask via WA
-                  </button>
-                </div>
+              </div>
+              <div class="product-footer">
+                <span class="product-price">{{ product.price }}</span>
+                <button class="btn btn-wa btn-sm" @click.prevent="askProduct(product)">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+                  Ask via WA
+                </button>
               </div>
             </div>
           </div>
@@ -1019,134 +1022,205 @@ useSeoMeta({
 }
 
 .product-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(220, 38, 38, 0.12);
+  border-radius: 28px;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
   display: flex;
   flex-direction: column;
   height: 100%;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  text-decoration: none;
 }
 
 .product-card:hover {
-  border-color: rgba(220,38,38,0.3);
-  background: var(--bg-card-hover);
-  box-shadow: 0 8px 40px rgba(220,38,38,0.12);
-  transform: translateY(-6px);
+  border-color: rgba(220, 38, 38, 0.4);
+  background: var(--white);
+  transform: translateY(-10px);
+  box-shadow: 0 22px 48px rgba(220, 38, 38, 0.14);
 }
 
-.product-image {
+.product-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 0%, rgba(220, 38, 38, 0.18) 0%, transparent 75%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.product-card:hover .product-glow {
+  opacity: 1;
+}
+
+.product-image-area {
+  padding: 36px 24px 16px;
+  display: flex;
+  justify-content: center;
+  background: linear-gradient(180deg, rgba(220, 38, 38, 0.06) 0%, rgba(255, 255, 255, 0) 100%);
   position: relative;
-  height: 200px;
-  background: linear-gradient(135deg, var(--red-light) 0%, var(--red-dark) 100%);
+}
+
+.product-image-circle {
+  width: 120px;
+  height: 120px;
+  border-radius: 28px;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border: 1px solid rgba(220, 38, 38, 0.18);
   display: flex;
   align-items: center;
   justify-content: center;
-  border-bottom: 1px solid var(--border);
-  overflow: hidden;
+  box-shadow: 0 12px 32px rgba(220, 38, 38, 0.12);
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.product-card:hover .product-image-circle {
+  transform: scale(1.1) rotate(3deg);
+  border-color: rgba(220, 38, 38, 0.45);
+  box-shadow: 0 16px 42px rgba(220, 38, 38, 0.22);
 }
 
 .product-img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  object-position: center;
-  padding: 24px;
-  box-sizing: border-box;
-  background-color: #ffffff;
-  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  padding: 16px;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.08));
 }
 
 .product-card:hover .product-img {
-  transform: scale(1.1);
+  transform: scale(1.15);
+  filter: drop-shadow(0 6px 16px rgba(220, 38, 38, 0.15));
 }
 
 .product-icon {
-  font-size: 4.5rem;
-  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.4));
-  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  font-size: 3.5rem;
+  filter: drop-shadow(0 4px 8px rgba(220, 38, 38, 0.18));
+  transition: transform 0.4s ease;
 }
 
 .product-card:hover .product-icon {
-  transform: scale(1.15) rotate(-5deg);
+  transform: scale(1.15);
+  filter: drop-shadow(0 6px 16px rgba(220, 38, 38, 0.32));
 }
 
 .product-badge {
   position: absolute;
-  top: 12px;
-  right: 12px;
-  padding: 4px 14px;
-  background: var(--white);
-  color: var(--red-dark);
+  top: 16px;
+  right: 16px;
+  padding: 4px 12px;
+  background: linear-gradient(135deg, var(--red-light), var(--red));
+  color: var(--white);
   font-size: 0.75rem;
   font-weight: 700;
   border-radius: 9999px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+  z-index: 10;
 }
 
 .product-info {
-  padding: 22px;
+  padding: 12px 24px 24px;
+  flex: 1;
   display: flex;
   flex-direction: column;
-  flex: 1;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
 .product-category {
-  font-size: 0.75rem;
+  display: inline-block;
+  padding: 3px 10px;
+  background: var(--red-subtle);
+  border: 1px solid rgba(220,38,38,0.2);
+  border-radius: 6px;
+  font-size: 0.7rem;
   font-weight: 600;
   color: var(--red-light);
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.8px;
+  margin-bottom: 10px;
 }
 
 .product-name {
   font-family: var(--font-heading);
-  font-size: 1.2rem;
-  font-weight: 700;
-  margin: 8px 0;
+  font-size: 1.3rem;
+  font-weight: 800;
   color: var(--text-primary);
+  margin-bottom: 12px;
+  transition: color 0.3s ease;
+}
+
+.product-card:hover .product-name {
+  color: var(--red-light);
 }
 
 .product-desc {
-  font-size: 0.88rem;
+  font-size: 0.95rem;
   color: var(--text-secondary);
-  line-height: 1.7;
-  margin-bottom: 14px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .product-features {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 6px;
   margin-bottom: 18px;
 }
 
 .feature-tag {
   padding: 4px 12px;
-  background: rgba(0, 0, 0,0.04);
-  border: 1px solid var(--border);
-  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
   font-size: 0.75rem;
   color: var(--text-muted);
+  font-weight: 500;
 }
 
 .product-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 16px;
-  border-top: 1px solid var(--border);
+  padding: 18px 24px;
+  border-top: 1px solid rgba(220, 38, 38, 0.08);
+  background: rgba(255, 255, 255, 0.4);
   margin-top: auto;
+  position: relative;
+  z-index: 1;
 }
 
 .product-price {
   font-family: var(--font-heading);
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 800;
-  color: var(--text-primary);
+  color: var(--text-muted);
+  background: rgba(0, 0, 0, 0.04);
+  padding: 6px 14px;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.product-card:hover .product-price {
+  background: rgba(220, 38, 38, 0.1);
+  color: var(--red-light);
 }
 
 /* Empty State */
@@ -1230,11 +1304,22 @@ useSeoMeta({
   }
 
   .product-card {
-    border-radius: 12px;
+    border-radius: 16px;
+    padding: 16px 12px;
+    align-items: center;
+    text-align: center;
+    gap: 0;
   }
 
-  .product-image {
-    height: 100px;
+  .product-image-area {
+    padding: 0;
+    background: transparent;
+    margin-bottom: 12px;
+  }
+
+  .product-image-circle {
+    width: 80px;
+    height: 80px;
   }
 
   .product-icon {
@@ -1244,21 +1329,27 @@ useSeoMeta({
   .product-badge {
     font-size: 0.6rem;
     padding: 2px 6px;
-    top: 6px;
-    right: 6px;
+    top: -8px;
+    right: -8px;
   }
 
   .product-info {
-    padding: 10px;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .product-category {
     font-size: 0.6rem;
+    padding: 2px 8px;
+    margin-bottom: 6px;
   }
 
   .product-name {
     font-size: 0.85rem;
-    margin: 4px 0;
+    margin: 0;
     line-height: 1.3;
   }
 
@@ -1267,15 +1358,22 @@ useSeoMeta({
   }
 
   .product-footer {
-    padding-top: 8px;
+    padding: 0;
+    border-top: none;
+    background: transparent;
+    display: flex;
     flex-direction: column;
-    gap: 8px;
-    align-items: stretch;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 10px;
+    width: 100%;
   }
 
   .product-price {
     font-size: 0.9rem;
-    text-align: left;
+    padding: 4px 10px;
+    text-align: center;
   }
 
   .btn-wa {
